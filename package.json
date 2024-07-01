@@ -1,0 +1,17 @@
+{
+  "name": "mono",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "dependencies": {
+    "nodemailer": "^6.9.8",
+    "@nextui-org/react": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.14"
+  }
+}
