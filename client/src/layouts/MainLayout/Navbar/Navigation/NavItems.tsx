@@ -30,7 +30,13 @@ const NavItems = ({ className }: Props) => {
             ""
           )}
           <NavbarMenuItem>
-            <Button onClick={handleLogout} color="default" variant="bordered">
+            <Button
+              onClick={handleLogout}
+              color="default"
+              variant="bordered"
+              radius="sm"
+              className="border-1 border-gray-200 shadow-md shadow-gray-100"
+            >
               Log Out
             </Button>
           </NavbarMenuItem>
@@ -38,7 +44,14 @@ const NavItems = ({ className }: Props) => {
       ) : (
         <>
           <NavbarMenuItem>
-            <Button as={Link} to="/login" color="default" variant="bordered">
+            <Button
+              as={Link}
+              to="/login"
+              color="default"
+              variant="bordered"
+              radius="sm"
+              className="border-1 border-gray-200 shadow-md shadow-gray-100"
+            >
               Sign in / Sign up
             </Button>
           </NavbarMenuItem>

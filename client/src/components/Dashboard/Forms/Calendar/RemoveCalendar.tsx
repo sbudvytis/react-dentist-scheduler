@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import useCalendar from "@/hooks/useCalendar";
 import { Button } from "@nextui-org/react";
 
@@ -16,9 +17,11 @@ const RemoveSchedule: React.FC<RemoveScheduleProps> = ({ onClose }) => {
     setLoading(true);
     try {
       await removeSchedule(config);
+      toast.success("Schedule removed successfully!");
       onClose();
     } catch (error) {
-      // Error is already handled in the hook
+      toast.error("Failed to remove schedule.");
+      console.error("Error removing schedule:", error);
     } finally {
       setLoading(false);
     }
@@ -34,15 +37,17 @@ const RemoveSchedule: React.FC<RemoveScheduleProps> = ({ onClose }) => {
           </p>
         </div>
         {removeScheduleError && (
-          <div className="text-red-500 text-center text-sm">
+          <div className="text-rose-500 text-center text-sm">
             {removeScheduleError}
           </div>
         )}
         <Button
           onClick={handleRemoveSchedule}
           variant="bordered"
+          radius="sm"
           color="danger"
           disabled={loading}
+          className="mt-2 border-1 border-rose-500 shadow-md shadow-rose-100"
         >
           {loading ? "Removing..." : "Remove Schedule"}
         </Button>

@@ -58,8 +58,8 @@ const Signup = () => {
         );
       }
       setHasSucceeded(true);
-      setErrorMessage(""); // Clear the error message
-      resetForm(); // Reset the form fields
+      setErrorMessage("");
+      resetForm();
     } catch (error: unknown) {
       if (error instanceof Error) {
         setErrorMessage(error.message || "Error during signup");
@@ -69,8 +69,8 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-full flex-1 flex-col justify-center px-6 py-48 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-lg bg-white rounded-2xl p-6 shadow-lg shadow-gray-100 border-1 border-gray-100">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-lg bg-white rounded-lg p-6 shadow-lg shadow-gray-100 border-1 border-gray-100">
         <Formik
           initialValues={initialValues}
           validationSchema={SignupSchema}
@@ -101,6 +101,7 @@ const Signup = () => {
                     errorMessage={errors.firstName}
                     required
                     isRequired
+                    radius="sm"
                   />
                 </div>
 
@@ -113,6 +114,7 @@ const Signup = () => {
                     isInvalid={touched.lastName && !!errors.lastName}
                     errorMessage={errors.lastName}
                     isRequired
+                    radius="sm"
                   />
                 </div>
               </div>
@@ -125,6 +127,7 @@ const Signup = () => {
                   isInvalid={touched.email && !!errors.email}
                   errorMessage={errors.email}
                   isRequired
+                  radius="sm"
                 />
               </div>
               <div className="min-h-16">
@@ -136,6 +139,7 @@ const Signup = () => {
                   isInvalid={touched.password && !!errors.password}
                   errorMessage={errors.password}
                   isRequired
+                  radius="sm"
                 />
               </div>
               <div className="min-h-16">
@@ -146,6 +150,7 @@ const Signup = () => {
                   isInvalid={touched.role && !!errors.role}
                   errorMessage={errors.role}
                   isRequired
+                  radius="sm"
                 >
                   {roles.map((role) => (
                     <SelectItem key={role.value} value={role.value}>
@@ -154,7 +159,13 @@ const Signup = () => {
                   ))}
                 </Field>
               </div>
-              <Button variant="bordered" type="submit" disabled={isSubmitting}>
+              <Button
+                variant="bordered"
+                radius="sm"
+                type="submit"
+                disabled={isSubmitting}
+                className="border-1 border-gray-200 shadow-md shadow-gray-100"
+              >
                 Sign up
               </Button>
             </Form>

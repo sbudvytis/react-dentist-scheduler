@@ -1,27 +1,40 @@
-import { User, Divider } from "@nextui-org/react";
+import { Divider, Avatar } from "@nextui-org/react";
 import useAuth from "@/hooks/useAuth";
 import { getUserFromToken } from "@/utils/auth";
-import type { AuthUser } from "@mono/server/src/shared/entities";
+import Badge from "./Badge";
+import { useSelectedSchedule } from "@/hooks/useSelectedSchedule";
+import useTodayAppointments from "@/hooks/useTodayAppointments";
 
 const LoggedInUser = () => {
   const { isLoggedIn, authToken } = useAuth();
 
-  const currentUser: AuthUser | null =
+  const { selectedScheduleId } = useSelectedSchedule();
+  const currentUser =
     isLoggedIn && authToken ? getUserFromToken(authToken) : null;
+
+  const { todaysAppointments } = useTodayAppointments(selectedScheduleId);
 
   return (
     <div className="pt-4 px-4">
       {isLoggedIn && currentUser && (
-        <User
-          name={`${currentUser.firstName} ${currentUser.lastName}`}
-          description={`${currentUser.role} (${currentUser.email})`}
-          avatarProps={{
-            name: currentUser.firstName,
-            isBordered: true,
-            radius: "lg",
-          }}
-          className="gap-4"
-        />
+        <div className="flex items-center gap-4">
+          <div className="relative">
+            {todaysAppointments.length > 0 && (
+              <Badge todaysAppointments={todaysAppointments} />
+            )}
+            <Avatar
+              name={`${currentUser.firstName} ${currentUser.lastName}`}
+              isBordered
+              radius="sm"
+              className="z-10"
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <div className="text-sm">{`${currentUser.firstName} ${currentUser.lastName}`}</div>
+            <div className="text-xs text-gray-500">{`${currentUser.role} (${currentUser.email})`}</div>
+          </div>
+        </div>
       )}
       <Divider className="my-4" />
     </div>

@@ -50,7 +50,7 @@ export default publicProcedure
       logger.error('Could not find user with email %s', email)
       throw new TRPCError({
         code: 'UNAUTHORIZED',
-        message: 'We could not find an account with this email address',
+        message: 'Incorrect email or password. Try again.',
       })
     }
 
@@ -68,7 +68,7 @@ export default publicProcedure
       logger.error('Incorrect password for user %s', email)
       throw new TRPCError({
         code: 'UNAUTHORIZED',
-        message: 'Incorrect password. Try again.',
+        message: 'Incorrect email or password. Try again.',
       })
     }
 

@@ -118,7 +118,11 @@ const Dashboard = () => {
         />
       )}
 
-      <Modal isOpen={isAddModalOpen} onOpenChange={handleAddAppointmentClose}>
+      <Modal
+        isOpen={isAddModalOpen}
+        onOpenChange={handleAddAppointmentClose}
+        radius="sm"
+      >
         <ModalContent>
           <ModalBody>
             <AddAppointmentForm

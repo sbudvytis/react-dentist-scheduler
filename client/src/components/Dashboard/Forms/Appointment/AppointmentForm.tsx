@@ -112,6 +112,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         <div className="w-full">
           <Autocomplete
             label="Search for a patient"
+            radius="sm"
             description="Search for a patient by name or create a new down below"
             onSelectionChange={handlePatientSelect}
           >
@@ -129,6 +130,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           label="Appointment title"
           name="title"
           isRequired
+          radius="sm"
           value={formData.title}
           onChange={handleInputChange}
           required
@@ -141,6 +143,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             label="First name"
             name="firstName"
             isRequired
+            radius="sm"
             value={formData.patient.firstName}
             onChange={handlePatientDataChange}
             required
@@ -152,6 +155,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             label="Last name"
             name="lastName"
             isRequired
+            radius="sm"
             value={formData.patient.lastName}
             onChange={handlePatientDataChange}
             required
@@ -164,6 +168,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           label="Phone number"
           name="contactNumber"
           isRequired
+          radius="sm"
           value={formData.patient.contactNumber}
           onChange={handlePatientDataChange}
           required
@@ -175,6 +180,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           label="Email"
           name="email"
           isRequired
+          radius="sm"
           value={formData.email}
           onChange={handleInputChange}
           required
@@ -188,6 +194,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           hideTimeZone
           showMonthAndYearPickers
           isRequired
+          radius="sm"
           value={parseAbsoluteToLocal(formData.start.toISOString())}
           onChange={handleDateChange("start")}
         />
@@ -200,6 +207,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           hideTimeZone
           showMonthAndYearPickers
           isRequired
+          radius="sm"
           value={parseAbsoluteToLocal(formData.end.toISOString())}
           onChange={handleDateChange("end")}
         />
@@ -209,11 +217,19 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           label="Notes"
           name="notes"
           isRequired
+          required
+          radius="sm"
           value={formData.notes}
           onChange={handleInputChange}
         />
       </div>
-      <Button type="submit" variant="bordered" disabled={isSubmitting}>
+      <Button
+        type="submit"
+        variant="bordered"
+        radius="sm"
+        disabled={isSubmitting}
+        className="border-1 border-gray-200 shadow-md shadow-gray-100"
+      >
         {isSubmitting ? "Processing..." : submitButtonText}
       </Button>
 
@@ -222,8 +238,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           type="button"
           variant="bordered"
           color="danger"
+          radius="sm"
           onClick={onDelete}
-          className="mt-2"
+          className="mt-2 border-1 border-rose-500 shadow-md shadow-rose-100"
         >
           {loading ? "Removing..." : "Remove Appointment"}
         </Button>

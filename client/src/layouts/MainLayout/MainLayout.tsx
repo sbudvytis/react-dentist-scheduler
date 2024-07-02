@@ -1,3 +1,6 @@
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import NavigationBar from "./Navbar/Navbar";
 
 type Props = {
@@ -12,6 +15,7 @@ const App = ({ children }: Props) => {
       <div className="relative flex h-screen flex-col overflow-y-hidden">
         <NavigationBar />
         <div className="flex-1 overflow-y-auto">{children}</div>
+        <ToastContainer position="bottom-right" />
       </div>
     </main>
   );

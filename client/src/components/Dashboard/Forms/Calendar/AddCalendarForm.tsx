@@ -1,6 +1,7 @@
 import CalendarForm from "./CalendarForm";
 import useCalendar from "@/hooks/useCalendar";
 import { CalendarConfig } from "@/components/Dashboard/types";
+import { toast } from "react-toastify";
 
 interface AddCalendarFormProps {
   onClose: () => void;
@@ -10,7 +11,14 @@ const AddCalendarForm: React.FC<AddCalendarFormProps> = ({ onClose }) => {
   const { addCalendar, addCalendarLoading } = useCalendar();
 
   const handleAddCalendar = (newCalendarConfig: CalendarConfig) => {
-    addCalendar(newCalendarConfig);
+    try {
+      addCalendar(newCalendarConfig);
+      toast.success("Schedule created successfully!");
+      onClose();
+    } catch (error) {
+      toast.error("Failed to create schedule.");
+      console.error("Error creating schedule:", error);
+    }
   };
 
   const initialData: CalendarConfig = {

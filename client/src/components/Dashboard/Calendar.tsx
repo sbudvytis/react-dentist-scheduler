@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
+import { toast } from "react-toastify";
 import { Instance } from "tippy.js";
 import {
-  EventChangeArg,
   EventDropArg,
   EventClickArg,
   DateSelectArg,
   EventHoveringArg,
+  EventChangeArg,
 } from "@fullcalendar/core";
 import { CalendarProps, Appointment, ChangeInfo } from "./types";
 import { createTooltip } from "./Tooltip";
@@ -26,24 +27,32 @@ const Calendar: React.FC<CalendarProps> = ({
   setIsAddModalOpen,
 }) => {
   const [activeTooltip, setActiveTooltip] = useState<Instance | null>(null);
+  const lastChangeRef = useRef<string | null>(null);
 
   const toolTipHandler = (info: EventHoveringArg) => {
     createTooltip(info, activeTooltip, setActiveTooltip);
   };
 
   const handleEventChange = (changeInfo: ChangeInfo) => {
-    const updatedAppointment: Appointment = {
-      id: Number(changeInfo.event.id),
-      scheduleId: config.scheduleId,
-      title: changeInfo.event.title,
-      start: new Date(changeInfo.event.start),
-      end: new Date(changeInfo.event.end),
-      notes: changeInfo.event.extendedProps.notes,
-      email: changeInfo.event.extendedProps.email,
-      patient: changeInfo.event.extendedProps.patient,
-      userId: config.userId,
-    };
-    editAppointment(updatedAppointment);
+    const eventIdentifier = `${changeInfo.event.id}-${changeInfo.event.start}-${changeInfo.event.end}`;
+    if (lastChangeRef.current !== eventIdentifier) {
+      lastChangeRef.current = eventIdentifier;
+
+      const updatedAppointment: Appointment = {
+        id: Number(changeInfo.event.id),
+        scheduleId: config.scheduleId,
+        title: changeInfo.event.title,
+        start: new Date(changeInfo.event.start),
+        end: new Date(changeInfo.event.end),
+        notes: changeInfo.event.extendedProps.notes,
+        email: changeInfo.event.extendedProps.email,
+        patient: changeInfo.event.extendedProps.patient,
+        userId: config.userId,
+      };
+
+      editAppointment(updatedAppointment);
+      toast.success("Appointment updated successfully!");
+    }
   };
 
   const handleEventClick = (clickInfo: EventClickArg) => {
@@ -113,6 +122,9 @@ const Calendar: React.FC<CalendarProps> = ({
         unselectAuto={false}
         eventMouseEnter={toolTipHandler}
         eventClick={handleEventClick}
+        selectAllow={function (selectInfo) {
+          return selectInfo.start.getTime() >= new Date().getTime() - 86400000;
+        }}
       />
     </div>
   );

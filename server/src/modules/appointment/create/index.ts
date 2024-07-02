@@ -6,6 +6,9 @@ import { Patient } from '@server/entities/patient'
 import { Schedule } from '@server/entities/schedule'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 import { TRPCError } from '@trpc/server'
+import nodemailer from 'nodemailer'
+import moment from 'moment'
+import logger from '@server/logger'
 
 export default authenticatedProcedure
   .input(appointmentInsertSchema.omit({ userId: true }))
@@ -80,6 +83,43 @@ export default authenticatedProcedure
     const appointmentCreated = await db
       .getRepository(Appointment)
       .save(appointment)
+
+    // Sends email to the patient
+    setImmediate(async () => {
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.hostinger.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASSWORD,
+        },
+        authMethod: 'PLAIN',
+      })
+
+      // Function to format the date and time
+      moment.locale('en-gb')
+      const formatDateTime = (date: Date) => moment(date).format('LLLL')
+
+      try {
+        const formattedStart = formatDateTime(appointmentCreated.start)
+        const formattedEnd = moment(appointmentCreated.end).format('LT')
+        const info = await transporter.sendMail({
+          from: `Dentist scheduler <${process.env.EMAIL}>`,
+          to: appointmentData.email,
+          subject: 'New Appointment',
+          html: `
+            <h1>Appointment Details</h1>
+            <p><strong>Scheduled for:</strong> ${appointmentCreated.title}</p>
+            <p><strong>Day and time:</strong> ${formattedStart} — ${formattedEnd}</p>
+            <p><strong>Additional notes:</strong> ${appointmentCreated.notes}</p>
+          `,
+        })
+        logger.info('Message sent: %s', info.messageId)
+      } catch (error) {
+        logger.error('Error sending email:', error)
+      }
+    })
 
     return appointmentCreated
   })

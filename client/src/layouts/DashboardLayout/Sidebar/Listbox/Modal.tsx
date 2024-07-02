@@ -1,18 +1,14 @@
 import { Modal, ModalContent, ModalBody } from "@nextui-org/react";
 
-interface AppointmentModalProps {
+interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   content: React.ReactNode;
 }
 
-const AppointmentModal: React.FC<AppointmentModalProps> = ({
-  isOpen,
-  onClose,
-  content,
-}) => {
+const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, content }) => {
   return (
-    <Modal isOpen={isOpen} onOpenChange={onClose}>
+    <Modal isOpen={isOpen} onOpenChange={onClose} radius="sm">
       <ModalContent>
         <ModalBody>{content}</ModalBody>
       </ModalContent>
@@ -20,4 +16,4 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
   );
 };
 
-export default AppointmentModal;
+export default ModalComponent;

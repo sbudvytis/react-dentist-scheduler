@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Modal, ModalContent, ModalBody } from "@nextui-org/react";
+import { toast } from "react-toastify";
 import { Appointment } from "@/components/Dashboard/types";
 import AppointmentForm from "./AppointmentForm";
 import useAppointments from "@/hooks/useAppointment";
@@ -43,11 +44,24 @@ const EditAppointmentForm = ({
     setLoading(true);
     try {
       await removeAppointment(formData);
+      toast.success("Appointment removed successfully!");
       onClose();
     } catch (error) {
-      console.error("Error deleting appointment:", error);
+      toast.error("Failed to remove appointment.");
+      console.error("Error removing appointment:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (updatedAppointment: Appointment) => {
+    try {
+      editAppointment(updatedAppointment);
+      toast.success("Appointment updated successfully!");
+      onClose();
+    } catch (error) {
+      toast.error("Failed to update appointment.");
+      console.error("Error updating appointment:", error);
     }
   };
 
@@ -55,14 +69,11 @@ const EditAppointmentForm = ({
     <Modal isOpen={isOpen} onOpenChange={onClose}>
       <ModalContent>
         <ModalBody>
-          <div className="sm:mx-auto sm:w-full sm:max-w-lg bg-white rounded-2xl p-6">
+          <div className="sm:mx-auto sm:w-full sm:max-w-lg p-6">
             <AppointmentForm
               initialData={formData}
               selectedDateRange={selectedDateRange}
-              onSubmit={(updatedAppointment) => {
-                editAppointment(updatedAppointment);
-                onClose();
-              }}
+              onSubmit={handleSubmit}
               onClose={onClose}
               isSubmitting={false}
               loading={loading}

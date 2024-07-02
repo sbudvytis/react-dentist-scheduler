@@ -3,12 +3,11 @@ import {
   Select,
   SelectItem,
   TimeInput,
-  Checkbox,
   Button,
+  Switch,
 } from "@nextui-org/react";
 import { Time } from "@internationalized/date";
 import { CalendarConfig } from "../../types";
-import { PlusIcon } from "./Icons/PlusIcon";
 
 interface CalendarFormProps {
   initialData: CalendarConfig;
@@ -27,7 +26,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
 }) => {
   const [view, setView] = useState<string>(initialData?.view || "timeGridWeek");
   const [weekends, setWeekends] = useState<boolean>(
-    initialData?.weekends || true
+    initialData?.weekends !== undefined ? initialData.weekends : true
   );
   const [slotMinTime, setSlotMinTime] = useState<Time>(
     initialData?.slotMinTime
@@ -73,10 +72,12 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
         <div>
           <Select
             isRequired
-            label="Select a schedule view"
-            placeholder="Select a view"
+            required
+            radius="sm"
+            label="Select schedule view"
             defaultSelectedKeys={[view]}
             onChange={(e) => setView(e.target.value)}
+            data-testid="schedule-view-select"
           >
             {viewOptions.map((viewOption) => (
               <SelectItem key={viewOption.value}>{viewOption.label}</SelectItem>
@@ -86,6 +87,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
         <div className="flex gap-4">
           <TimeInput
             isRequired
+            radius="sm"
             label="Start time"
             value={slotMinTime}
             onChange={setSlotMinTime}
@@ -94,6 +96,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
           />
           <TimeInput
             isRequired
+            radius="sm"
             label="End time"
             value={slotMaxTime}
             onChange={setSlotMaxTime}
@@ -102,15 +105,21 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
           />
         </div>
         <div className="justify-center flex">
-          <Checkbox
-            icon={<PlusIcon />}
+          <Switch
             isSelected={weekends}
+            color="default"
             onChange={(e) => setWeekends(e.target.checked)}
           >
             Include weekends
-          </Checkbox>
+          </Switch>
         </div>
-        <Button type="submit" variant="bordered" disabled={isSubmitting}>
+        <Button
+          type="submit"
+          radius="sm"
+          variant="bordered"
+          disabled={isSubmitting}
+          className="border-1 border-gray-200 shadow-md shadow-gray-100"
+        >
           {isSubmitting ? "Processing..." : submitButtonText}
         </Button>
       </form>

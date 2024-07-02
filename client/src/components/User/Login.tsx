@@ -39,8 +39,8 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-full flex-1 flex-col justify-center px-6 py-48 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-lg bg-white rounded-2xl p-6 shadow-lg shadow-gray-100 border-1 border-gray-100">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-lg bg-white rounded-lg p-6 shadow-lg shadow-gray-100 border-1 border-gray-100">
         <Formik
           initialValues={initialValues}
           validationSchema={LoginSchema}
@@ -69,6 +69,7 @@ const Login = () => {
                   isInvalid={touched.email && !!errors.email}
                   errorMessage={errors.email}
                   isRequired
+                  radius="sm"
                 />
               </div>
 
@@ -81,10 +82,17 @@ const Login = () => {
                   isInvalid={touched.password && !!errors.password}
                   errorMessage={errors.password}
                   isRequired
+                  radius="sm"
                 />
               </div>
 
-              <Button variant="bordered" type="submit" disabled={isSubmitting}>
+              <Button
+                variant="bordered"
+                radius="sm"
+                type="submit"
+                disabled={isSubmitting}
+                className="border-1 border-gray-200 shadow-md shadow-gray-100"
+              >
                 Sign in
               </Button>
             </Form>

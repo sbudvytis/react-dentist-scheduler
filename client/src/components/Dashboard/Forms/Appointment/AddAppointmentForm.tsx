@@ -1,5 +1,5 @@
-// src/components/forms/AddAppointmentForm.tsx
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import useAddAppointment from "@/hooks/useAppointment";
 import useFormDataStore from "@/stores/useAppointmentFormStore";
 import AppointmentForm from "./AppointmentForm";
@@ -41,12 +41,17 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
     }
   }, [selectedDateRange, setFormData, formData]);
 
-  const handleAddAppointment = (appointmentData: Appointment) => {
+  const handleAddAppointment = async (appointmentData: Appointment) => {
     if (selectedScheduleId !== null) {
-      addAppointment({
-        ...appointmentData,
-        scheduleId: selectedScheduleId,
-      });
+      try {
+        addAppointment({
+          ...appointmentData,
+          scheduleId: selectedScheduleId,
+        });
+        toast.success("Appointment created successfully!");
+      } catch (error) {
+        toast.error("Failed to create appointment.");
+      }
       onClose();
     } else {
       console.error("Selected schedule ID is null");
@@ -54,7 +59,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
   };
 
   return (
-    <div className="sm:mx-auto sm:w-full sm:max-w-lg bg-white rounded-2xl p-6">
+    <div className="sm:mx-auto sm:w-full sm:max-w-lg p-6">
       <AppointmentForm
         initialData={localFormData}
         onSubmit={handleAddAppointment}

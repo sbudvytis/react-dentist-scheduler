@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import CalendarForm from "./CalendarForm";
 import useCalendar from "@/hooks/useCalendar";
 import { CalendarConfig } from "@/components/Dashboard/types";
@@ -21,7 +22,14 @@ const EditCalendarForm: React.FC<EditCalendarFormProps> = ({
   }, [scheduleId, selectScheduleById]);
 
   const handleEditCalendar = (updatedCalendarConfig: CalendarConfig) => {
-    editCalendar(updatedCalendarConfig);
+    try {
+      editCalendar(updatedCalendarConfig);
+      toast.success("Schedule updated successfully!");
+      onClose();
+    } catch (error) {
+      toast.error("Failed to update schedule.");
+      console.error("Error updating schedule:", error);
+    }
   };
 
   if (schedulesLoading || !initialData) {

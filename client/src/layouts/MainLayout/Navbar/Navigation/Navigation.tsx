@@ -18,7 +18,7 @@ const NavigationBar = () => {
     <Navbar
       onMenuOpenChange={setIsMenuOpen}
       maxWidth="2xl"
-      className="px-3 border-b-1 border-gray-100 bg-white"
+      className="px-3 border-b-1 border-gray-200 bg-white"
     >
       <NavbarContent>
         <NavbarMenuToggle

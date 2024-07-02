@@ -31,11 +31,9 @@ const useAppointments = (scheduleId: number | null) => {
 
   const editAppointmentMutation = useMutation(
     (appointmentData: Appointment) => {
-      // Edit appointment
       const editAppointmentPromise =
         trpc.appointment.edit.mutate(appointmentData);
 
-      // Edit patient
       const editPatientPromise = trpc.patient.edit.mutate({
         ...appointmentData.patient,
       });
@@ -74,6 +72,18 @@ const useAppointments = (scheduleId: number | null) => {
     return Promise.resolve();
   };
 
+  const getTodaysAppointments = (appointments: Appointment[]) => {
+    const today = new Date();
+    return appointments.filter((appointment) => {
+      const appointmentDate = new Date(appointment.start);
+      return (
+        appointmentDate.getDate() === today.getDate() &&
+        appointmentDate.getMonth() === today.getMonth() &&
+        appointmentDate.getFullYear() === today.getFullYear()
+      );
+    });
+  };
+
   return {
     appointments,
     appointmentsLoading,
@@ -81,6 +91,7 @@ const useAppointments = (scheduleId: number | null) => {
     addAppointment,
     editAppointment,
     removeAppointment,
+    getTodaysAppointments,
     removeAppointmentLoading: removeAppointmentMutation.isLoading,
     addAppointmentLoading: addAppointmentMutation.isLoading,
     addAppointmentError: addAppointmentMutation.error,

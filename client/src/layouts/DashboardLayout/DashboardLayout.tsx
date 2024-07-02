@@ -23,11 +23,11 @@ const DashboardLayout: React.FC = () => {
       <div className="relative flex flex-1 justify-center p-3">
         <div className="relative flex w-full max-w-screen-2xl gap-4">
           <Sidebar
-            className="w-72 flex-none rounded-xl bg-white shadow-lg shadow-gray-100  border-1 border-gray-100"
+            className="w-72 flex-none rounded-lg bg-white shadow-lg shadow-gray-100  border-1 border-gray-200"
             hasSchedule={hasSchedule}
             isLoading={isLoading}
           />
-          <div className="flex-1 bg-white p-5 rounded-xl shadow-lg shadow-gray-100 border-1 border-gray-100">
+          <div className="flex-1 bg-white p-5 rounded-lg shadow-lg shadow-gray-100 border-1 border-gray-200">
             <Breadcrumbs className="pb-4" />
             <Outlet />
           </div>

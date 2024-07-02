@@ -34,7 +34,7 @@ const AdminPanel = () => {
         case "name":
           return (
             <User
-              avatarProps={{ radius: "lg", isBordered: true }}
+              avatarProps={{ radius: "sm", isBordered: true }}
               description={user.email}
               name={`${user.firstName} ${user.lastName}`}
               className="gap-4"
@@ -51,6 +51,7 @@ const AdminPanel = () => {
                   : statusColorMap["notApproved"]
               }
               size="sm"
+              radius="sm"
               variant="flat"
             >
               {user.isApproved ? "" : "Not approved"}
@@ -59,7 +60,7 @@ const AdminPanel = () => {
         case "actions":
           return (
             <div className="relative flex gap-2">
-              <Tooltip content="Approve user">
+              <Tooltip content="Approve user" radius="sm">
                 <span
                   className="text-lg text-default-400 cursor-pointer active:opacity-50"
                   onClick={() => approveUser(user.id)}
@@ -67,7 +68,7 @@ const AdminPanel = () => {
                   <CheckIcon />
                 </span>
               </Tooltip>
-              <Tooltip color="danger" content="Delete user">
+              <Tooltip color="danger" content="Delete user" radius="sm">
                 <span
                   className="text-lg text-danger cursor-pointer active:opacity-50"
                   onClick={() => removeUser(user.id)}
@@ -93,7 +94,7 @@ const AdminPanel = () => {
 
   if (users.length === 0) {
     return (
-      <Card className="border-none text-default-500" shadow="sm">
+      <Card className="border-none text-default-500" radius="sm" shadow="sm">
         <CardBody className="text-center">
           <p className="relative flex justify-center items-center gap-2">
             <CheckIcon /> All clear! There are no users to approve.

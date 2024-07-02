@@ -105,7 +105,7 @@ it('should not create a new patient if the patient already exists', async () => 
   })
 
   const patients = await db.getRepository(Patient).find()
-  expect(patients.length).toBe(2)
+  expect(patients.length).toBe(1)
 })
 
 it('should throw an error when unauthorized person creates appointment', async () => {

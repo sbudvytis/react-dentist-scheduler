@@ -62,11 +62,11 @@ export type AppointmentBare = Omit<
 export const appointmentSchema = validates<AppointmentBare>().with({
   id: z.number().int().positive(),
   userId: z.number().int().positive(),
-  title: z.string().trim().min(2).max(100),
+  title: z.string().trim().min(2).max(50),
   start: z.date(),
   end: z.date(),
   notes: z.string().trim().min(2).max(100),
-  email: z.string().trim().min(2).max(64),
+  email: z.string().trim().toLowerCase().email(),
   patient: patientSchema.optional(),
 })
 

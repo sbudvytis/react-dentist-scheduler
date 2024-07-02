@@ -4,7 +4,7 @@ import { AddNoteIcon } from "./Icons/AddNoteIcon";
 import { EditDocumentIcon } from "./Icons/EditDocumentIcon";
 import { DeleteDocumentIcon } from "./Icons/DeleteDocumentIcon";
 import { AddAppointmentIcon } from "./Icons/AddAppointmentIcon";
-import AppointmentModal from "./Modal";
+import ModalComponent from "./Modal";
 import AddAppointmentWrapper from "@/components/Dashboard/wrappers/AddAppointmentWrapper";
 import AddCalendarForm from "@/components/Dashboard/Forms/Calendar/AddCalendarForm";
 import RemoveSchedule from "@/components/Dashboard/Forms/Calendar/RemoveCalendar";
@@ -130,7 +130,7 @@ const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
       </Listbox>
 
       {activeModal && (
-        <AppointmentModal
+        <ModalComponent
           isOpen={true}
           onClose={closeModal}
           content={modalContent[activeModal]}
