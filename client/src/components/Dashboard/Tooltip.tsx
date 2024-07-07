@@ -50,6 +50,7 @@ export const createTooltip = (
     animation: "scale-extreme",
     content: tooltipContent,
     allowHTML: true,
+    touch: true,
   });
 
   setActiveTooltip(instance);

@@ -2,7 +2,7 @@ import useAuth from "@/hooks/useAuth";
 import { Formik, Form, Field } from "formik";
 import { Input, Button } from "@nextui-org/react";
 import { useNavigate, Link } from "react-router-dom";
-import useLoginStore from "@/stores/useLoginStore";
+import useSignupLoginStore from "@/stores/useSignupLoginStore";
 import * as Yup from "yup";
 
 const LoginSchema = Yup.object().shape({
@@ -22,7 +22,7 @@ const initialValues: LoginFormValues = {
 
 const Login = () => {
   const { login } = useAuth();
-  const { errorMessage, setErrorMessage } = useLoginStore();
+  const { errorMessage, setErrorMessage } = useSignupLoginStore();
   const navigate = useNavigate();
 
   const submitLogin = async (values: LoginFormValues) => {

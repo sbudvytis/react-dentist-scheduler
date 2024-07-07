@@ -1,5 +1,3 @@
-// src/components/forms/AppointmentForm.test.tsx
-
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import AppointmentForm from "../AppointmentForm";

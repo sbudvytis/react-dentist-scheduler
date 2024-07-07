@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
 import useCalendar from "@/hooks/useCalendar";
@@ -23,7 +23,7 @@ const DashboardLayout: React.FC = () => {
       <div className="relative flex flex-1 justify-center p-3">
         <div className="relative flex w-full max-w-screen-2xl gap-4">
           <Sidebar
-            className="w-72 flex-none rounded-lg bg-white shadow-lg shadow-gray-100  border-1 border-gray-200"
+            className="w-72 flex-none rounded-lg bg-white shadow-lg shadow-gray-100  border-1 border-gray-200 px-4 py-2"
             hasSchedule={hasSchedule}
             isLoading={isLoading}
           />

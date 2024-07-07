@@ -105,7 +105,7 @@ const AdminPanel = () => {
   }
 
   return (
-    <Table aria-label="Users waiting for approval" shadow="sm">
+    <Table aria-label="Users waiting for approval" shadow="sm" radius="sm">
       <TableHeader columns={columns}>
         {(column) => (
           <TableColumn key={column.uid} align={"start"}>

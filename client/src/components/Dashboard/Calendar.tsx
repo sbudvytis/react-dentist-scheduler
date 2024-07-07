@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -27,7 +27,9 @@ const Calendar: React.FC<CalendarProps> = ({
   setIsAddModalOpen,
 }) => {
   const [activeTooltip, setActiveTooltip] = useState<Instance | null>(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1080);
   const lastChangeRef = useRef<string | null>(null);
+  const calendarRef = useRef<FullCalendar | null>(null);
 
   const toolTipHandler = (info: EventHoveringArg) => {
     createTooltip(info, activeTooltip, setActiveTooltip);
@@ -75,9 +77,28 @@ const Calendar: React.FC<CalendarProps> = ({
     }
   };
 
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const calendarApi = calendarRef.current?.getApi();
+    if (calendarApi) {
+      if (isMobile) {
+        calendarApi.changeView("timeGridThreeDay");
+      } else {
+        calendarApi.changeView(config.view);
+      }
+    }
+  }, [isMobile, config.view]);
+
   return (
     <div>
       <FullCalendar
+        ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
         initialView={config.view}
         weekends={config.weekends}
@@ -111,11 +132,19 @@ const Calendar: React.FC<CalendarProps> = ({
         slotMinTime={config.slotMinTime}
         slotMaxTime={config.slotMaxTime}
         height="auto"
-        headerToolbar={{
-          left: "today prev,next",
-          center: "title",
-          right: "timeGridWeek,timeGridDay,dayGridMonth,listMonth",
-        }}
+        headerToolbar={
+          isMobile
+            ? {
+                left: "today prev,next",
+                center: "title",
+                right: "",
+              }
+            : {
+                left: "today prev,next",
+                center: "title",
+                right: "timeGridWeek,timeGridDay,dayGridMonth,listMonth",
+              }
+        }
         selectable={true}
         selectMirror={true}
         select={handleDateSelect}
@@ -124,6 +153,23 @@ const Calendar: React.FC<CalendarProps> = ({
         eventClick={handleEventClick}
         selectAllow={function (selectInfo) {
           return selectInfo.start.getTime() >= new Date().getTime() - 86400000;
+        }}
+        views={{
+          timeGridThreeDay: {
+            type: "timeGrid",
+            duration: { days: 3 },
+            buttonText: "3 day",
+          },
+        }}
+        windowResize={() => {
+          const calendarApi = calendarRef.current?.getApi();
+          if (calendarApi) {
+            if (isMobile) {
+              calendarApi.changeView("timeGridThreeDay");
+            } else {
+              calendarApi.changeView(config.view);
+            }
+          }
         }}
       />
     </div>

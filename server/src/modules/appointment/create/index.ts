@@ -2,6 +2,7 @@ import {
   Appointment,
   appointmentInsertSchema,
 } from '@server/entities/appointment'
+import config from '@server/config'
 import { Patient } from '@server/entities/patient'
 import { Schedule } from '@server/entities/schedule'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
@@ -91,8 +92,8 @@ export default authenticatedProcedure
         port: 465,
         secure: true,
         auth: {
-          user: process.env.EMAIL,
-          pass: process.env.PASSWORD,
+          user: config.sendEmail.email,
+          pass: config.sendEmail.emailPassword,
         },
         authMethod: 'PLAIN',
       })
@@ -105,7 +106,7 @@ export default authenticatedProcedure
         const formattedStart = formatDateTime(appointmentCreated.start)
         const formattedEnd = moment(appointmentCreated.end).format('LT')
         const info = await transporter.sendMail({
-          from: `Dentist scheduler <${process.env.EMAIL}>`,
+          from: `Dentist scheduler <${config.sendEmail.email}>`,
           to: appointmentData.email,
           subject: 'New Appointment',
           html: `

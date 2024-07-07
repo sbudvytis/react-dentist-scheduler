@@ -1,4 +1,11 @@
 /* FullCalendar Custom Styling */
+.fc-col-header,
+.fc-daygrid-body,
+.fc-scrollgrid-sync-table,
+.fc-timegrid-body,
+.fc-timegrid-body table {
+  width: 100% !important;
+}
 
 .fc-scrollgrid-section > td {
   background-color: #fff;
@@ -16,7 +23,6 @@
 
 .fc-view {
   color: #555555;
-
   font-size: 0.9rem;
   font-family: "Inter", sans-serif;
 }
@@ -198,4 +204,15 @@ a.fc-col-header-cell-cushion {
 
 .tooltip {
   line-height: 1.3rem;
+}
+
+@media screen and (max-width: 1080px) {
+  .fc-toolbar.fc-header-toolbar {
+    flex-direction: column;
+  }
+  .fc-toolbar-chunk {
+    display: table-row;
+    text-align: center;
+    padding: 5px 0;
+  }
 }

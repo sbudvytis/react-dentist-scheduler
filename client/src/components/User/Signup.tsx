@@ -1,6 +1,6 @@
 import useAuth from "@/hooks/useAuth";
 import { Formik, Form, Field, FormikHelpers } from "formik";
-import useSignupStore from "@/stores/useSignupStore";
+import useSignupLoginStore from "@/stores/useSignupLoginStore";
 import { Link } from "react-router-dom";
 import { Input, Button, Select, SelectItem } from "@nextui-org/react";
 import SignupSchema from "@/utils/signupValidation";
@@ -39,7 +39,7 @@ const Signup = () => {
     setErrorMessage,
     setSuccessMessage,
     setHasSucceeded,
-  } = useSignupStore();
+  } = useSignupLoginStore();
 
   const submitSignup = async (
     values: SignupFormValues,

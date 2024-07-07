@@ -72,9 +72,9 @@ const Dashboard = () => {
     }
   };
 
-  if (schedules.length === 0) {
+  if (schedules.length === 0 && !schedulesLoading) {
     return (
-      <Card className="border-none text-default-500" shadow="sm">
+      <Card className="border-none text-default-500" shadow="sm" radius="sm">
         <CardBody className="text-center">
           <p className="relative flex justify-center items-center gap-2">
             You have not created your schedule yet.

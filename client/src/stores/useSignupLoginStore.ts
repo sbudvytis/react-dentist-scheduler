@@ -1,20 +1,20 @@
 import { create } from "zustand";
 
-interface SignupState {
+interface LoginState {
   errorMessage: string;
   successMessage: string;
   hasSucceeded: boolean;
 }
 
-interface SignupActions {
+interface LoginActions {
   setErrorMessage: (message: string) => void;
   setSuccessMessage: (message: string) => void;
   setHasSucceeded: (status: boolean) => void;
 }
 
-type UseSignupStore = SignupState & SignupActions;
+type UseLoginStore = LoginState & LoginActions;
 
-const useSignupStore = create<UseSignupStore>((set) => ({
+const useSignupLoginStore = create<UseLoginStore>((set) => ({
   errorMessage: "",
   successMessage: "",
   hasSucceeded: false,
@@ -23,4 +23,4 @@ const useSignupStore = create<UseSignupStore>((set) => ({
   setHasSucceeded: (status) => set({ hasSucceeded: status }),
 }));
 
-export default useSignupStore;
+export default useSignupLoginStore;

@@ -1,4 +1,3 @@
-// useAuth.ts
 import { useState, useEffect } from "react";
 import {
   clearStoredAccessToken,

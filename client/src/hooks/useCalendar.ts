@@ -4,20 +4,24 @@ import { useMutation, useQuery } from "react-query";
 import { CalendarConfig } from "@/components/Dashboard/types";
 import isDentist from "./useAuth";
 import { useSelectedSchedule } from "./useSelectedSchedule";
+import useAuth from "./useAuth";
 
 const useCalendar = () => {
   const [removeScheduleError, setRemoveScheduleError] = useState<string | null>(
     null
   );
   const { setSelectedScheduleId } = useSelectedSchedule();
+  const { isLoggedIn } = useAuth();
 
   const {
     data: schedules = { schedules: [] },
     isLoading: schedulesLoading,
     isError: schedulesError,
     refetch,
-  } = useQuery("schedules", () =>
-    trpc.schedule.find.query({ all: true, latest: isDentist })
+  } = useQuery(
+    "schedules",
+    () => trpc.schedule.find.query({ all: true, latest: isDentist }),
+    { enabled: isLoggedIn }
   );
 
   // select schedule by id

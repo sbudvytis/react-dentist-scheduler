@@ -6,7 +6,7 @@ type Props = {
   className?: string;
 };
 
-const NavItems = ({ className }: Props) => {
+const MobileNavItems = ({ className }: Props) => {
   const navigate = useNavigate();
   const { isLoggedIn, logout, canApproveUsers } = useAuth();
 
@@ -16,7 +16,7 @@ const NavItems = ({ className }: Props) => {
   };
 
   return (
-    <>
+    <div className="flex gap-2 justify-center">
       {isLoggedIn ? (
         <>
           <NavbarMenuItem className={`${className}`}>
@@ -44,16 +44,16 @@ const NavItems = ({ className }: Props) => {
                 Admin Panel
               </Button>
             </NavbarMenuItem>
-          ) : (
-            ""
-          )}
-          <NavbarMenuItem>
+          ) : null}
+          <NavbarMenuItem className={`${className}`}>
             <Button
-              onClick={handleLogout}
+              as={Link}
+              to="/login"
               color="default"
               variant="bordered"
               radius="sm"
               className="border-1 border-gray-200 shadow-md shadow-gray-100"
+              onClick={handleLogout}
             >
               Log Out
             </Button>
@@ -75,8 +75,8 @@ const NavItems = ({ className }: Props) => {
           </NavbarMenuItem>
         </>
       )}
-    </>
+    </div>
   );
 };
 
-export default NavItems;
+export default MobileNavItems;

@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -10,9 +9,26 @@ import {
 } from "@nextui-org/react";
 import NavItems from "./NavItems";
 import LoggedInUser from "@/layouts/DashboardLayout/Sidebar/User/LoggedInUser";
+import ListboxItems from "@/layouts/DashboardLayout/Sidebar/Listbox/ListboxItems";
+import useCalendar from "@/hooks/useCalendar";
+import MobileNavItems from "./MobileNavItems";
+import useAuth from "@/hooks/useAuth";
 
 const NavigationBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { schedules, schedulesLoading } = useCalendar();
+  const [hasSchedule, setHasSchedule] = useState(false);
+  const [isLoading, setLoading] = useState<boolean>(true);
+  const { isLoggedIn } = useAuth();
+
+  useEffect(() => {
+    setLoading(schedulesLoading);
+    if (schedules && schedules.length > 0) {
+      setHasSchedule(true);
+    } else {
+      setHasSchedule(false);
+    }
+  }, [schedules, schedulesLoading]);
 
   return (
     <Navbar
@@ -31,7 +47,7 @@ const NavigationBar = () => {
             color="foreground"
             className="active:scale-95 transition-all"
           >
-            <img src="/src/assets/logo1.png" alt="Logo" className="h-11" />{" "}
+            <img src="logo1.png" alt="Logo" className="h-9" />{" "}
             <p className="font-bold text-inherit px-3">Dentist scheduler</p>
           </Link>
         </NavbarBrand>
@@ -40,9 +56,16 @@ const NavigationBar = () => {
           <NavItems className="text-sm" />
         </NavbarContent>
       </NavbarContent>
+
+      {/* NavbarMenu section for mobile view */}
       <NavbarMenu>
-        <LoggedInUser />
-        <NavItems />
+        <div className="pb-4">
+          <LoggedInUser />
+        </div>
+        {isLoggedIn && (
+          <ListboxItems hasSchedule={hasSchedule} isLoading={isLoading} />
+        )}
+        <MobileNavItems className="text-sm text-gray-600 py-4" />
       </NavbarMenu>
     </Navbar>
   );

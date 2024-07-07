@@ -1,4 +1,3 @@
-import React from "react";
 import { SelectedScheduleProvider } from "@/contexts/ScheduleContext";
 
 const AppProviders: React.FC<{ children: React.ReactNode }> = ({

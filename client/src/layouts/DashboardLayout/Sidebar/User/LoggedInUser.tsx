@@ -1,4 +1,4 @@
-import { Divider, Avatar } from "@nextui-org/react";
+import { Avatar } from "@nextui-org/react";
 import useAuth from "@/hooks/useAuth";
 import { getUserFromToken } from "@/utils/auth";
 import Badge from "./Badge";
@@ -15,9 +15,9 @@ const LoggedInUser = () => {
   const { todaysAppointments } = useTodayAppointments(selectedScheduleId);
 
   return (
-    <div className="pt-4 px-4">
+    <div className="px-2">
       {isLoggedIn && currentUser && (
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 mt-4">
           <div className="relative">
             {todaysAppointments.length > 0 && (
               <Badge todaysAppointments={todaysAppointments} />
@@ -36,7 +36,6 @@ const LoggedInUser = () => {
           </div>
         </div>
       )}
-      <Divider className="my-4" />
     </div>
   );
 };

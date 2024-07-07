@@ -9,9 +9,11 @@ type Props = {
 
 const Sidebar = ({ className = "", hasSchedule, isLoading }: Props) => {
   return (
-    <div className={`${className} p-2 flex flex-col h-full`}>
+    <div className={`${className} hidden sm:block p-2 flex-col h-full`}>
       <LoggedInUser />
-      <ListboxItems hasSchedule={hasSchedule} isLoading={isLoading} />
+      <div className="pt-6">
+        <ListboxItems hasSchedule={hasSchedule} isLoading={isLoading} />
+      </div>
     </div>
   );
 };
