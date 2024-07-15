@@ -1,7 +1,7 @@
 ## Dentist scheduler application
 
 <p align="center">
-<img src="">
+<img src="https://github.com/sbudvytis/react-dentist-scheduler/blob/main/client/src/assets/preview.png">
 </p>
 
 This is a scheduler application designed for dentists to manage their time, appointments and schedules. Potential users are dental clinics
