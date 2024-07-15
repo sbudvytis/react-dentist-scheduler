@@ -5,7 +5,7 @@ import { EditDocumentIcon } from "./Icons/EditDocumentIcon";
 import { DeleteDocumentIcon } from "./Icons/DeleteDocumentIcon";
 import { AddAppointmentIcon } from "./Icons/AddAppointmentIcon";
 import ModalComponent from "./Modal";
-import AddAppointmentWrapper from "@/components/Dashboard/wrappers/AddAppointmentWrapper";
+import AddAppointmentForm from "@/components/Dashboard/Forms/Appointment/AddAppointmentForm";
 import AddCalendarForm from "@/components/Dashboard/Forms/Calendar/AddCalendarForm";
 import RemoveSchedule from "@/components/Dashboard/Forms/Calendar/RemoveCalendar";
 import ListboxItemsSkeleton from "./ListboxItemsSkeleton";
@@ -56,7 +56,8 @@ const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
 
   const modalContent: ModalContentMap = {
     addAppointment: (
-      <AddAppointmentWrapper
+      <AddAppointmentForm
+        scheduleId={selectedScheduleId}
         onClose={closeModal}
         selectedDateRange={{ start: new Date(), end: new Date() }}
       />
