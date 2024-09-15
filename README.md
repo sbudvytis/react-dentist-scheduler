@@ -30,7 +30,7 @@ which includes different permissions. Upon signing up, the very first user with 
 1. Clone the repository or download the source code files:
 
 ```bash
-git clone https://github.com/TuringCollegeSubmissions/sbudvy-WD.4B.4.4.git
+git clone https://github.com/sbudvytis/react-dentist-scheduler.git
 ```
 
 2. Install all the packages:

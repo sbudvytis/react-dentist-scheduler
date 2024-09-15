@@ -1,18 +1,27 @@
+import React from "react";
 import ListboxItems from "./Listbox/ListboxItems";
-import LoggedInUser from "./User/LoggedInUser";
 
 type Props = {
   className?: string;
   hasSchedule: boolean;
   isLoading: boolean;
+  children?: React.ReactNode; // Make this optional
 };
 
-const Sidebar = ({ className = "", hasSchedule, isLoading }: Props) => {
+const Sidebar = ({
+  className = "",
+  hasSchedule,
+  isLoading,
+  children,
+}: Props) => {
   return (
     <div className={`${className} hidden sm:block p-2 flex-col h-full`}>
-      <LoggedInUser />
-      <div className="pt-6">
-        <ListboxItems hasSchedule={hasSchedule} isLoading={isLoading} />
+      <div className="pt-4">
+        {children ? (
+          children // Render custom children if provided
+        ) : (
+          <ListboxItems hasSchedule={hasSchedule} isLoading={isLoading} />
+        )}
       </div>
     </div>
   );

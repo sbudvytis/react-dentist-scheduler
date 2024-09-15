@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import type { AuthUser } from "@mono/server/src/shared/entities";
 
 const TOKEN_KEY = "token";
@@ -19,7 +20,11 @@ const storeAccessToken = (storage: Storage, token: string) => {
 };
 
 const getUserFromToken = (token: string): AuthUser => {
-  return JSON.parse(atob(token.split(".")[1])).user;
+  // Split the token and decode the second part as UTF-8
+  const decodedSegment = Buffer.from(token.split(".")[1], "base64").toString(
+    "utf8"
+  );
+  return JSON.parse(decodedSegment).user;
 };
 
 const getUserIdFromToken = (token: string) => {

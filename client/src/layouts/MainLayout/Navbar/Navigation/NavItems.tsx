@@ -1,5 +1,5 @@
 import { Button, NavbarMenuItem } from "@nextui-org/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 
 type Props = {
@@ -7,13 +7,7 @@ type Props = {
 };
 
 const NavItems = ({ className }: Props) => {
-  const navigate = useNavigate();
-  const { isLoggedIn, logout, canApproveUsers } = useAuth();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
+  const { isLoggedIn, canApproveUsers } = useAuth();
 
   return (
     <>
@@ -26,7 +20,7 @@ const NavItems = ({ className }: Props) => {
               color="default"
               variant="bordered"
               radius="sm"
-              className="border-1 border-gray-200 shadow-md shadow-gray-100"
+              className="border-1 bg-white border-gray-200 shadow-md shadow-gray-100"
             >
               Dashboard
             </Button>
@@ -39,42 +33,14 @@ const NavItems = ({ className }: Props) => {
                 color="default"
                 variant="bordered"
                 radius="sm"
-                className="border-1 border-gray-200 shadow-md shadow-gray-100"
+                className="border-1 bg-white border-gray-200 shadow-md shadow-gray-100"
               >
                 Admin Panel
               </Button>
             </NavbarMenuItem>
-          ) : (
-            ""
-          )}
-          <NavbarMenuItem>
-            <Button
-              onClick={handleLogout}
-              color="default"
-              variant="bordered"
-              radius="sm"
-              className="border-1 border-gray-200 shadow-md shadow-gray-100"
-            >
-              Log Out
-            </Button>
-          </NavbarMenuItem>
+          ) : null}
         </>
-      ) : (
-        <>
-          <NavbarMenuItem>
-            <Button
-              as={Link}
-              to="/login"
-              color="default"
-              variant="bordered"
-              radius="sm"
-              className="border-1 border-gray-200 shadow-md shadow-gray-100"
-            >
-              Sign in / Sign up
-            </Button>
-          </NavbarMenuItem>
-        </>
-      )}
+      ) : null}
     </>
   );
 };

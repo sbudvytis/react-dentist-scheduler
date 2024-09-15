@@ -1,19 +1,14 @@
 import { Button, NavbarMenuItem } from "@nextui-org/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 
 type Props = {
   className?: string;
+  closeMenu: () => void;
 };
 
-const MobileNavItems = ({ className }: Props) => {
-  const navigate = useNavigate();
-  const { isLoggedIn, logout, canApproveUsers } = useAuth();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
+const MobileNavItems = ({ className, closeMenu }: Props) => {
+  const { isLoggedIn, canApproveUsers } = useAuth();
 
   return (
     <div className="flex gap-2 justify-center">
@@ -26,7 +21,8 @@ const MobileNavItems = ({ className }: Props) => {
               color="default"
               variant="bordered"
               radius="sm"
-              className="border-1 border-gray-200 shadow-md shadow-gray-100"
+              className="border-1 bg-white border-gray-200 shadow-md shadow-gray-100"
+              onClick={closeMenu}
             >
               Dashboard
             </Button>
@@ -39,25 +35,13 @@ const MobileNavItems = ({ className }: Props) => {
                 color="default"
                 variant="bordered"
                 radius="sm"
-                className="border-1 border-gray-200 shadow-md shadow-gray-100"
+                className="border-1 bg-white border-gray-200 shadow-md shadow-gray-100"
+                onClick={closeMenu}
               >
                 Admin Panel
               </Button>
             </NavbarMenuItem>
           ) : null}
-          <NavbarMenuItem className={`${className}`}>
-            <Button
-              as={Link}
-              to="/login"
-              color="default"
-              variant="bordered"
-              radius="sm"
-              className="border-1 border-gray-200 shadow-md shadow-gray-100"
-              onClick={handleLogout}
-            >
-              Log Out
-            </Button>
-          </NavbarMenuItem>
         </>
       ) : (
         <>
@@ -68,7 +52,8 @@ const MobileNavItems = ({ className }: Props) => {
               color="default"
               variant="bordered"
               radius="sm"
-              className="border-1 border-gray-200 shadow-md shadow-gray-100"
+              className="border-1 bg-white border-gray-200 shadow-md shadow-gray-100"
+              onClick={closeMenu}
             >
               Sign in / Sign up
             </Button>

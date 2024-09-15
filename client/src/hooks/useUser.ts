@@ -1,16 +1,17 @@
-import { useState } from "react";
 import { trpc } from "@/trpc";
 import { useMutation, useQuery } from "react-query";
 import type { UserBare } from "@mono/server/src/shared/entities";
 
-const useUser = () => {
-  const [users, setUsers] = useState<UserBare[]>([]);
-
+const useUser = (
+  filterApproved: boolean = false,
+  currentUserId: number | null
+) => {
   const loadUsers = async () => {
     try {
       const response = await trpc.user.find.query();
-      const rawUsers = response;
-      return rawUsers.filter((user: UserBare) => !user.isApproved);
+      return filterApproved
+        ? response
+        : response.filter((user: UserBare) => !user.isApproved);
     } catch (error) {
       console.error("Error loading users:", error);
       throw error;
@@ -22,9 +23,7 @@ const useUser = () => {
     isError: usersError,
     data: usersData,
     refetch,
-  } = useQuery("users", loadUsers, {
-    onSuccess: (data) => setUsers(data),
-  });
+  } = useQuery(["users", filterApproved], loadUsers);
 
   const approveUsers = useMutation(
     (id: number) => trpc.user.approve.mutate({ id }),
@@ -55,14 +54,17 @@ const useUser = () => {
   );
 
   const removeUser = (id: number) => {
+    if (id === currentUserId) {
+      console.warn("Cannot remove the currently logged-in user.");
+      return;
+    }
     removeUsers.mutate(id);
   };
 
   return {
-    users: usersData || users,
+    users: usersData || [],
     usersLoading,
     usersError,
-    loadUsers,
     approveUser,
     removeUser,
   };

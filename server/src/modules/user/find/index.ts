@@ -9,10 +9,15 @@ export default authenticatedProcedure.query(
     let users: UserBare[] = []
 
     if (canViewAllUsers) {
+      // Retrieve all users, both approved and unapproved
+      users = (await db.getRepository(User).find()) as UserBare[]
+    } else {
+      // Retrieve only unapproved users
       users = (await db
         .getRepository(User)
         .find({ where: { isApproved: false } })) as UserBare[]
     }
+
     return users
   }
 )

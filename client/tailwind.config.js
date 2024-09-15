@@ -9,6 +9,12 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        inter: ["Inter Tight", "sans-serif"],
+        lato: ["Lato", "sans-serif"],
+        bitter: ["Bitter", "serif"],
+        roboto: ["Roboto", "sans-serif"],
+      },
       colors: {
         "custom-pink": "#f31261",
       },

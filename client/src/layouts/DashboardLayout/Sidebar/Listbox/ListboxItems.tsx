@@ -1,46 +1,31 @@
 import { useState } from "react";
-import { Listbox, ListboxItem, cn } from "@nextui-org/react";
-import { AddNoteIcon } from "./Icons/AddNoteIcon";
-import { EditDocumentIcon } from "./Icons/EditDocumentIcon";
-import { DeleteDocumentIcon } from "./Icons/DeleteDocumentIcon";
-import { AddAppointmentIcon } from "./Icons/AddAppointmentIcon";
+import { cn, Spinner } from "@nextui-org/react";
 import ModalComponent from "./Modal";
 import AddAppointmentForm from "@/components/Dashboard/Forms/Appointment/AddAppointmentForm";
 import AddCalendarForm from "@/components/Dashboard/Forms/Calendar/AddCalendarForm";
 import RemoveSchedule from "@/components/Dashboard/Forms/Calendar/RemoveCalendar";
-import ListboxItemsSkeleton from "./ListboxItemsSkeleton";
 import useAuth from "@/hooks/useAuth";
 import EditCalendarForm from "@/components/Dashboard/Forms/Calendar/EditCalendarForm";
 import { useSelectedSchedule } from "@/hooks/useSelectedSchedule";
 
-interface ModalContentMap {
-  [key: string]: React.ReactElement;
-}
+import {
+  IoTodayOutline,
+  IoTrashBinOutline,
+  IoCalendarClearOutline,
+  IoCalendarOutline,
+} from "react-icons/io5";
 
 type Props = {
   hasSchedule: boolean;
   isLoading: boolean;
 };
 
-type ListboxItemProps = {
-  key: string;
-  description: string;
-  icon: React.ReactElement;
-  onClick?: () => void;
-  label: string;
-  className?: string;
-  color?:
-    | "danger"
-    | "default"
-    | "primary"
-    | "secondary"
-    | "success"
-    | "warning";
-};
+interface ModalContentMap {
+  [key: string]: React.ReactElement;
+}
 
 const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
-  const iconClasses =
-    "text-xl text-default-500 pointer-events-none flex-shrink-0";
+  const iconClasses = "text-lg pointer-events-none flex-shrink-0";
 
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const { selectedScheduleId } = useSelectedSchedule();
@@ -69,66 +54,61 @@ const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
     removeSchedule: <RemoveSchedule onClose={closeModal} />,
   };
 
-  const listboxItems: ListboxItemProps[] = [];
-
-  if (hasSchedule) {
-    listboxItems.push({
-      key: "add",
-      description: "Create a new appointment",
-      icon: <AddAppointmentIcon className={iconClasses} />,
-      onClick: () => openModal("addAppointment"),
-      label: "Create appointment",
-    });
-
-    if (isDentist) {
-      listboxItems.push({
-        key: "edit",
-        description: "Edit current schedule",
-        icon: <EditDocumentIcon className={iconClasses} />,
-        onClick: () => openModal("editSchedule"),
-        label: "Edit schedule",
-      });
-
-      listboxItems.push({
-        key: "delete",
-        description: "Permanently remove a schedule",
-        icon: <DeleteDocumentIcon className={cn(iconClasses, "text-danger")} />,
-        onClick: () => openModal("removeSchedule"),
-        className: "text-danger",
-        color: "danger",
-        label: "Remove schedule",
-      });
-    }
-  } else if (isDentist) {
-    listboxItems.push({
-      key: "new",
-      description: "Create a new schedule",
-      icon: <AddNoteIcon className={iconClasses} />,
-      onClick: () => openModal("createSchedule"),
-      label: "Create schedule",
-    });
-  }
-
   if (isLoading) {
-    return <ListboxItemsSkeleton />;
+    return (
+      <div className="flex items-center justify-center py-8">
+        <Spinner color="default" />
+      </div>
+    );
   }
 
   return (
     <>
-      <Listbox variant="bordered" aria-label="Listbox menu with descriptions">
-        {listboxItems.map((item) => (
-          <ListboxItem
-            key={item.key}
-            description={item.description}
-            startContent={item.icon}
-            onClick={item.onClick}
-            className={item.className}
-            color={item.color}
+      <div className="flex flex-col space-y-4 text-sm text-gray-500">
+        {hasSchedule && (
+          <>
+            <button
+              onClick={() => openModal("addAppointment")}
+              className="flex items-center space-x-4 hover:text-gray-800"
+            >
+              <IoTodayOutline className={iconClasses} />
+              <span>Create appointment</span>
+            </button>
+
+            {isDentist && (
+              <>
+                <button
+                  onClick={() => openModal("editSchedule")}
+                  className="flex items-center space-x-4 hover:text-gray-800"
+                >
+                  <IoCalendarClearOutline className={iconClasses} />
+                  <span>Edit schedule</span>
+                </button>
+
+                <button
+                  onClick={() => openModal("removeSchedule")}
+                  className={cn(
+                    "flex items-center space-x-4 hover:text-gray-800"
+                  )}
+                >
+                  <IoTrashBinOutline className={iconClasses} />
+                  <span>Remove schedule</span>
+                </button>
+              </>
+            )}
+          </>
+        )}
+
+        {!hasSchedule && isDentist && (
+          <button
+            onClick={() => openModal("createSchedule")}
+            className="flex items-center space-x-4 hover:text-gray-800"
           >
-            {item.label}
-          </ListboxItem>
-        ))}
-      </Listbox>
+            <IoCalendarOutline className={iconClasses} />
+            <span>Create schedule</span>
+          </button>
+        )}
+      </div>
 
       {activeModal && (
         <ModalComponent
