@@ -16,7 +16,7 @@
     "migration:revert": "npm run typeorm migration:revert -- -d src/database/cli/dataSource.ts",
     "migration:run": "tsx ../node_modules/typeorm/cli.js migration:run -d ./src/database/cli/dataSource.ts",
     "migration:show": "npm run typeorm migration:show -- -d src/database/cli/dataSource.ts",
-    "start": "node ./dist/index.js",
+    "start": "node ./dist/index.cjs",
     "test": "npm run test:mem",
     "test:mem": "DB_TYPE=pg-mem vitest",
     "test:db": "vitest",
