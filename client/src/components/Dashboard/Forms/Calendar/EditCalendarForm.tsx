@@ -18,7 +18,9 @@ const EditCalendarForm: React.FC<EditCalendarFormProps> = ({
 
   useEffect(() => {
     const schedule = selectScheduleById(scheduleId);
-    setInitialData(schedule);
+    if (schedule) {
+      setInitialData(schedule);
+    }
   }, [scheduleId, selectScheduleById]);
 
   const handleEditCalendar = (updatedCalendarConfig: CalendarConfig) => {

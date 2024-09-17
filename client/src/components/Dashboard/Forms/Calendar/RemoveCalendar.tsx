@@ -16,7 +16,11 @@ const RemoveSchedule: React.FC<RemoveScheduleProps> = ({ onClose }) => {
   const handleRemoveSchedule = async () => {
     setLoading(true);
     try {
-      await removeSchedule(config);
+      if (config) {
+        await removeSchedule(config);
+      } else {
+        toast.error("No schedule to remove.");
+      }
       toast.success("Schedule removed successfully!");
       onClose();
     } catch (error) {

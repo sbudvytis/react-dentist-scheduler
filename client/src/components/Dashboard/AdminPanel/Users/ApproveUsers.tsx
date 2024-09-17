@@ -111,17 +111,15 @@ const AdminPanel = () => {
       </TableHeader>
 
       <TableBody>
-        {users.length > 0
-          ? users.map((user: UserBare) => (
-              <TableRow key={user.id}>
-                {columns.map((column) => (
-                  <TableCell key={column.uid}>
-                    {renderCell(user, column.uid)}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
-          : "No rows to display."}
+        {users.map((user: UserBare) => (
+          <TableRow key={user.id}>
+            {columns.map((column) => (
+              <TableCell key={column.uid}>
+                {renderCell(user, column.uid)}
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );

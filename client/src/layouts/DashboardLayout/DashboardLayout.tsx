@@ -27,7 +27,7 @@ const DashboardLayout: React.FC = () => {
         {/* Middle container constrained by max-width */}
         <div className="relative flex w-full max-w-screen-2xl pl-2">
           <Sidebar
-            className="min-w-72 flex-none bg-gray-50 px-6 py-2"
+            className="min-w-72 flex-none bg-gray-50 px-4 py-2"
             hasSchedule={hasSchedule}
             isLoading={isLoading}
           />

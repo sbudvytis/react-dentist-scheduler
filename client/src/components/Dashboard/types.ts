@@ -5,8 +5,8 @@ export interface CalendarConfig {
   userId: number;
   view: string;
   weekends: boolean;
-  slotMinTime?: string;
-  slotMaxTime?: string;
+  slotMinTime: string;
+  slotMaxTime: string;
 }
 
 export interface PatientData {

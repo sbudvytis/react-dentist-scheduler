@@ -1,7 +1,7 @@
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
-import type { AppRouter } from "../../server/src/shared/trpc";
-import { apiBase } from "./config";
-import { getStoredAccessToken } from "./utils/auth";
+import type { AppRouter } from "@server/shared/trpc";
+import { apiBase } from "@/config";
+import { getStoredAccessToken } from "@/utils/auth";
 import SuperJSON from "superjson";
 
 export const trpc = createTRPCProxyClient<AppRouter>({

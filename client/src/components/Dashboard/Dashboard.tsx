@@ -12,7 +12,7 @@ import { useSelectedSchedule } from "@/hooks/useSelectedSchedule";
 import useAuth from "@/hooks/useAuth";
 import useLocalStorageSelectedScheduleId from "@/hooks/useLocalStorageSelectedScheduleId";
 import useModal from "@/hooks/useModal";
-import { Appointment } from "./types";
+import { Appointment, CalendarConfig } from "./types";
 import Calendar from "./Calendar";
 import EditAppointmentForm from "./Forms/Appointment/EditAppointmentForm";
 import AddAppointmentForm from "./Forms/Appointment/AddAppointmentForm";
@@ -96,8 +96,8 @@ const Dashboard = () => {
 
       {selectedScheduleId !== null && (
         <Calendar
-          config={selectScheduleById(selectedScheduleId)}
-          appointments={appointments}
+          config={selectScheduleById(selectedScheduleId) as CalendarConfig}
+          appointments={appointments as Appointment[]}
           editAppointment={editAppointment}
           setSelectedAppointment={setSelectedAppointment}
           setIsEditModalOpen={setIsEditModalOpen}

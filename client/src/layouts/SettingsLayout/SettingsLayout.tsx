@@ -11,7 +11,7 @@ const SettingsLayout: React.FC = () => {
         <div className="flex-1 bg-gray-50"></div>
         <div className="relative flex w-full max-w-screen-2xl gap-2">
           <Sidebar
-            className="min-w-72 flex-none bg-gray-50 px-4 py-0"
+            className="min-w-72 flex-none bg-gray-50 py-0"
             hasSchedule={false}
             isLoading={false}
             children={<SettingsListboxItems isLoading={false} />}

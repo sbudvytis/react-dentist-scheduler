@@ -27,7 +27,7 @@ const SettingsListboxItems = ({ isLoading }: Props) => {
   }
 
   return (
-    <div className="flex flex-col text-sm text-gray-500 px-2">
+    <div className="flex flex-col text-sm text-gray-500 pl-2">
       <Link
         to="/dashboard/my-settings"
         className={`${linkClasses} ${

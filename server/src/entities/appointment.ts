@@ -76,7 +76,7 @@ export const appointmentInsertSchema = appointmentSchema
   })
   .extend({
     patient: patientInsertSchema,
-    scheduleId: z.number().int().positive(),
+    scheduleId: z.number().int().positive().nullable(),
   })
 
 export type AppointmenttInsert = z.infer<typeof appointmentInsertSchema>

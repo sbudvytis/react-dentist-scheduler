@@ -35,10 +35,10 @@ export class Schedule {
   weekends: boolean
 
   @Column('text', { nullable: true })
-  slotMinTime?: string
+  slotMinTime: string
 
   @Column('text', { nullable: true })
-  slotMaxTime?: string
+  slotMaxTime: string
 }
 
 export type ScheduleBare = Omit<Schedule, 'user' | 'appointments'>
@@ -49,8 +49,8 @@ export const scheduleSchema = validates<ScheduleBare>().with({
   userId: z.number().int().positive(),
   view: z.string(),
   weekends: z.boolean(),
-  slotMinTime: z.string().optional(),
-  slotMaxTime: z.string().optional(),
+  slotMinTime: z.string(),
+  slotMaxTime: z.string(),
 })
 
 export const scheduleInsertSchema = scheduleSchema.omit({ scheduleId: true })

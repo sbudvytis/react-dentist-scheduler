@@ -17,7 +17,7 @@ const AdminPanelLayout: React.FC = () => {
           {/* Conditionally render the sidebar based on the user's permissions */}
           {canApproveUsers && (
             <Sidebar
-              className="min-w-72 flex-none bg-gray-50 px-4 py-0"
+              className="min-w-72 flex-none bg-gray-50 py-0"
               hasSchedule={false}
               isLoading={false}
               children={<AdminListboxItems isLoading={false} />}

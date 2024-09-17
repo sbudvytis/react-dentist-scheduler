@@ -59,8 +59,7 @@ const Calendar: React.FC<CalendarProps> = ({
 
   const handleEventClick = (clickInfo: EventClickArg) => {
     const appointment = appointments.find(
-      (appointment: Appointment) =>
-        appointment.id === Number(clickInfo.event.id)
+      (appointment) => appointment.id === Number(clickInfo.event.id)
     );
     if (appointment) {
       setSelectedAppointment(appointment);
@@ -108,7 +107,7 @@ const Calendar: React.FC<CalendarProps> = ({
         slotLabelFormat={{ hour: "2-digit", minute: "2-digit", hour12: false }}
         eventTimeFormat={{ hour: "2-digit", minute: "2-digit", hour12: false }}
         weekNumbers
-        events={appointments.map((appointment: Appointment) => ({
+        events={appointments.map((appointment) => ({
           id: appointment.id.toString(),
           title: appointment.title,
           start: appointment.start,
