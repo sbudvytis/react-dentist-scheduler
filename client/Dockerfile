@@ -4,9 +4,9 @@ FROM --platform=linux/amd64 node:18.19.0-alpine3.18 AS builder
 WORKDIR /app
 
 # Copy package.json files and install dependencies
-COPY ../package.json .
-COPY client/package.json client/
-COPY server/package.json server/
+COPY ../package*.json .
+COPY client/package*.json client/
+COPY server/package*.json server/
 RUN npm ci
 
 # Copy over the entire monorepo since we need to access the tRPC server
@@ -32,7 +32,7 @@ RUN rm /usr/share/nginx/html/* -rf
 COPY --from=builder /app/client/dist /usr/share/nginx/html
 
 # Copy the logo.png file to the appropriate directory
-COPY client/src/assets/logo.png /usr/share/nginx/html/src/assets/
+COPY client/src/assets/logo1.png /usr/share/nginx/html/src/assets/
 
 # Set the environment variables for Nginx
 ENV NGINX_ENVSUBST_OUTPUT_DIR '/etc/nginx/conf.d'
