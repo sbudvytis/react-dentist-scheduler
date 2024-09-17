@@ -28,10 +28,10 @@ services:
       - ./server/.env
     environment:
       DB_HOST: postgres-db
-      DB_USER: turing
+      DB_USER: sarunasbudvytis
       DB_PASSWORD: postgres
       DB_SSL: true
-      DB_NAME: bookings
+      DB_NAME: react-bookings
     ports:
       - "3000:3000"
     depends_on:
