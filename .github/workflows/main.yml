@@ -45,7 +45,7 @@ jobs:
         run: npm run test -w=server
 
       - name: Test client (unit)
-        run: npm run test:unit -w=client
+        run: npm run test -w=client
 
   build-deploy:
     needs: test
