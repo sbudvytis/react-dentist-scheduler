@@ -140,8 +140,8 @@ jobs:
                 "DB_USER": "${{ secrets.PROD_DB_USER }}",
                 "DB_PASSWORD": "${{ secrets.PROD_DB_PASSWORD }}",
                 "TOKEN_KEY": "${{ secrets.TOKEN_KEY }}",
-                "EMAIL": "${{ secrets.SERVICE_EMAIL }}",
-                "PASSWORD": "${{ secrets.SERVICE_PASSWORD }}"
+                "SERVICE_EMAIL": "${{ secrets.SERVICE_EMAIL }}",
+                "SERVICE_PASSWORD": "${{ secrets.SERVICE_PASSWORD }}"
               }
             }
           }' > containers.json
