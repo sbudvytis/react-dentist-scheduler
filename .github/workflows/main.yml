@@ -41,6 +41,9 @@ jobs:
       - name: Lint client
         run: npm run lint -w=client
 
+      - name: Test server
+        run: npm run test -w=server
+
       - name: Test client (unit)
         run: npm run test -w=client
 
