@@ -5,9 +5,8 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-22.04
-    env:
-      TOKEN_KEY: ${{ secrets.TOKEN_KEY }}
     services:
+      # spin up a database for this job
       postgres:
         image: postgres:16.1-alpine
         env:
