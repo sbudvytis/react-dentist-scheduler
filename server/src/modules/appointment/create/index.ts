@@ -98,7 +98,7 @@ export default authenticatedProcedure
         authMethod: 'PLAIN',
       })
 
-      // Function to format the date and time
+      // Function to format the date and time.
       moment.locale('en-gb')
       const formatDateTime = (date: Date) => moment(date).format('LLLL')
 
