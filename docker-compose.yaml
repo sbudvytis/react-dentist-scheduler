@@ -28,7 +28,7 @@ services:
       - ./server/.env
     environment:
       DB_HOST: postgres-db
-      DB_USER: sarunasbudvytis
+      DB_USER: turing
       DB_PASSWORD: postgres
       DB_SSL: true
       DB_NAME: react-bookings
