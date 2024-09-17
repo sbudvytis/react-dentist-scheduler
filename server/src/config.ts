@@ -10,45 +10,47 @@ const isDevTest = env.NODE_ENV === 'development' || isTest
 
 const isInMemory = env.DB_TYPE === 'pg-mem'
 
-const schema = z.object({
-  env: z
-    .enum(['development', 'production', 'staging', 'test'])
-    .default('development'),
-  isCi: z.boolean().default(false),
-  port: z.coerce.number().default(3000),
+const schema = z
+  .object({
+    env: z
+      .enum(['development', 'production', 'staging', 'test'])
+      .default('development'),
+    isCi: z.boolean().default(false),
+    port: z.coerce.number().default(3000),
 
-  auth: z.object({
-    tokenKey: z.string().default(() => {
-      if (isDevTest) {
-        return ''
-      }
+    auth: z.object({
+      tokenKey: z.string().default(() => {
+        if (isDevTest) {
+          return ''
+        }
 
-      throw new Error('You must provide a token key in production env!')
+        throw new Error('You must provide a token key in production env!')
+      }),
+      expiresIn: z.string().default('7d'),
+      passwordCost: z.coerce.number().default(isDevTest ? 6 : 12),
     }),
-    expiresIn: z.string().default('7d'),
-    passwordCost: z.coerce.number().default(isDevTest ? 6 : 12),
-  }),
 
-  database: z.object({
-    type: z
-      .enum(['postgres', 'mysql', 'mariadb', 'better-sqlite3', 'pg-mem'])
-      .default('postgres'),
-    host: z.string().default('localhost'),
-    port: z.coerce.number().default(5432),
-    database: isInMemory ? z.string().optional() : z.string(),
-    username: isInMemory ? z.string().optional() : z.string(),
-    password: isInMemory ? z.string().optional() : z.string(),
+    database: z.object({
+      type: z
+        .enum(['postgres', 'mysql', 'mariadb', 'better-sqlite3', 'pg-mem'])
+        .default('postgres'),
+      host: z.string().default('localhost'),
+      port: z.coerce.number().default(5432),
+      database: isInMemory ? z.string().optional() : z.string(),
+      username: isInMemory ? z.string().optional() : z.string(),
+      password: isInMemory ? z.string().optional() : z.string(),
 
-    ssl: z.preprocess(coerceBoolean, z.boolean().default(false)),
-    logging: z.preprocess(coerceBoolean, z.boolean().default(isDevTest)),
-    synchronize: z.preprocess(coerceBoolean, z.boolean().default(isDevTest)),
-  }),
+      ssl: z.preprocess(coerceBoolean, z.boolean().default(false)),
+      logging: z.preprocess(coerceBoolean, z.boolean().default(isDevTest)),
+      synchronize: z.preprocess(coerceBoolean, z.boolean().default(isDevTest)),
+    }),
 
-  sendEmail: z.object({
-    email: z.string().trim().toLowerCase().email(),
-    emailPassword: z.string().trim(),
-  }),
-})
+    sendEmail: z.object({
+      serviceEmail: z.string().trim().toLowerCase().email(),
+      servicePassword: z.string().trim(),
+    }),
+  })
+  .readonly()
 
 const config = schema.parse({
   env: env.NODE_ENV,
@@ -74,8 +76,8 @@ const config = schema.parse({
   },
 
   sendEmail: {
-    email: env.EMAIL,
-    emailPassword: env.PASSWORD,
+    serviceEmail: env.SERVICE_EMAIL,
+    servicePassword: env.SERVICE_PASSWORD,
   },
 })
 
