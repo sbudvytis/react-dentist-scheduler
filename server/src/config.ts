@@ -44,11 +44,6 @@ const schema = z
       logging: z.preprocess(coerceBoolean, z.boolean().default(isDevTest)),
       synchronize: z.preprocess(coerceBoolean, z.boolean().default(isDevTest)),
     }),
-
-    sendEmail: z.object({
-      serviceEmail: z.string().trim().toLowerCase().email(),
-      servicePassword: z.string().trim(),
-    }),
   })
   .readonly()
 
@@ -73,11 +68,6 @@ const config = schema.parse({
     logging: env.DB_LOGGING,
     synchronize: env.DB_SYNC,
     ssl: env.DB_SSL,
-  },
-
-  sendEmail: {
-    serviceEmail: env.SERVICE_EMAIL,
-    servicePassword: env.SERVICE_PASSWORD,
   },
 })
 
