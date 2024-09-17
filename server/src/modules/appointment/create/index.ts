@@ -92,8 +92,8 @@ export default authenticatedProcedure
         port: 465,
         secure: true,
         auth: {
-          user: process.env.PROCESS_EMAIL,
-          pass: process.env.PROCESS_PASSWORD,
+          user: process.env.SERVICE_EMAIL,
+          pass: process.env.SERVICE_PASSWORD,
         },
         authMethod: 'PLAIN',
       })
@@ -106,7 +106,7 @@ export default authenticatedProcedure
         const formattedStart = formatDateTime(appointmentCreated.start)
         const formattedEnd = moment(appointmentCreated.end).format('LT')
         const info = await transporter.sendMail({
-          from: `Dentist scheduler <${process.env.PROCESS_EMAIL}>`,
+          from: `Dentist scheduler <${process.env.SERVICE_EMAIL}>`,
           to: appointmentData.email,
           subject: 'You have a new appointment',
           html: `
