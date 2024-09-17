@@ -108,7 +108,7 @@ export default authenticatedProcedure
         const info = await transporter.sendMail({
           from: `Dentist scheduler <${config.sendEmail.serviceEmail}>`,
           to: appointmentData.email,
-          subject: 'New Appointment',
+          subject: 'You have a new appointment',
           html: `
             <h1>Appointment Details</h1>
             <p><strong>Scheduled for:</strong> ${appointmentCreated.title}</p>
