@@ -9,9 +9,11 @@ import useAuth from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { getUserFromToken } from "@/utils/auth";
 import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
+import { useMediaQuery } from "react-responsive";
 
 const User = () => {
   const { isLoggedIn, authToken, logout } = useAuth();
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const icons = {
     settings: <IoSettingsOutline fill="currentColor" size={16} />,
@@ -38,9 +40,10 @@ const User = () => {
               color="default"
               variant="bordered"
               radius="sm"
+              isIconOnly={isMobile}
               className="border-1 bg-white border-gray-200 shadow-md shadow-gray-100"
             >
-              {currentUser.email}
+              {isMobile ? <IoSettingsOutline size={20} /> : currentUser.email}
             </Button>
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">

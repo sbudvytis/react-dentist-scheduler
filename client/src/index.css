@@ -9,3 +9,34 @@ html {
   font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+/* Hide scrollbar for main content */
+.hide-main-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  overflow: -moz-scrollbars-none; /* Firefox */
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+/* Hide scrollbar for Chrome, Safari, and Edge */
+.hide-main-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Chrome, Safari, and Edge */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+/* Ensure the table is still scrollable */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  overflow-x: scroll; /* Enable horizontal scroll */
+  overflow-y: scroll; /* Enable vertical scroll */
+}

@@ -16,7 +16,7 @@ const AdminListboxItems = ({ isLoading }: Props) => {
 
   // Define active link styles
   const linkClasses = "flex items-center space-x-4 p-2";
-  const activeLinkClasses = "bg-gray-100 text-gray-800 p-2 rounded-lg";
+  const activeLinkClasses = "bg-gray-100 text-gray-800 rounded-lg";
 
   const isUsersActive = location.pathname.startsWith(
     "/dashboard/admin-panel/users"
@@ -37,7 +37,7 @@ const AdminListboxItems = ({ isLoading }: Props) => {
   }
 
   return (
-    <div className="flex flex-col text-sm text-gray-500 pl-2">
+    <div className="flex flex-col text-sm text-gray-500">
       <Link
         to="/dashboard/admin-panel/users"
         className={`${linkClasses} ${

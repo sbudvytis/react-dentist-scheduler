@@ -1,20 +1,6 @@
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  User,
-  Chip,
-  Tooltip,
-  ChipProps,
-  Card,
-  CardBody,
-} from "@nextui-org/react";
+import { User, Chip, Tooltip, ChipProps } from "@nextui-org/react";
 import { IoPersonRemoveOutline } from "react-icons/io5";
 import { CheckIcon } from "../icons/CheckIcon";
-import { IoCheckmarkDone } from "react-icons/io5";
 import useUser from "@/hooks/useUser";
 import type { UserBare } from "@mono/server/src/shared/entities";
 
@@ -33,10 +19,9 @@ const AdminPanel = () => {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "full", isBordered: true }}
+            avatarProps={{ radius: "full", isBordered: false }}
             description={user.email}
             name={`${user.firstName} ${user.lastName}`}
-            className="gap-4"
           />
         );
 
@@ -88,40 +73,45 @@ const AdminPanel = () => {
     { name: "Actions", uid: "actions" },
   ];
 
-  if (users.length === 0) {
-    return (
-      <Card className="border-none text-default-500" radius="sm" shadow="sm">
-        <CardBody className="text-center">
-          <p className="relative flex justify-center items-center gap-2">
-            <IoCheckmarkDone /> All clear! There are no users to approve.
-          </p>
-        </CardBody>
-      </Card>
-    );
-  }
-
   return (
-    <Table aria-label="Users waiting for approval" shadow="sm" radius="sm">
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn key={column.uid} align={"start"} width={"33%"}>
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-
-      <TableBody>
-        {users.map((user: UserBare) => (
-          <TableRow key={user.id}>
+    <div className="hide-scrollbar overflow-auto text-sm rounded-lg border border-gray-200 min-h-96 max-h-96">
+      <table className="min-w-full">
+        <thead className="text-xs bg-white sticky top-0 z-10">
+          <tr className="relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-gray-200">
             {columns.map((column) => (
-              <TableCell key={column.uid}>
-                {renderCell(user, column.uid)}
-              </TableCell>
+              <th
+                key={column.uid}
+                className="text-left py-2 px-4 font-semibold text-gray-500"
+              >
+                {column.name}
+              </th>
             ))}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+          </tr>
+        </thead>
+        <tbody>
+          {users.length === 0 ? (
+            <tr>
+              <td
+                colSpan={columns.length}
+                className="text-center py-4 text-gray-500"
+              >
+                No results.
+              </td>
+            </tr>
+          ) : (
+            users.map((user: UserBare) => (
+              <tr key={user.id} className="hover:bg-gray-50">
+                {columns.map((column) => (
+                  <td key={column.uid} className="py-2 px-2">
+                    <div className="px-2">{renderCell(user, column.uid)}</div>
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

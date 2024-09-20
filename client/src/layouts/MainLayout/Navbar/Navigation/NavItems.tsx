@@ -1,4 +1,4 @@
-import { Button, NavbarMenuItem } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 
@@ -13,7 +13,7 @@ const NavItems = ({ className }: Props) => {
     <>
       {isLoggedIn ? (
         <>
-          <NavbarMenuItem className={`${className}`}>
+          <div className={`${className}`}>
             <Button
               as={Link}
               to="/dashboard"
@@ -24,9 +24,9 @@ const NavItems = ({ className }: Props) => {
             >
               Dashboard
             </Button>
-          </NavbarMenuItem>
+          </div>
           {canApproveUsers ? (
-            <NavbarMenuItem className={`${className}`}>
+            <div className={`${className}`}>
               <Button
                 as={Link}
                 to="/dashboard/admin-panel"
@@ -37,7 +37,7 @@ const NavItems = ({ className }: Props) => {
               >
                 Admin Panel
               </Button>
-            </NavbarMenuItem>
+            </div>
           ) : null}
         </>
       ) : null}

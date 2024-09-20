@@ -4,6 +4,7 @@ import { Input, Button } from "@nextui-org/react";
 import { useNavigate, Link } from "react-router-dom";
 import useSignupLoginStore from "@/stores/useSignupLoginStore";
 import * as Yup from "yup";
+import { useEffect } from "react";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -21,9 +22,15 @@ const initialValues: LoginFormValues = {
 };
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, isLoggedIn } = useAuth();
   const { errorMessage, setErrorMessage } = useSignupLoginStore();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/dashboard");
+    }
+  }, [isLoggedIn, navigate]);
 
   const submitLogin = async (values: LoginFormValues) => {
     try {

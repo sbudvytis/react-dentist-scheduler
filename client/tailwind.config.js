@@ -18,6 +18,9 @@ export default {
       colors: {
         "custom-pink": "#f31261",
       },
+      maxWidth: {
+        "8xl": "96rem",
+      },
     },
   },
   darkMode: "class",

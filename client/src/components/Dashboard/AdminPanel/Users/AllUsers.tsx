@@ -1,22 +1,12 @@
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  User,
-  Chip,
-  ChipProps,
-  Tooltip,
-} from "@nextui-org/react";
+import React from "react";
 import useUser from "@/hooks/useUser";
 import useAuth from "@/hooks/useAuth";
 import type { UserBare } from "@mono/server/src/shared/entities";
 import { IoPersonRemoveOutline } from "react-icons/io5";
+import { Chip, ChipProps, Tooltip, User } from "@nextui-org/react"; // Keep Tooltip from NextUI
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
-  approved: "success",
+  active: "success",
   notApproved: "danger",
 };
 
@@ -25,16 +15,13 @@ const AllUsers = () => {
   const { users, removeUser } = useUser(true, userId); // Pass it to useUser
 
   const renderCell = (user: UserBare, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof UserBare];
-
     switch (columnKey) {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "full", isBordered: true }}
+            avatarProps={{ radius: "full", isBordered: false }}
             description={user.email}
             name={`${user.firstName} ${user.lastName}`}
-            className="gap-4"
           />
         );
 
@@ -44,7 +31,7 @@ const AllUsers = () => {
             className="capitalize"
             color={
               user.isApproved
-                ? statusColorMap["approved"]
+                ? statusColorMap["active"]
                 : statusColorMap["notApproved"]
             }
             size="sm"
@@ -61,7 +48,7 @@ const AllUsers = () => {
             {user.id !== userId && ( // Disable remove action for logged-in user
               <Tooltip color="danger" content="Remove user" radius="sm">
                 <span
-                  className="text-lg text-danger cursor-pointer active:opacity-50"
+                  className="text-lg text-red-500 cursor-pointer active:opacity-50"
                   onClick={() => removeUser(user.id)}
                 >
                   <IoPersonRemoveOutline />
@@ -72,7 +59,7 @@ const AllUsers = () => {
         );
 
       default:
-        return cellValue;
+        return user[columnKey as keyof UserBare];
     }
   };
 
@@ -84,27 +71,33 @@ const AllUsers = () => {
   ];
 
   return (
-    <Table aria-label="Users waiting for approval" shadow="sm" radius="sm">
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn key={column.uid} align={"start"} width={"33%"}>
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-
-      <TableBody>
-        {users.map((user: UserBare) => (
-          <TableRow key={user.id}>
+    <div className="hide-scrollbar overflow-auto text-sm rounded-lg border border-gray-200 min-h-96 max-h-96">
+      <table className="min-w-full">
+        <thead className="text-xs bg-white sticky top-0 z-10">
+          <tr className="relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-gray-200">
             {columns.map((column) => (
-              <TableCell key={column.uid}>
-                {renderCell(user, column.uid)}
-              </TableCell>
+              <th
+                key={column.uid}
+                className="text-left py-2 px-4 font-semibold text-gray-500"
+              >
+                {column.name}
+              </th>
             ))}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user: UserBare) => (
+            <tr key={user.id} className="hover:bg-gray-50">
+              {columns.map((column) => (
+                <td key={column.uid} className="py-2 px-2">
+                  <div className="px-2">{renderCell(user, column.uid)}</div>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

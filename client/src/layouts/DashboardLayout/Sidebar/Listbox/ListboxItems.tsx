@@ -64,7 +64,7 @@ const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
 
   return (
     <>
-      <div className="flex flex-col space-y-4 text-sm text-gray-500">
+      <div className="flex flex-col space-y-4 px-2 py-2 text-sm text-gray-500">
         {hasSchedule && (
           <>
             <button

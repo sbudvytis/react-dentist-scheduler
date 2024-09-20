@@ -1,4 +1,4 @@
-import { Button, NavbarMenuItem } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 
@@ -14,7 +14,7 @@ const MobileNavItems = ({ className, closeMenu }: Props) => {
     <div className="flex gap-2 justify-center">
       {isLoggedIn ? (
         <>
-          <NavbarMenuItem className={`${className}`}>
+          <div className={`${className}`}>
             <Button
               as={Link}
               to="/dashboard"
@@ -26,9 +26,9 @@ const MobileNavItems = ({ className, closeMenu }: Props) => {
             >
               Dashboard
             </Button>
-          </NavbarMenuItem>
+          </div>
           {canApproveUsers ? (
-            <NavbarMenuItem className={`${className}`}>
+            <div className={`${className}`}>
               <Button
                 as={Link}
                 to="/dashboard/admin-panel"
@@ -40,12 +40,12 @@ const MobileNavItems = ({ className, closeMenu }: Props) => {
               >
                 Admin Panel
               </Button>
-            </NavbarMenuItem>
+            </div>
           ) : null}
         </>
       ) : (
         <>
-          <NavbarMenuItem>
+          <div>
             <Button
               as={Link}
               to="/login"
@@ -57,7 +57,7 @@ const MobileNavItems = ({ className, closeMenu }: Props) => {
             >
               Sign in / Sign up
             </Button>
-          </NavbarMenuItem>
+          </div>
         </>
       )}
     </div>

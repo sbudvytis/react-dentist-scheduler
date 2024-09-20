@@ -1,9 +1,10 @@
 import useAuth from "@/hooks/useAuth";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import useSignupLoginStore from "@/stores/useSignupLoginStore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input, Button, Select, SelectItem } from "@nextui-org/react";
 import SignupSchema from "@/utils/signupValidation";
+import { useEffect } from "react";
 
 interface SignupFormValues {
   firstName: string;
@@ -31,7 +32,7 @@ const initialValues: SignupFormValues = {
 };
 
 const Signup = () => {
-  const { signup } = useAuth();
+  const { signup, isLoggedIn } = useAuth();
   const {
     errorMessage,
     successMessage,
@@ -40,6 +41,14 @@ const Signup = () => {
     setSuccessMessage,
     setHasSucceeded,
   } = useSignupLoginStore();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/dashboard");
+    }
+  }, [isLoggedIn, navigate]);
 
   const submitSignup = async (
     values: SignupFormValues,

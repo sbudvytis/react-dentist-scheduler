@@ -5,12 +5,10 @@ import Signup from "@/components/User/Signup";
 import Login from "@/components/User/Login";
 import Dashboard from "@/components/Dashboard/Dashboard";
 import DashboardLayout from "@/layouts/DashboardLayout/DashboardLayout";
-import AdminPanelLayout from "@/layouts/AdminPanelLayout/AdminPanelLayout";
 import AppProviders from "@/components/providers/AppProviders";
 import Users from "@/components/Dashboard/AdminPanel/Users/Users";
 import Settings from "@/components/Dashboard/AdminPanel/Settings/Settings";
 import Patients from "@/components/Dashboard/AdminPanel/Patients/Patients";
-import SettingsLayout from "@/layouts/SettingsLayout/SettingsLayout";
 import MySettings from "@/components/Dashboard/UserSettings/MySettings";
 
 export const router = createBrowserRouter([
@@ -30,7 +28,7 @@ export const router = createBrowserRouter([
       <AppProviders>
         <AuthGuardProps>
           <MainLayout>
-            <DashboardLayout />
+            <DashboardLayout layoutType="default" />
           </MainLayout>
         </AuthGuardProps>
       </AppProviders>
@@ -43,30 +41,12 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard/my-settings",
-    element: (
-      <AppProviders>
-        <AuthGuardProps>
-          <MainLayout>
-            <SettingsLayout />
-          </MainLayout>
-        </AuthGuardProps>
-      </AppProviders>
-    ),
-    children: [
-      {
-        path: "",
-        element: <MySettings />,
-      },
-    ],
-  },
-  {
     path: "/dashboard/admin-panel",
     element: (
       <AppProviders>
         <AuthGuardProps>
           <MainLayout>
-            <AdminPanelLayout />
+            <DashboardLayout layoutType="admin" />
           </MainLayout>
         </AuthGuardProps>
       </AppProviders>
@@ -87,6 +67,24 @@ export const router = createBrowserRouter([
       {
         path: "settings",
         element: <Settings />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard/my-settings",
+    element: (
+      <AppProviders>
+        <AuthGuardProps>
+          <MainLayout>
+            <DashboardLayout layoutType="settings" />
+          </MainLayout>
+        </AuthGuardProps>
+      </AppProviders>
+    ),
+    children: [
+      {
+        path: "",
+        element: <MySettings />,
       },
     ],
   },
