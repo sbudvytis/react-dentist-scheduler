@@ -8,7 +8,7 @@ interface ModalProps {
 
 const ModalComponent: React.FC<ModalProps> = ({ isOpen, onClose, content }) => {
   return (
-    <Modal isOpen={isOpen} onOpenChange={onClose} radius="sm">
+    <Modal isOpen={isOpen} onOpenChange={onClose} radius="sm" size="xs">
       <ModalContent>
         <ModalBody>{content}</ModalBody>
       </ModalContent>
