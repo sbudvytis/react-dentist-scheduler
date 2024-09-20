@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
       <AppProviders>
         <AuthGuardProps>
           <MainLayout>
-            <DashboardLayout layoutType="admin" />
+            <DashboardLayout layoutType="admin" className="overflow-auto" />
           </MainLayout>
         </AuthGuardProps>
       </AppProviders>

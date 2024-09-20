@@ -10,9 +10,13 @@ import useAuth from "@/hooks/useAuth";
 
 type LayoutProps = {
   layoutType?: "admin" | "default" | "settings";
+  className?: string; // Add this line
 };
 
-const DashboardLayout: React.FC<LayoutProps> = ({ layoutType = "default" }) => {
+const DashboardLayout: React.FC<LayoutProps> = ({
+  layoutType = "default",
+  className = "",
+}) => {
   const { schedules, schedulesLoading } = useCalendar();
   const [hasSchedule, setHasSchedule] = useState(false);
   const [isLoading, setLoading] = useState<boolean>(true);
@@ -20,14 +24,9 @@ const DashboardLayout: React.FC<LayoutProps> = ({ layoutType = "default" }) => {
 
   useEffect(() => {
     setLoading(schedulesLoading);
-    if (schedules && schedules.length > 0) {
-      setHasSchedule(true);
-    } else {
-      setHasSchedule(false);
-    }
+    setHasSchedule(schedules && schedules.length > 0);
   }, [schedules, schedulesLoading]);
 
-  // Dynamically choose the Sidebar content
   const renderSidebarItems = () => {
     switch (layoutType) {
       case "admin":
@@ -43,14 +42,15 @@ const DashboardLayout: React.FC<LayoutProps> = ({ layoutType = "default" }) => {
   };
 
   return (
-    <main className="flex flex-col inset-0 min-h-full ">
-      {/* Main container */}
+    <main className={`flex flex-col inset-0 min-h-full`}>
       <div className="relative flex flex-1 w-full">
         <div className="relative flex w-full">
           <Sidebar className="lg:min-w-64 lg:max-w-64 md:min-w-56 flex-none bg-gray-50 ">
             {renderSidebarItems()}
           </Sidebar>
-          <div className="flex-1 bg-white w-full overflow-auto p-4 border-l-1 border-gray-200">
+          <div
+            className={`flex-1 bg-white w-full p-4 border-l-1 border-gray-200 ${className}`}
+          >
             <Breadcrumbs className="pb-4" />
             <Outlet />
           </div>

@@ -95,7 +95,7 @@ const Calendar: React.FC<CalendarProps> = ({
   }, [isMobile, config.view]);
 
   return (
-    <div className="flex justify-center items-center w-full max-w-8xl mx-auto">
+    <div className="justify-center items-center w-full max-w-8xl mx-auto">
       <FullCalendar
         ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}

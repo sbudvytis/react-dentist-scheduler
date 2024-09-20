@@ -5,7 +5,7 @@ import { IoPersonAddOutline, IoPeopleOutline } from "react-icons/io5";
 
 const Users = () => {
   return (
-    <div className="flex flex-col lg:flex-row gap-2">
+    <div className="flex flex-col lg:flex-row gap-2 w-full">
       {/* Users currently in the system */}
       <div className="lg:w-1/2">
         <h1 className="pb-4 text-sm text-left flex items-center gap-2 text-gray-600 font-bold">

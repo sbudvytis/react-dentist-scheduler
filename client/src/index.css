@@ -4,12 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body,
-html {
-  font-family: "Inter", sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
 /* Hide scrollbar for main content */
 .hide-main-scrollbar {
   scrollbar-width: none; /* Firefox */
