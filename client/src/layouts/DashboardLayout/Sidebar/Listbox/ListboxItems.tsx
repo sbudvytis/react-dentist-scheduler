@@ -69,7 +69,7 @@ const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
           <>
             <button
               onClick={() => openModal("addAppointment")}
-              className="flex items-center space-x-4 hover:text-gray-800"
+              className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
             >
               <IoTodayOutline className={iconClasses} />
               <span>Create appointment</span>
@@ -79,7 +79,7 @@ const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
               <>
                 <button
                   onClick={() => openModal("editSchedule")}
-                  className="flex items-center space-x-4 hover:text-gray-800"
+                  className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
                 >
                   <IoCalendarClearOutline className={iconClasses} />
                   <span>Edit schedule</span>
@@ -88,7 +88,7 @@ const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
                 <button
                   onClick={() => openModal("removeSchedule")}
                   className={cn(
-                    "flex items-center space-x-4 hover:text-gray-800"
+                    "flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
                   )}
                 >
                   <IoTrashBinOutline className={iconClasses} />
@@ -102,7 +102,7 @@ const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
         {!hasSchedule && isDentist && (
           <button
             onClick={() => openModal("createSchedule")}
-            className="flex items-center space-x-4 hover:text-gray-800"
+            className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
           >
             <IoCalendarOutline className={iconClasses} />
             <span>Create schedule</span>
