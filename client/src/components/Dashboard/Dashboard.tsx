@@ -77,7 +77,7 @@ const Dashboard = () => {
       <Card className="border-none text-default-500" shadow="sm" radius="sm">
         <CardBody className="text-center">
           <p className="relative flex justify-center items-center gap-2">
-            You have not created your schedule yet.
+            You have not created your schedule yet. Create one!
           </p>
         </CardBody>
       </Card>
