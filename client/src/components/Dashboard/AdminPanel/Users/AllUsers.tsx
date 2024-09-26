@@ -1,4 +1,3 @@
-import React from "react";
 import useUser from "@/hooks/useUser";
 import useAuth from "@/hooks/useAuth";
 import type { UserBare } from "@mono/server/src/shared/entities";

@@ -101,7 +101,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   return (
     <form onSubmit={handleSubmit} className="grid space-y-4">
       <div className="pb-4 flex-col space-y-2">
-        <h1 className="text-3xl font-semibold">
+        <h1 className="lg:text-3xl text-xl font-semibold">
           {submitButtonText === "Add Appointment"
             ? "Create an Appointment"
             : "Edit Appointment"}
@@ -113,6 +113,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           <Autocomplete
             label="Search for a patient"
             radius="sm"
+            size="sm"
             description="Search for a patient by name or create a new down below"
             onSelectionChange={handlePatientSelect}
           >
@@ -131,6 +132,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           name="title"
           isRequired
           radius="sm"
+          size="sm"
           value={formData.title}
           onChange={handleInputChange}
           required
@@ -144,6 +146,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             name="firstName"
             isRequired
             radius="sm"
+            size="sm"
             value={formData.patient.firstName}
             onChange={handlePatientDataChange}
             required
@@ -156,6 +159,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             name="lastName"
             isRequired
             radius="sm"
+            size="sm"
             value={formData.patient.lastName}
             onChange={handlePatientDataChange}
             required
@@ -169,6 +173,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           name="contactNumber"
           isRequired
           radius="sm"
+          size="sm"
           value={formData.patient.contactNumber}
           onChange={handlePatientDataChange}
           required
@@ -181,6 +186,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           name="email"
           isRequired
           radius="sm"
+          size="sm"
           value={formData.email}
           onChange={handleInputChange}
           required
@@ -195,6 +201,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           showMonthAndYearPickers
           isRequired
           radius="sm"
+          size="sm"
           value={parseAbsoluteToLocal(formData.start.toISOString())}
           onChange={handleDateChange("start")}
         />
@@ -208,6 +215,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           showMonthAndYearPickers
           isRequired
           radius="sm"
+          size="sm"
           value={parseAbsoluteToLocal(formData.end.toISOString())}
           onChange={handleDateChange("end")}
         />
@@ -219,6 +227,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           isRequired
           required
           radius="sm"
+          size="sm"
           value={formData.notes}
           onChange={handleInputChange}
         />

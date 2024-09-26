@@ -48,6 +48,19 @@ const User = () => {
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem
+              isReadOnly
+              key="profile"
+              textValue="profile"
+              showDivider={true}
+              className="cursor-default"
+            >
+              {isMobile ? (
+                <p className="font-semibold">{currentUser.email}</p>
+              ) : (
+                <p className="font-semibold">My Account</p>
+              )}
+            </DropdownItem>
+            <DropdownItem
               key="settings"
               startContent={icons.settings}
               textValue="Settings"

@@ -63,7 +63,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
     <div className="sm:mx-auto sm:w-full sm:max-w-lg bg-white rounded-2xl p-6">
       <form onSubmit={handleSubmit} className="grid space-y-4">
         <div className="pb-4 flex-col space-y-2">
-          <h1 className="text-3xl font-semibold">
+          <h1 className="lg:text-3xl text-xl font-semibold">
             {submitButtonText === "Create Schedule"
               ? "Create a Schedule"
               : "Edit Schedule"}
@@ -74,6 +74,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
             isRequired
             required
             radius="sm"
+            size="sm"
             label="Select schedule view"
             defaultSelectedKeys={[view]}
             onChange={(e) => setView(e.target.value)}
@@ -88,6 +89,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
           <TimeInput
             isRequired
             radius="sm"
+            size="sm"
             label="Start time"
             value={slotMinTime}
             onChange={setSlotMinTime}
@@ -97,6 +99,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
           <TimeInput
             isRequired
             radius="sm"
+            size="sm"
             label="End time"
             value={slotMaxTime}
             onChange={setSlotMaxTime}
@@ -108,6 +111,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
           <Switch
             isSelected={weekends}
             color="default"
+            size="sm"
             onChange={(e) => setWeekends(e.target.checked)}
           >
             Include weekends
