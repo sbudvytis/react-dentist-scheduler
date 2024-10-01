@@ -25,7 +25,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
 
   const renderAppointments = () => (
     <>
-      <thead className="text-xs bg-white sticky top-0 z-10">
+      <thead className="text-xs bg-white">
         <tr className="border-b border-gray-200">
           {columns.map((column) => (
             <th

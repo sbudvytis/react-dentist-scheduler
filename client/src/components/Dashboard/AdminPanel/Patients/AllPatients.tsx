@@ -34,8 +34,6 @@ const AllPatients = () => {
 
   const renderCell = (patient: Patient, columnKey: React.Key) => {
     switch (columnKey) {
-      case "id":
-        return <div>{patient.patientId}</div>;
       case "name":
         return (
           <div>
@@ -45,7 +43,7 @@ const AllPatients = () => {
       case "contactNumber":
         return <div>{patient.contactNumber}</div>;
 
-      case "appointments":
+      case "history":
         return (
           <Tooltip content="Appointment History" placement="top">
             <Button
@@ -68,10 +66,9 @@ const AllPatients = () => {
   };
 
   const columns = [
-    { name: "ID", uid: "id" },
-    { name: "Name", uid: "name" },
-    { name: "Number", uid: "contactNumber" },
-    { name: "Appointments", uid: "appointments" },
+    { name: "Full Name", uid: "name" },
+    { name: "Contact Number", uid: "contactNumber" },
+    { name: "History", uid: "history" },
   ];
 
   if (isLoading) {
@@ -86,17 +83,17 @@ const AllPatients = () => {
     <>
       <div className="hide-scrollbar overflow-auto text-sm rounded-lg border border-gray-200 min-h-96">
         <table className="min-w-full table-fixed">
-          <thead className="text-xs bg-white sticky top-0 z-10">
-            <tr className="relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-gray-200">
+          <thead className="text-xs bg-white">
+            <tr className="border-b border-gray-200">
               {columns.map((column) => (
                 <th
                   key={column.uid}
                   className={`text-left py-2 px-4 font-semibold text-gray-500 ${
-                    column.uid === "id"
-                      ? "w-1/10"
-                      : column.uid === "name"
-                      ? "w-4/10"
-                      : "w-1/4"
+                    column.uid === "name"
+                      ? "w-[55%]"
+                      : column.uid === "contactNumber"
+                      ? "w-[35%]"
+                      : "w-[10%]"
                   }`}
                 >
                   {column.name}
@@ -112,11 +109,11 @@ const AllPatients = () => {
                     <td
                       key={column.uid}
                       className={`py-2 px-2 ${
-                        column.uid === "id"
-                          ? "w-1/10"
-                          : column.uid === "name"
-                          ? "w-4/10"
-                          : "w-1/4"
+                        column.uid === "name"
+                          ? "w-[55%]"
+                          : column.uid === "contactNumber"
+                          ? "w-[35%]"
+                          : "w-[10%]"
                       }`}
                     >
                       <div className="px-2">
