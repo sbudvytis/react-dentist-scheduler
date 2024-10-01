@@ -19,7 +19,7 @@ export interface PatientData {
 export interface Appointment {
   userId: number;
   id: number;
-  scheduleId: number | null;
+  scheduleId?: number | null;
   title: string;
   start: Date;
   end: Date;

@@ -2,7 +2,7 @@ import useUser from "@/hooks/useUser";
 import useAuth from "@/hooks/useAuth";
 import type { UserBare } from "@mono/server/src/shared/entities";
 import { IoPersonRemoveOutline } from "react-icons/io5";
-import { Chip, ChipProps, Tooltip, User } from "@nextui-org/react"; // Keep Tooltip from NextUI
+import { Chip, ChipProps, Spinner, Tooltip, User } from "@nextui-org/react"; // Keep Tooltip from NextUI
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",
@@ -11,7 +11,7 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 
 const AllUsers = () => {
   const { userId } = useAuth(); // Get the current user's ID
-  const { users, removeUser } = useUser(true, userId); // Pass it to useUser
+  const { users, removeUser, usersLoading } = useUser(true, userId); // Pass it to useUser
 
   const renderCell = (user: UserBare, columnKey: React.Key) => {
     switch (columnKey) {
@@ -44,7 +44,7 @@ const AllUsers = () => {
       case "actions":
         return (
           <div className="relative flex gap-2">
-            {user.id !== userId && ( // Disable remove action for logged-in user
+            {user.id !== userId && (
               <Tooltip color="danger" content="Remove user" radius="sm">
                 <span
                   className="text-lg text-red-500 cursor-pointer active:opacity-50"
@@ -68,6 +68,14 @@ const AllUsers = () => {
     { name: "Status", uid: "status" },
     { name: "Actions", uid: "actions" },
   ];
+
+  if (usersLoading) {
+    return (
+      <div className="flex items-center justify-center py-48">
+        <Spinner color="default" />
+      </div>
+    );
+  }
 
   return (
     <div className="hide-scrollbar overflow-auto text-sm rounded-lg border border-gray-200 min-h-96 max-h-96">

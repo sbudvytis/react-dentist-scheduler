@@ -21,7 +21,7 @@ interface AppointmentFormProps {
   loading: boolean;
   showDeleteButton?: boolean;
   submitButtonText: string;
-  showAutocomplete: boolean; // New prop to control autocomplete visibility
+  showAutocomplete: boolean;
 }
 
 const AppointmentForm: React.FC<AppointmentFormProps> = ({
@@ -42,7 +42,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     patient: initialData.patient,
   });
 
-  const { patients } = usePatients();
+  const { patients } = usePatients(0, 0);
 
   useEffect(() => {
     setFormData({
@@ -99,162 +99,164 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="grid space-y-4">
-      <div className="pb-4 flex-col space-y-2">
-        <h1 className="lg:text-3xl text-xl font-semibold">
-          {submitButtonText === "Add Appointment"
-            ? "Create an Appointment"
-            : "Edit Appointment"}
-        </h1>
-      </div>
-
-      {showAutocomplete && (
-        <div className="w-full">
-          <Autocomplete
-            label="Search for a patient"
-            radius="sm"
-            size="sm"
-            description="Search for a patient by name or create a new down below"
-            onSelectionChange={handlePatientSelect}
-          >
-            {patients.map((patient: Patient) => (
-              <AutocompleteItem key={patient.patientId.toString()}>
-                {`${patient.firstName} ${patient.lastName}`}
-              </AutocompleteItem>
-            ))}
-          </Autocomplete>
+    <div className="sm:mx-auto sm:w-full sm:max-w-lg p-6">
+      <form onSubmit={handleSubmit} className="grid space-y-4">
+        <div className="pb-4 flex-col space-y-2">
+          <h1 className="lg:text-3xl text-xl font-semibold">
+            {submitButtonText === "Add Appointment"
+              ? "Create an Appointment"
+              : "Edit Appointment"}
+          </h1>
         </div>
-      )}
-      <div>
-        <Input
-          type="text"
-          label="Appointment title"
-          name="title"
-          isRequired
-          radius="sm"
-          size="sm"
-          value={formData.title}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      <div className="flex gap-3">
-        <div className="w-full">
+
+        {showAutocomplete && (
+          <div className="w-full">
+            <Autocomplete
+              label="Search for a patient"
+              radius="sm"
+              size="sm"
+              description="Search for a patient by name or create a new down below"
+              onSelectionChange={handlePatientSelect}
+            >
+              {patients.map((patient: Patient) => (
+                <AutocompleteItem key={patient.patientId.toString()}>
+                  {`${patient.firstName} ${patient.lastName}`}
+                </AutocompleteItem>
+              ))}
+            </Autocomplete>
+          </div>
+        )}
+        <div>
           <Input
             type="text"
-            label="First name"
-            name="firstName"
+            label="Appointment title"
+            name="title"
             isRequired
             radius="sm"
             size="sm"
-            value={formData.patient.firstName}
+            value={formData.title}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className="flex gap-3">
+          <div className="w-full">
+            <Input
+              type="text"
+              label="First name"
+              name="firstName"
+              isRequired
+              radius="sm"
+              size="sm"
+              value={formData.patient.firstName}
+              onChange={handlePatientDataChange}
+              required
+            />
+          </div>
+          <div className="w-full">
+            <Input
+              type="text"
+              label="Last name"
+              name="lastName"
+              isRequired
+              radius="sm"
+              size="sm"
+              value={formData.patient.lastName}
+              onChange={handlePatientDataChange}
+              required
+            />
+          </div>
+        </div>
+        <div>
+          <Input
+            type="text"
+            label="Phone number"
+            name="contactNumber"
+            isRequired
+            radius="sm"
+            size="sm"
+            value={formData.patient.contactNumber}
             onChange={handlePatientDataChange}
             required
           />
         </div>
-        <div className="w-full">
+        <div>
           <Input
-            type="text"
-            label="Last name"
-            name="lastName"
+            type="email"
+            label="Email"
+            name="email"
             isRequired
             radius="sm"
             size="sm"
-            value={formData.patient.lastName}
-            onChange={handlePatientDataChange}
+            value={formData.email}
+            onChange={handleInputChange}
             required
           />
         </div>
-      </div>
-      <div>
-        <Input
-          type="text"
-          label="Phone number"
-          name="contactNumber"
-          isRequired
-          radius="sm"
-          size="sm"
-          value={formData.patient.contactNumber}
-          onChange={handlePatientDataChange}
-          required
-        />
-      </div>
-      <div>
-        <Input
-          type="email"
-          label="Email"
-          name="email"
-          isRequired
-          radius="sm"
-          size="sm"
-          value={formData.email}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      <div>
-        <DatePicker
-          hourCycle={24}
-          label="Start"
-          variant="flat"
-          hideTimeZone
-          showMonthAndYearPickers
-          isRequired
-          radius="sm"
-          size="sm"
-          value={parseAbsoluteToLocal(formData.start.toISOString())}
-          onChange={handleDateChange("start")}
-        />
-      </div>
-      <div>
-        <DatePicker
-          hourCycle={24}
-          label="End"
-          variant="flat"
-          hideTimeZone
-          showMonthAndYearPickers
-          isRequired
-          radius="sm"
-          size="sm"
-          value={parseAbsoluteToLocal(formData.end.toISOString())}
-          onChange={handleDateChange("end")}
-        />
-      </div>
-      <div>
-        <Textarea
-          label="Notes"
-          name="notes"
-          isRequired
-          required
-          radius="sm"
-          size="sm"
-          value={formData.notes}
-          onChange={handleInputChange}
-        />
-      </div>
-      <Button
-        type="submit"
-        variant="bordered"
-        radius="sm"
-        disabled={isSubmitting}
-        className="border-1 border-gray-200 shadow-md shadow-gray-100"
-      >
-        {isSubmitting ? "Processing..." : submitButtonText}
-      </Button>
-
-      {showDeleteButton && (
+        <div>
+          <DatePicker
+            hourCycle={24}
+            label="Start"
+            variant="flat"
+            hideTimeZone
+            showMonthAndYearPickers
+            isRequired
+            radius="sm"
+            size="sm"
+            value={parseAbsoluteToLocal(formData.start.toISOString())}
+            onChange={handleDateChange("start")}
+          />
+        </div>
+        <div>
+          <DatePicker
+            hourCycle={24}
+            label="End"
+            variant="flat"
+            hideTimeZone
+            showMonthAndYearPickers
+            isRequired
+            radius="sm"
+            size="sm"
+            value={parseAbsoluteToLocal(formData.end.toISOString())}
+            onChange={handleDateChange("end")}
+          />
+        </div>
+        <div>
+          <Textarea
+            label="Notes"
+            name="notes"
+            isRequired
+            required
+            radius="sm"
+            size="sm"
+            value={formData.notes}
+            onChange={handleInputChange}
+          />
+        </div>
         <Button
-          type="button"
+          type="submit"
           variant="bordered"
-          color="danger"
           radius="sm"
-          onClick={onDelete}
-          className="mt-2 border-1 border-rose-500 shadow-md shadow-rose-100"
+          disabled={isSubmitting}
+          className="border-1 border-gray-200 shadow-md shadow-gray-100"
         >
-          {loading ? "Removing..." : "Remove Appointment"}
+          {isSubmitting ? "Processing..." : submitButtonText}
         </Button>
-      )}
-    </form>
+
+        {showDeleteButton && (
+          <Button
+            type="button"
+            variant="bordered"
+            color="danger"
+            radius="sm"
+            onClick={onDelete}
+            className="mt-2 border-1 border-rose-500 shadow-md shadow-rose-100"
+          >
+            {loading ? "Removing..." : "Remove Appointment"}
+          </Button>
+        )}
+      </form>
+    </div>
   );
 };
 

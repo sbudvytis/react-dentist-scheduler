@@ -1,4 +1,4 @@
-import { User, Chip, Tooltip, ChipProps } from "@nextui-org/react";
+import { User, Chip, Tooltip, ChipProps, Spinner } from "@nextui-org/react";
 import { IoPersonRemoveOutline } from "react-icons/io5";
 import { CheckIcon } from "../icons/CheckIcon";
 import useUser from "@/hooks/useUser";
@@ -10,7 +10,7 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 };
 
 const AdminPanel = () => {
-  const { users, approveUser, removeUser } = useUser(false, null);
+  const { users, approveUser, removeUser, usersLoading } = useUser(false, null);
 
   const renderCell = (user: UserBare, columnKey: React.Key) => {
     const cellValue = user[columnKey as keyof UserBare];
@@ -72,6 +72,14 @@ const AdminPanel = () => {
     { name: "Status", uid: "status" },
     { name: "Actions", uid: "actions" },
   ];
+
+  if (usersLoading) {
+    return (
+      <div className="flex items-center justify-center py-48">
+        <Spinner color="default" />
+      </div>
+    );
+  }
 
   return (
     <div className="hide-scrollbar overflow-auto text-sm rounded-lg border border-gray-200 min-h-96 max-h-96">

@@ -21,6 +21,10 @@ export default {
       maxWidth: {
         "8xl": "96rem",
       },
+      width: {
+        "1/10": "10%",
+        "4/10": "40%",
+      },
     },
   },
   darkMode: "class",

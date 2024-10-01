@@ -59,7 +59,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
   };
 
   return (
-    <div className="sm:mx-auto sm:w-full sm:max-w-lg p-6">
+    <>
       <AppointmentForm
         initialData={localFormData}
         onSubmit={handleAddAppointment}
@@ -73,7 +73,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
       {appointmentsError && (
         <p className="text-red-500 text-sm mt-2">{appointmentsError}</p>
       )}
-    </div>
+    </>
   );
 };
 

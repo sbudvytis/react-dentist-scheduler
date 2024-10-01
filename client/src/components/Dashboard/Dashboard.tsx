@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  Modal,
-  ModalContent,
-  ModalBody,
-  Card,
-  CardBody,
-} from "@nextui-org/react";
+import { Modal, ModalContent, ModalBody } from "@nextui-org/react";
 import useCalendar from "@/hooks/useCalendar";
 import useAppointments from "@/hooks/useAppointment";
 import { useSelectedSchedule } from "@/hooks/useSelectedSchedule";
@@ -31,7 +25,7 @@ const Dashboard = () => {
     end: new Date(),
   });
   const { selectedScheduleId, setSelectedScheduleId } = useSelectedSchedule();
-  const { canViewAllSchedules } = useAuth();
+  const { canViewAllSchedules, isDentist } = useAuth();
   const {
     appointments,
     appointmentsLoading,
@@ -73,14 +67,19 @@ const Dashboard = () => {
   };
 
   if (schedules.length === 0 && !schedulesLoading) {
+    const message = isDentist
+      ? "You have not created your schedule yet."
+      : "No schedules available.";
+
     return (
-      <Card className="border-none text-default-500" shadow="sm" radius="sm">
-        <CardBody className="text-center">
-          <p className="relative flex justify-center items-center gap-2">
-            You have not created your schedule yet. Create one!
+      <table className="border-1 flex p-4 rounded-lg min-h-96 justify-center items-center text-gray-600">
+        <tbody className="text-center">
+          <img src="/no-data.svg" alt="No data" className="size-96 py-4" />
+          <p className="relative flex justify-center items-center gap-2 pt-4">
+            {message}
           </p>
-        </CardBody>
-      </Card>
+        </tbody>
+      </table>
     );
   }
 

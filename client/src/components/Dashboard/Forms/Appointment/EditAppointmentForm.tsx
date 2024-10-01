@@ -66,23 +66,26 @@ const EditAppointmentForm = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onClose}>
+    <Modal
+      isOpen={isOpen}
+      onOpenChange={onClose}
+      scrollBehavior="inside"
+      radius="sm"
+    >
       <ModalContent>
         <ModalBody>
-          <div className="sm:mx-auto sm:w-full sm:max-w-lg p-6">
-            <AppointmentForm
-              initialData={formData}
-              selectedDateRange={selectedDateRange}
-              onSubmit={handleSubmit}
-              onClose={onClose}
-              isSubmitting={false}
-              loading={loading}
-              submitButtonText="Save Changes"
-              showDeleteButton
-              showAutocomplete={false}
-              onDelete={handleDelete}
-            />
-          </div>
+          <AppointmentForm
+            initialData={formData}
+            selectedDateRange={selectedDateRange}
+            onSubmit={handleSubmit}
+            onClose={onClose}
+            isSubmitting={false}
+            loading={loading}
+            submitButtonText="Save Changes"
+            showDeleteButton
+            showAutocomplete={false}
+            onDelete={handleDelete}
+          />
         </ModalBody>
       </ModalContent>
     </Modal>

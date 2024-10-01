@@ -39,7 +39,7 @@ const EditCalendarForm: React.FC<EditCalendarFormProps> = ({
   }
 
   return (
-    <div>
+    <>
       <CalendarForm
         initialData={initialData}
         onSubmit={handleEditCalendar}
@@ -47,7 +47,7 @@ const EditCalendarForm: React.FC<EditCalendarFormProps> = ({
         isSubmitting={false}
         submitButtonText="Save Changes"
       />
-    </div>
+    </>
   );
 };
 

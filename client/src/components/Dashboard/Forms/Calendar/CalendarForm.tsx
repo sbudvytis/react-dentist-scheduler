@@ -60,7 +60,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
   };
 
   return (
-    <div className="sm:mx-auto sm:w-full sm:max-w-lg bg-white rounded-2xl p-6">
+    <div className="sm:mx-auto sm:w-full sm:max-w-lg p-6">
       <form onSubmit={handleSubmit} className="grid space-y-4">
         <div className="pb-4 flex-col space-y-2">
           <h1 className="lg:text-3xl text-xl font-semibold">

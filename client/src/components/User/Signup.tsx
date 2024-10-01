@@ -111,6 +111,7 @@ const Signup = () => {
                     required
                     isRequired
                     radius="sm"
+                    size="sm"
                   />
                 </div>
 
@@ -124,6 +125,7 @@ const Signup = () => {
                     errorMessage={errors.lastName}
                     isRequired
                     radius="sm"
+                    size="sm"
                   />
                 </div>
               </div>
@@ -137,6 +139,7 @@ const Signup = () => {
                   errorMessage={errors.email}
                   isRequired
                   radius="sm"
+                  size="sm"
                 />
               </div>
               <div className="min-h-16">
@@ -149,6 +152,7 @@ const Signup = () => {
                   errorMessage={errors.password}
                   isRequired
                   radius="sm"
+                  size="sm"
                 />
               </div>
               <div className="min-h-16">
@@ -160,6 +164,7 @@ const Signup = () => {
                   errorMessage={errors.role}
                   isRequired
                   radius="sm"
+                  size="sm"
                 >
                   {roles.map((role) => (
                     <SelectItem key={role.value} value={role.value}>

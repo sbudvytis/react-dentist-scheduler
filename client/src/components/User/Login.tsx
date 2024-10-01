@@ -77,6 +77,7 @@ const Login = () => {
                   errorMessage={errors.email}
                   isRequired
                   radius="sm"
+                  size="sm"
                 />
               </div>
 
@@ -90,6 +91,7 @@ const Login = () => {
                   errorMessage={errors.password}
                   isRequired
                   radius="sm"
+                  size="sm"
                 />
               </div>
 
