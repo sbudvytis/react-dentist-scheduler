@@ -17,10 +17,16 @@ it('should give a list of patients', async () => {
     }),
   ])
 
-  const patients = await find()
+  const input = {
+    page: 0,
+    pageSize: 10,
+    all: false,
+  }
 
-  expect(patients).toHaveLength(1)
-  expect(patients[0]).toMatchObject({
+  const result = await find(input)
+
+  expect(result.patients).toHaveLength(1)
+  expect(result.patients[0]).toMatchObject({
     patientId: 1,
     firstName: 'John',
     lastName: 'Doe',
