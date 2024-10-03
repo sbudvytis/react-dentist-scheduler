@@ -152,6 +152,7 @@ const Dashboard = () => {
         isOpen={isAddModalOpen}
         onOpenChange={handleAddAppointmentClose}
         radius="sm"
+        scrollBehavior="inside"
       >
         <ModalContent>
           <ModalBody>

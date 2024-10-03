@@ -115,6 +115,7 @@ const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
           isOpen={true}
           onClose={closeModal}
           content={modalContent[activeModal]}
+          scrollBehavior="inside"
         />
       )}
     </>
