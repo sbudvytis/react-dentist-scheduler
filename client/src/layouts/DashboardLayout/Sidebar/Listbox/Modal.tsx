@@ -13,7 +13,7 @@ const ModalComponent: React.FC<ModalProps> = ({
   onClose,
   content,
   size,
-  scrollBehavior = "inside",
+  scrollBehavior = "normal",
 }) => {
   return (
     <Modal

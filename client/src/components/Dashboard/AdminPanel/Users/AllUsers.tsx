@@ -81,7 +81,7 @@ const AllUsers = () => {
     <div className="hide-scrollbar overflow-auto text-sm rounded-lg border border-gray-200 min-h-96 max-h-96">
       <table className="min-w-full">
         <thead className="text-xs bg-white sticky top-0 z-10">
-          <tr className="relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-gray-200">
+          <tr className="border-b border-gray-200">
             {columns.map((column) => (
               <th
                 key={column.uid}
@@ -94,7 +94,10 @@ const AllUsers = () => {
         </thead>
         <tbody>
           {users.map((user: UserBare) => (
-            <tr key={user.id} className="hover:bg-gray-50">
+            <tr
+              key={user.id}
+              className="hover:bg-gray-100 even:bg-white odd:bg-gray-50"
+            >
               {columns.map((column) => (
                 <td key={column.uid} className="py-2 px-2">
                   <div className="px-2">{renderCell(user, column.uid)}</div>

@@ -5,15 +5,19 @@ import AppointmentModal from "./AppointmentModal";
 import { Appointment } from "@/components/Dashboard/types";
 import { Button, Pagination, Spinner, Tooltip } from "@nextui-org/react";
 import { IoCalendarOutline } from "react-icons/io5";
+import PatientSearch from "./PatientSearch";
 
 const AllPatients = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 7;
+  const [searchTerm, setSearchTerm] = useState("");
+  const pageSize = 6;
 
   const { patients, isLoading, totalPatients } = usePatients(
     currentPage,
-    pageSize
+    pageSize,
+    searchTerm
   );
+
   const [selectedAppointments, setSelectedAppointments] = useState<
     Appointment[]
   >([]);
@@ -32,6 +36,11 @@ const AllPatients = () => {
     setSelectedPatientName("");
   };
 
+  const handleSearchTermChange = (searchTerm: string) => {
+    setSearchTerm(searchTerm);
+    setCurrentPage(1);
+  };
+
   const renderCell = (patient: Patient, columnKey: React.Key) => {
     switch (columnKey) {
       case "name":
@@ -42,7 +51,6 @@ const AllPatients = () => {
         );
       case "contactNumber":
         return <div>{patient.contactNumber}</div>;
-
       case "history":
         return (
           <Tooltip content="Appointment History" placement="top">
@@ -80,58 +88,70 @@ const AllPatients = () => {
   }
 
   return (
-    <>
-      <div className="hide-scrollbar overflow-auto text-sm rounded-lg border border-gray-200 min-h-96">
-        <table className="min-w-full table-fixed">
-          <thead className="text-xs bg-white">
-            <tr className="border-b border-gray-200">
-              {columns.map((column) => (
-                <th
-                  key={column.uid}
-                  className={`text-left py-2 px-4 font-semibold text-gray-500 ${
-                    column.uid === "name"
-                      ? "w-[55%]"
-                      : column.uid === "contactNumber"
-                      ? "w-[35%]"
-                      : "w-[10%]"
-                  }`}
-                >
-                  {column.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {patients.length > 0 ? (
-              patients.map((patient) => (
-                <tr key={patient.patientId} className="hover:bg-gray-50">
-                  {columns.map((column) => (
-                    <td
-                      key={column.uid}
-                      className={`py-2 px-2 ${
-                        column.uid === "name"
-                          ? "w-[55%]"
-                          : column.uid === "contactNumber"
-                          ? "w-[35%]"
-                          : "w-[10%]"
-                      }`}
-                    >
-                      <div className="px-2">
-                        {renderCell(patient, column.uid)}
-                      </div>
-                    </td>
-                  ))}
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={columns.length} className="py-2 px-4 text-center">
-                  No patients found
-                </td>
+    <div className="flex flex-col min-h-[calc(100vh-200px)] relative">
+      <PatientSearch
+        searchTerm={searchTerm}
+        setSearchTerm={handleSearchTermChange}
+      />
+      <div className="hide-scrollbar overflow-auto text-sm flex-grow">
+        <div className="overflow-auto rounded-lg border border-gray-200 relative min-h-32 max-h-96">
+          <table className="min-w-full">
+            <thead className="text-xs bg-white">
+              <tr className="border-b border-gray-200">
+                {columns.map((column) => (
+                  <th
+                    key={column.uid}
+                    className={`text-left py-2 px-4 font-semibold text-gray-500 ${
+                      column.uid === "name"
+                        ? "w-[55%]"
+                        : column.uid === "contactNumber"
+                        ? "w-[35%]"
+                        : "w-[10%]"
+                    }`}
+                  >
+                    {column.name}
+                  </th>
+                ))}
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {patients.length > 0 ? (
+                patients.map((patient) => (
+                  <tr
+                    key={patient.patientId}
+                    className="hover:bg-gray-100 even:bg-white odd:bg-gray-50"
+                  >
+                    {columns.map((column) => (
+                      <td
+                        key={column.uid}
+                        className={`py-2 px-2 ${
+                          column.uid === "name"
+                            ? "w-[55%]"
+                            : column.uid === "contactNumber"
+                            ? "w-[35%]"
+                            : "w-[10%]"
+                        }`}
+                      >
+                        <div className="px-2">
+                          {renderCell(patient, column.uid)}
+                        </div>
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan={columns.length}
+                    className="py-2 px-4 text-center"
+                  >
+                    No patients found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
 
         <AppointmentModal
           appointments={selectedAppointments}
@@ -140,7 +160,10 @@ const AllPatients = () => {
           patientName={selectedPatientName}
         />
       </div>
-      <div className="flex justify-center py-4">
+      <div className="flex lg:justify-start justify-center items-center gap-4 py-4">
+        <span className="text-sm">
+          Page {currentPage} of {Math.ceil(totalPatients / pageSize)}
+        </span>
         <Pagination
           total={Math.ceil(totalPatients / pageSize)}
           page={currentPage}
@@ -148,9 +171,10 @@ const AllPatients = () => {
           initialPage={1}
           variant="bordered"
           color="default"
+          showControls
         />
       </div>
-    </>
+    </div>
   );
 };
 

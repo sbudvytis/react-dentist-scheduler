@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal, ModalContent, ModalBody } from "@nextui-org/react";
 import useCalendar from "@/hooks/useCalendar";
 import useAppointments from "@/hooks/useAppointment";
@@ -49,61 +49,92 @@ const Dashboard = () => {
     handleAddAppointmentClose,
   } = useModal();
 
-  if ((schedulesLoading || appointmentsLoading) && schedules.length > 0) {
+  // New loadingComplete state to manage when to show content
+  const [loadingComplete, setLoadingComplete] = useState(false);
+
+  useEffect(() => {
+    // Check if loading has finished
+    if (!schedulesLoading && !appointmentsLoading) {
+      setLoadingComplete(true);
+    }
+  }, [schedulesLoading, appointmentsLoading]);
+
+  // Show loading spinner while schedules or appointments are loading
+  if (!loadingComplete) {
     return <LoadingSpinner />;
   }
 
+  // Show error message if there's an error
   if (schedulesError || (appointmentsError && selectedScheduleId != null)) {
     return <p>Error loading data</p>;
   }
 
-  const handleSelectedScheduleById: React.ChangeEventHandler<
-    HTMLSelectElement
-  > = (event) => {
-    const scheduleId = parseInt(event.target.value);
+  const handleSelectedScheduleById = (value: string | number) => {
+    const scheduleId = parseInt(value.toString());
     if (scheduleId !== selectedScheduleId) {
       setSelectedScheduleId(scheduleId);
     }
   };
 
-  if (schedules.length === 0 && !schedulesLoading) {
-    const message = isDentist
-      ? "You have not created your schedule yet."
-      : "No schedules available.";
-
-    return (
-      <table className="border-1 flex p-4 rounded-lg min-h-96 justify-center items-center text-gray-600">
-        <tbody className="text-center">
-          <img src="/no-data.svg" alt="No data" className="size-96 py-4" />
-          <p className="relative flex justify-center items-center gap-2 pt-4">
-            {message}
-          </p>
-        </tbody>
-      </table>
-    );
-  }
+  // Check if there are schedules
+  const hasSchedules = schedules.length > 0;
 
   return (
     <div>
-      {canViewAllSchedules && (
-        <SelectSpecialist
-          schedules={schedules}
-          handleSelectedScheduleById={handleSelectedScheduleById}
-          selectedScheduleId={selectedScheduleId}
-        />
-      )}
+      {hasSchedules ? (
+        <>
+          <div className="pb-4">
+            <h1 className="text-xl text-left flex items-center gap-2 text-gray-800 font-semibold">
+              Schedule
+            </h1>
+            <h2 className="text-sm text-gray-400">
+              View schedule and appointments
+            </h2>
+          </div>
+          {canViewAllSchedules && (
+            <SelectSpecialist
+              schedules={schedules}
+              handleSelectedScheduleById={handleSelectedScheduleById}
+              selectedScheduleId={selectedScheduleId}
+            />
+          )}
 
-      {selectedScheduleId !== null && (
-        <Calendar
-          config={selectScheduleById(selectedScheduleId) as CalendarConfig}
-          appointments={appointments as Appointment[]}
-          editAppointment={editAppointment}
-          setSelectedAppointment={setSelectedAppointment}
-          setIsEditModalOpen={setIsEditModalOpen}
-          setSelectedDateRange={setSelectedDateRange}
-          setSelectInfo={setSelectInfo}
-          setIsAddModalOpen={setIsAddModalOpen}
-        />
+          {selectedScheduleId !== null && (
+            <Calendar
+              config={selectScheduleById(selectedScheduleId) as CalendarConfig}
+              appointments={appointments as Appointment[]}
+              editAppointment={editAppointment}
+              setSelectedAppointment={setSelectedAppointment}
+              setIsEditModalOpen={setIsEditModalOpen}
+              setSelectedDateRange={setSelectedDateRange}
+              setSelectInfo={setSelectInfo}
+              setIsAddModalOpen={setIsAddModalOpen}
+            />
+          )}
+        </>
+      ) : (
+        <table className="border-1 flex p-4 rounded-lg min-h-96 justify-center items-center text-gray-600">
+          <tbody className="text-center">
+            <tr>
+              <td>
+                <img
+                  src="/no-data.svg"
+                  alt="No data"
+                  className="size-96 py-4"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p className="relative flex justify-center items-center gap-2 pt-4">
+                  {isDentist
+                    ? "You have not created your schedule yet."
+                    : "No schedules available."}
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       )}
 
       {selectedAppointment && (

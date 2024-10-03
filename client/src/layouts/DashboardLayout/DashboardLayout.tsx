@@ -10,7 +10,7 @@ import useAuth from "@/hooks/useAuth";
 
 type LayoutProps = {
   layoutType?: "admin" | "default" | "settings";
-  className?: string; // Add this line
+  className?: string;
 };
 
 const DashboardLayout: React.FC<LayoutProps> = ({
@@ -19,11 +19,9 @@ const DashboardLayout: React.FC<LayoutProps> = ({
 }) => {
   const { schedules, schedulesLoading } = useCalendar();
   const [hasSchedule, setHasSchedule] = useState(false);
-  const [isLoading, setLoading] = useState<boolean>(true);
   const { canApproveUsers } = useAuth();
 
   useEffect(() => {
-    setLoading(schedulesLoading);
     setHasSchedule(schedules && schedules.length > 0);
   }, [schedules, schedulesLoading]);
 
@@ -31,18 +29,24 @@ const DashboardLayout: React.FC<LayoutProps> = ({
     switch (layoutType) {
       case "admin":
         if (canApproveUsers) {
-          return <AdminListboxItems isLoading={isLoading} />;
+          return <AdminListboxItems isLoading={schedulesLoading} />;
         }
         break;
       case "settings":
-        return <SettingsListboxItems isLoading={isLoading} />;
+        return <SettingsListboxItems isLoading={schedulesLoading} />;
       default:
-        return <ListboxItems hasSchedule={hasSchedule} isLoading={isLoading} />;
+        return (
+          <ListboxItems
+            hasSchedule={hasSchedule}
+            isLoading={schedulesLoading}
+          />
+        );
     }
   };
 
+  // Only show content when loading is false
   return (
-    <main className={`flex flex-col inset-0 min-h-full`}>
+    <main className="flex flex-col inset-0 min-h-full">
       <div className="relative flex flex-1 w-full">
         <div className="relative flex w-full">
           <Sidebar className="lg:min-w-64 lg:max-w-64 md:min-w-56 flex-none bg-gray-50 ">

@@ -1,10 +1,9 @@
+import { Select, SelectItem } from "@nextui-org/react";
 import type { ScheduleWithUser } from "@mono/server/src/shared/entities";
 
 interface SelectSpecialistProps {
   schedules: ScheduleWithUser[];
-  handleSelectedScheduleById: (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => void;
+  handleSelectedScheduleById: (value: string | number) => void;
   selectedScheduleId: number | null;
 }
 
@@ -15,20 +14,25 @@ const SelectSpecialist: React.FC<SelectSpecialistProps> = ({
 }) => {
   return (
     <div className="pb-8 w-full">
-      <select
-        value={selectedScheduleId !== null ? selectedScheduleId.toString() : ""}
-        onChange={handleSelectedScheduleById}
-        className="transition-all h-12 bg-gray-100 hover:bg-gray-200 text-gray-500 text-sm rounded-lg w-full px-2 focus:outline-none border-r-8 border-transparent"
+      <Select
+        label="Select Specialist"
+        placeholder="Choose a schedule"
+        disallowEmptySelection={true}
+        selectedKeys={selectedScheduleId ? [selectedScheduleId.toString()] : []}
+        onSelectionChange={(value) => {
+          // Extract the first (and only) value from the Set
+          const selectedValue =
+            value instanceof Set ? Array.from(value)[0] : value;
+          handleSelectedScheduleById(selectedValue);
+        }}
+        className="w-full"
       >
-        {schedules.map((schedule: ScheduleWithUser) => (
-          <option
-            key={schedule.scheduleId}
-            value={schedule.scheduleId.toString()}
-          >
+        {schedules.map((schedule) => (
+          <SelectItem key={schedule.scheduleId} value={schedule.scheduleId}>
             {`${schedule.user.firstName} ${schedule.user.lastName} (${schedule.user.email}) Schedule`}
-          </option>
+          </SelectItem>
         ))}
-      </select>
+      </Select>
     </div>
   );
 };

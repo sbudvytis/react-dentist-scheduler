@@ -1,15 +1,26 @@
+import useAuth from "@/hooks/useAuth";
 import AllPatients from "./AllPatients";
-import { IoMedicalOutline } from "react-icons/io5";
+import AdminGuard from "../AdminGuard";
 
 const Patients = () => {
+  const { canApproveUsers } = useAuth();
   return (
     <div className="flex flex-col lg:flex-row gap-4 w-full">
-      <div className="lg:w-full">
-        <h1 className="pb-4 text-sm text-left flex items-center gap-2 text-gray-600 font-bold">
-          <IoMedicalOutline /> Patients
-        </h1>
-        <AllPatients />
-      </div>
+      {canApproveUsers ? (
+        <div className="lg:w-full">
+          <div className="pb-4">
+            <h1 className="text-xl text-left flex items-center gap-2 text-gray-800 font-semibold">
+              Patients
+            </h1>
+            <h2 className="text-sm text-gray-400">
+              Find patient list and their appointments
+            </h2>
+          </div>
+          <AllPatients />
+        </div>
+      ) : (
+        <AdminGuard />
+      )}
     </div>
   );
 };

@@ -36,7 +36,7 @@ const NavigationBar = () => {
   const isUserSettings = location.pathname.includes("/dashboard/my-settings");
 
   return (
-    <nav className="border-b border-gray-200 bg-gray-50 relative z-30">
+    <nav className="border-b border-gray-200 bg-gray-50 relative z-20">
       <div className="mx-auto flex justify-between h-16">
         {/* Logo and mobile menu toggle */}
         <div className="flex items-center lg:min-w-64 lg:max-w-64 md:min-w-56 px-4">

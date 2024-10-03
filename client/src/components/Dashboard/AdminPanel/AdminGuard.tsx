@@ -1,26 +1,32 @@
-import { Card, CardBody } from "@nextui-org/react";
 import useAuth from "@/hooks/useAuth";
 
-type AdminGuardProps = {
-  children: React.ReactNode;
-};
-
-const AdminGuard = ({ children }: AdminGuardProps) => {
+const AdminGuard = () => {
   const { canApproveUsers } = useAuth();
 
   if (!canApproveUsers) {
     return (
-      <Card className="border-none text-default-500" radius="sm" shadow="sm">
-        <CardBody className="text-center">
-          <p className="relative flex justify-center items-center gap-2">
-            Hey there, looks like you don't have permission to access this page.
-          </p>
-        </CardBody>
-      </Card>
+      <table className="w-full border-1 flex p-4 rounded-lg min-h-96 justify-center items-center text-gray-600">
+        <tbody className="text-center">
+          <tr>
+            <td>
+              <img
+                src="/not-allowed.svg"
+                alt="No data"
+                className="size-96 py-4"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p className="relative flex justify-center items-center gap-2 pt-4">
+                You do not have permission to view this page!
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     );
   }
-
-  return <>{children}</>;
 };
 
 export default AdminGuard;

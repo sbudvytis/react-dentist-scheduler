@@ -6,15 +6,13 @@ const inputSchema = z.object({
   page: z.number().optional(),
   pageSize: z.number().optional(),
   all: z.boolean().optional(),
+  searchTerm: z.string().optional(),
 })
 
 export default authenticatedProcedure
   .input(inputSchema)
-  .query(async ({ input, ctx: { authUser, db } }) => {
-    const { page = 0, pageSize = 1, all = false } = input
-    const userPermissions = authUser.permissions || []
-    const userRole = authUser.role || ''
-    const canViewAllPatients = userPermissions.includes('VIEW_ALL_SCHEDULES')
+  .query(async ({ input, ctx: { db } }) => {
+    const { page = 0, pageSize = 1, all = false, searchTerm = '' } = input
 
     let skip
     let take
@@ -29,22 +27,21 @@ export default authenticatedProcedure
 
     const patientRepository = db.getRepository(Patient)
 
-    // Get total count for pagination
-    const totalPatients = await patientRepository.count()
+    let query = patientRepository
+      .createQueryBuilder('patient')
+      .leftJoinAndSelect('patient.appointments', 'appointments')
+      .orderBy('patient.patientId', 'DESC')
+      .skip(skip)
+      .take(take)
 
-    let patients: Patient[] = []
-    const patientQueryOptions = {
-      order: { patientId: 'DESC' as const },
-      relations: ['appointments'],
-      skip,
-      take,
+    if (searchTerm) {
+      query = query.where(
+        'patient.firstName ILIKE :searchTerm OR patient.lastName ILIKE :searchTerm OR patient.contactNumber ILIKE :searchTerm',
+        { searchTerm: `%${searchTerm}%` }
+      )
     }
 
-    if (canViewAllPatients) {
-      patients = await patientRepository.find(patientQueryOptions)
-    } else if (userRole === 'dentist') {
-      patients = await patientRepository.find(patientQueryOptions)
-    }
+    const [patients, totalPatients] = await query.getManyAndCount()
 
     return { patients, totalPatients }
   })

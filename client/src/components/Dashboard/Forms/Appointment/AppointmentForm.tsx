@@ -42,7 +42,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     patient: initialData.patient,
   });
 
-  const { patients } = usePatients(0, 0);
+  const { patients } = usePatients(0, 0, "");
 
   useEffect(() => {
     setFormData({
