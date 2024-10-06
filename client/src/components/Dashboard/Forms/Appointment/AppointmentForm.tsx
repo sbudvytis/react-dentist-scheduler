@@ -103,7 +103,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       <form onSubmit={handleSubmit} className="grid space-y-4">
         <div className="pb-4 flex-col space-y-2">
           <h1 className="lg:text-3xl text-xl font-semibold">
-            {submitButtonText === "Add Appointment"
+            {submitButtonText === "Create Appointment"
               ? "Create an Appointment"
               : "Edit Appointment"}
           </h1>
@@ -235,10 +235,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         </div>
         <Button
           type="submit"
-          variant="bordered"
+          variant="solid"
           radius="sm"
           disabled={isSubmitting}
-          className="border-1 border-gray-200 shadow-md shadow-gray-100"
+          className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white"
         >
           {isSubmitting ? "Processing..." : submitButtonText}
         </Button>
@@ -250,7 +250,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             color="danger"
             radius="sm"
             onClick={onDelete}
-            className="mt-2 border-1 border-rose-500 shadow-md shadow-rose-100"
+            className="border-1"
           >
             {loading ? "Removing..." : "Remove Appointment"}
           </Button>

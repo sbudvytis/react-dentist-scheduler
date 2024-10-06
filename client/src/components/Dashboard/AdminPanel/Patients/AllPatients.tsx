@@ -60,7 +60,7 @@ const AllPatients = () => {
               radius="sm"
               isIconOnly
               startContent={<IoCalendarOutline />}
-              className="border-1 bg-white border-gray-200 shadow-md shadow-gray-100"
+              className="border-1 bg-white border-gray-200"
               onClick={() =>
                 openModal(
                   patient.appointments,
@@ -143,9 +143,9 @@ const AllPatients = () => {
                 <tr>
                   <td
                     colSpan={columns.length}
-                    className="py-2 px-4 text-center"
+                    className="text-center py-4 text-gray-500"
                   >
-                    No patients found.
+                    No appointments found.
                   </td>
                 </tr>
               )}

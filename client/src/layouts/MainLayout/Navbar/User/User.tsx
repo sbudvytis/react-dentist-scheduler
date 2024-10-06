@@ -41,7 +41,7 @@ const User = () => {
               variant="bordered"
               radius="sm"
               isIconOnly={isMobile}
-              className="border-1 bg-white border-gray-200 shadow-md shadow-gray-100"
+              className="border-1 bg-white border-gray-200 font-medium"
             >
               {isMobile ? <IoSettingsOutline size={20} /> : currentUser.email}
             </Button>
@@ -55,9 +55,9 @@ const User = () => {
               className="cursor-default"
             >
               {isMobile ? (
-                <p className="font-semibold">{currentUser.email}</p>
+                <p className="font-medium">{currentUser.email}</p>
               ) : (
-                <p className="font-semibold">My Account</p>
+                <p className="font-medium">My Account</p>
               )}
             </DropdownItem>
             <DropdownItem

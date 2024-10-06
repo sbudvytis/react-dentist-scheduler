@@ -19,9 +19,10 @@ const MobileNavItems = ({ className, closeMenu }: Props) => {
               as={Link}
               to="/dashboard"
               color="default"
-              variant="bordered"
+              variant="solid"
               radius="sm"
-              className="border-1 bg-white border-gray-200 shadow-md shadow-gray-100"
+              size="sm"
+              className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white"
               onClick={closeMenu}
             >
               Dashboard
@@ -33,9 +34,10 @@ const MobileNavItems = ({ className, closeMenu }: Props) => {
                 as={Link}
                 to="/dashboard/admin-panel"
                 color="default"
-                variant="bordered"
+                variant="solid"
                 radius="sm"
-                className="border-1 bg-white border-gray-200 shadow-md shadow-gray-100"
+                size="sm"
+                className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white"
                 onClick={closeMenu}
               >
                 Admin Panel
@@ -52,7 +54,7 @@ const MobileNavItems = ({ className, closeMenu }: Props) => {
               color="default"
               variant="bordered"
               radius="sm"
-              className="border-1 bg-white border-gray-200 shadow-md shadow-gray-100"
+              className="border-1 bg-white border-gray-200"
               onClick={closeMenu}
             >
               Sign in / Sign up

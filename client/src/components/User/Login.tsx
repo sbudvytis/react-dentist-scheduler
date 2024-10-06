@@ -47,7 +47,7 @@ const Login = () => {
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-lg bg-white rounded-lg p-6 shadow-lg shadow-gray-100 border-1 border-gray-100">
+      <div className="sm:mx-auto sm:w-full sm:max-w-lg bg-white rounded-lg p-6 border-1 border-gray-200">
         <Formik
           initialValues={initialValues}
           validationSchema={LoginSchema}
@@ -61,13 +61,13 @@ const Login = () => {
                   Don't have an account?{" "}
                   <Link
                     to="/signup"
-                    className="text-violet-600 hover:text-violet-700"
+                    className="text-indigo-600 hover:text-indigo-700"
                   >
                     Sign up
                   </Link>
                 </p>
               </div>
-              <div className="min-h-16">
+              <div className="min-h-14">
                 <Field
                   name="email"
                   as={Input}
@@ -81,7 +81,7 @@ const Login = () => {
                 />
               </div>
 
-              <div className="min-h-16">
+              <div className="min-h-14">
                 <Field
                   name="password"
                   as={Input}
@@ -96,11 +96,11 @@ const Login = () => {
               </div>
 
               <Button
-                variant="bordered"
+                variant="solid"
                 radius="sm"
                 type="submit"
                 disabled={isSubmitting}
-                className="border-1 border-gray-200 shadow-md shadow-gray-100"
+                className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white"
               >
                 Sign in
               </Button>

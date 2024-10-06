@@ -21,7 +21,7 @@ const Users = () => {
           </div>
           <div className="flex flex-col lg:flex-row gap-4 w-full py-4">
             {/* Users waiting for approval */}
-            <div className="lg:w-1/2 lg:py-0 py-6">
+            <div className="lg:w-1/2 lg:py-0">
               <h1 className="pb-4 text-sm text-left flex items-center gap-2 text-gray-600 font-bold">
                 <IoPersonAddOutline /> Users waiting for approval
               </h1>

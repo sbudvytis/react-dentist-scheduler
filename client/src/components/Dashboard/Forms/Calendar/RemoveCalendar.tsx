@@ -53,7 +53,7 @@ const RemoveSchedule: React.FC<RemoveScheduleProps> = ({ onClose }) => {
           radius="sm"
           color="danger"
           disabled={loading}
-          className="mt-2 border-1 border-rose-500 shadow-md shadow-rose-100"
+          className="border-1"
         >
           {loading ? "Removing..." : "Remove Schedule"}
         </Button>

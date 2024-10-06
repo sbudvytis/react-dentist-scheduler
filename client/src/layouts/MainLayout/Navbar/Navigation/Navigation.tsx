@@ -11,7 +11,7 @@ import User from "@/layouts/MainLayout/Navbar/User/User";
 import { Button } from "@nextui-org/react";
 import { IoMenuOutline, IoCloseOutline } from "react-icons/io5";
 
-const NavigationBar = () => {
+export default function NavigationBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { schedules, schedulesLoading } = useCalendar();
   const [hasSchedule, setHasSchedule] = useState(false);
@@ -36,8 +36,8 @@ const NavigationBar = () => {
 
   return (
     <nav className="border-b border-gray-200 bg-gray-50 relative z-20 h-16">
-      <div className="mx-auto flex justify-between h-full">
-        <div className="flex items-center lg:min-w-64 lg:max-w-64 md:min-w-56 px-4">
+      <div className="mx-auto flex justify-between items-center h-full px-4">
+        <div className="flex items-center lg:min-w-60 lg:max-w-60 md:min-w-52">
           {isLoggedIn && (
             <Button
               isIconOnly
@@ -45,18 +45,24 @@ const NavigationBar = () => {
               variant="bordered"
               radius="sm"
               onClick={toggleMenu}
-              className="border-1 bg-white border-gray-200 shadow-md shadow-gray-100 focus:outline-none md:hidden"
+              className="border-1 bg-white border-gray-200 focus:outline-none md:hidden"
               aria-label="Toggle Menu"
             >
               <IoMenuOutline size={28} />
             </Button>
           )}
-          <div className="md:block hidden lg:min-w-64 lg:max-w-64">
+          <div className="hidden md:flex items-center lg:min-w-60 lg:max-w-60">
             <Link to="/dashboard" className="flex items-center">
               <img src="/logo1.png" alt="Logo" className="h-9" />
               <p className="ml-3 md:text-sm font-bold">Dentist Scheduler</p>
             </Link>
           </div>
+        </div>
+        <div className="flex md:hidden items-center absolute left-1/2 transform -translate-x-1/2">
+          <Link to="/dashboard" className="flex items-center">
+            <img src="/logo1.png" alt="Logo" className="h-9" />
+            <p className="ml-3 text-sm font-bold">Dentist Scheduler</p>
+          </Link>
         </div>
         {isLoggedIn ? (
           <div className="hidden md:block border-l-1 border-gray-200 h-full"></div>
@@ -64,7 +70,7 @@ const NavigationBar = () => {
         <div className="hidden md:flex items-center flex-grow px-4">
           {isLoggedIn && <NavItems className="text-sm pr-2" />}
         </div>
-        <div className="flex items-center px-4">
+        <div className="flex items-center">
           {isLoggedIn ? (
             <User />
           ) : (
@@ -74,7 +80,7 @@ const NavigationBar = () => {
               color="default"
               variant="bordered"
               radius="sm"
-              className="border-1 bg-white border-gray-200 shadow-md shadow-gray-100"
+              className="border-1 bg-white border-gray-200"
             >
               Sign in / Sign up
             </Button>
@@ -93,7 +99,7 @@ const NavigationBar = () => {
             variant="bordered"
             radius="sm"
             onClick={closeMenu}
-            className="absolute top-3 right-3 border-1 bg-white border-gray-200 shadow-md shadow-gray-100 focus:outline-none"
+            className="absolute top-3 right-3 border-1 bg-white border-gray-200 focus:outline-none"
             aria-label="Close Menu"
           >
             <IoCloseOutline size={28} />
@@ -120,6 +126,4 @@ const NavigationBar = () => {
       ></div>
     </nav>
   );
-};
-
-export default NavigationBar;
+}

@@ -66,7 +66,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
         onClose={onClose}
         selectedDateRange={selectedDateRange}
         isSubmitting={addAppointmentLoading}
-        submitButtonText="Add Appointment"
+        submitButtonText="Create Appointment"
         loading={removeAppointmentLoading}
         showAutocomplete={true}
       />
