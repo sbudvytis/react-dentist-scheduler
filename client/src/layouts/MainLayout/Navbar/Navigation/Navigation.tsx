@@ -31,14 +31,12 @@ const NavigationBar = () => {
   const closeMenu = () => setIsMenuOpen(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  // Determine if we are in the admin panel route
   const isAdminPanel = location.pathname.includes("/dashboard/admin-panel");
   const isUserSettings = location.pathname.includes("/dashboard/my-settings");
 
   return (
-    <nav className="border-b border-gray-200 bg-gray-50 relative z-20">
-      <div className="mx-auto flex justify-between h-16">
-        {/* Logo and mobile menu toggle */}
+    <nav className="border-b border-gray-200 bg-gray-50 relative z-20 h-16">
+      <div className="mx-auto flex justify-between h-full">
         <div className="flex items-center lg:min-w-64 lg:max-w-64 md:min-w-56 px-4">
           {isLoggedIn && (
             <Button
@@ -60,17 +58,12 @@ const NavigationBar = () => {
             </Link>
           </div>
         </div>
-        {/* Divider */}
         {isLoggedIn ? (
-          <div className="hidden md:block border-l-1 border-gray-200 h-16"></div>
+          <div className="hidden md:block border-l-1 border-gray-200 h-full"></div>
         ) : null}
-
-        {/* Desktop navigation */}
         <div className="hidden md:flex items-center flex-grow px-4">
           {isLoggedIn && <NavItems className="text-sm pr-2" />}
         </div>
-
-        {/* User actions */}
         <div className="flex items-center px-4">
           {isLoggedIn ? (
             <User />
@@ -88,15 +81,12 @@ const NavigationBar = () => {
           )}
         </div>
       </div>
-
-      {/* Mobile sliding menu */}
       <div
         className={`fixed inset-0 z-30 transform transition-transform duration-500 ease-in-out lg:hidden ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="relative w-72 h-full bg-white shadow-lg p-4 py-16 space-y-4 ">
-          {/* Close button inside the sidebar */}
+        <div className="relative w-72 h-full bg-white shadow-lg p-4 py-16 space-y-4">
           <Button
             isIconOnly
             color="default"
@@ -108,8 +98,6 @@ const NavigationBar = () => {
           >
             <IoCloseOutline size={28} />
           </Button>
-
-          {/* Sidebar content */}
           <MobileNavItems
             className="text-sm text-gray-600"
             closeMenu={closeMenu}
@@ -124,8 +112,6 @@ const NavigationBar = () => {
             ))}
         </div>
       </div>
-
-      {/* Dark overlay when menu is open */}
       <div
         className={`fixed inset-0 bg-black z-20 transition-opacity duration-500 ${
           isMenuOpen ? "opacity-50" : "opacity-0 pointer-events-none"
