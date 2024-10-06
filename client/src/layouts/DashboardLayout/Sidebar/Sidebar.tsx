@@ -1,6 +1,6 @@
 type Props = {
   className?: string;
-  children?: React.ReactNode; // Make this optional
+  children?: React.ReactNode;
 };
 
 const Sidebar = ({ className = "", children }: Props) => {
