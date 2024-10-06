@@ -13,7 +13,7 @@ const App = ({ children }: Props) => {
     <main className="flex flex-col inset-0 min-h-screen w-full bg-gray-50 overflow-hidden">
       <div className="relative flex h-[100dvh] flex-col hide-main-scrollbar">
         {!isLoggedIn && <NavigationBar />}
-        <div className="flex flex-1">{children}</div>
+        <div className="flex-1">{children}</div>
         <ToastContainer position="bottom-right" />
       </div>
     </main>
