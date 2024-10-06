@@ -46,9 +46,9 @@ const DashboardLayout: React.FC<LayoutProps> = ({
   };
 
   return (
-    <main className="flex flex-col min-h-screen">
+    <main className="flex flex-col inset-0 min-h-[100dvh] overflow-hidden">
       <NavigationBar />
-      <div className="flex flex-1">
+      <div className="relative flex flex-1 w-full overflow-hidden">
         <Sidebar className="lg:min-w-64 lg:max-w-64 md:min-w-56 flex-none bg-gray-50">
           {renderSidebarItems()}
         </Sidebar>
