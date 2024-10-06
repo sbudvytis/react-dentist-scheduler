@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #f9fafb;
+}
+
 /* Hide scrollbar for main content */
 .hide-main-scrollbar {
   scrollbar-width: none; /* Firefox */
