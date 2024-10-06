@@ -88,7 +88,7 @@ const AllPatients = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-200px)] relative">
+    <div className="flex flex-col min-h-[calc(100dvh-200px)] relative">
       <PatientSearch
         searchTerm={searchTerm}
         setSearchTerm={handleSearchTermChange}
