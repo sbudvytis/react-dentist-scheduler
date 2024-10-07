@@ -118,9 +118,9 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
               closeMenu();
             }}
             variant="solid"
-            size="sm"
+            radius="sm"
             className={cn(
-              "flex items-center space-x-2 text-sm focus:outline-none w-full bg-gradient-to-tr from-pink-500 to-yellow-500 text-white"
+              "flex items-center space-x-2 text-sm focus:outline-none w-full bg-black hover:bg-indigo-600 text-white h-9"
             )}
           >
             <IoTrashBinOutline className={iconClasses} />

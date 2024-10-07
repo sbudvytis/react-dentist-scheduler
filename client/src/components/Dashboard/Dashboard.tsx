@@ -113,28 +113,14 @@ const Dashboard = () => {
           )}
         </>
       ) : (
-        <table className="border-1 flex p-4 rounded-lg min-h-96 justify-center items-center text-gray-600">
-          <tbody className="text-center">
-            <tr>
-              <td>
-                <img
-                  src="/no-data.svg"
-                  alt="No data"
-                  className="size-96 py-4"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p className="relative flex justify-center items-center gap-2 pt-4">
-                  {isDentist
-                    ? "You have not created your schedule yet."
-                    : "No schedules available."}
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="flex flex-col justify-center items-center text-center p-4">
+          <img src="/no-data.svg" alt="No data" className="size-96 mb-4" />
+          <p className="text-gray-800">
+            {isDentist
+              ? "You have not created your schedule yet."
+              : "No schedules available."}
+          </p>
+        </div>
       )}
 
       {selectedAppointment && (

@@ -2,6 +2,8 @@ import { Button } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 
+import { IoAlbumsOutline, IoShieldCheckmarkOutline } from "react-icons/io5";
+
 type Props = {
   className?: string;
   closeMenu: () => void;
@@ -21,8 +23,8 @@ const MobileNavItems = ({ className, closeMenu }: Props) => {
               color="default"
               variant="solid"
               radius="sm"
-              size="sm"
-              className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white"
+              startContent={<IoAlbumsOutline />}
+              className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
               onClick={closeMenu}
             >
               Dashboard
@@ -36,8 +38,8 @@ const MobileNavItems = ({ className, closeMenu }: Props) => {
                 color="default"
                 variant="solid"
                 radius="sm"
-                size="sm"
-                className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white"
+                startContent={<IoShieldCheckmarkOutline />}
+                className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
                 onClick={closeMenu}
               >
                 Admin Panel

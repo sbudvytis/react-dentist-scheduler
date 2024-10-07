@@ -65,7 +65,7 @@ const AllPatients = () => {
               radius="sm"
               isIconOnly
               startContent={<IoCalendarOutline />}
-              className="border-1 bg-white border-gray-200"
+              className="border-1 bg-white border-gray-200 h-9"
               onClick={() =>
                 openModal(
                   patient.appointments,

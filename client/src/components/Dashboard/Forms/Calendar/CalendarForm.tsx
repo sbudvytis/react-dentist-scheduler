@@ -122,7 +122,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
           radius="sm"
           variant="solid"
           disabled={isSubmitting}
-          className="border-none bg-black hover:bg-indigo-600 text-white"
+          className="border-none bg-black hover:bg-indigo-600 text-white h-9"
         >
           {isSubmitting ? "Processing..." : submitButtonText}
         </Button>

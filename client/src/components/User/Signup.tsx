@@ -178,7 +178,7 @@ const Signup = () => {
                 radius="sm"
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-black hover:bg-indigo-600 text-white"
+                className="bg-black hover:bg-indigo-600 text-white h-9"
               >
                 Sign up
               </Button>
@@ -195,7 +195,7 @@ const Signup = () => {
 
         {errorMessage && (
           <div className="pt-6">
-            <div className="bg-[#f31260] text-white p-4 rounded-lg text-sm text-center">
+            <div className="bg-[#f25551] text-white p-4 rounded-lg text-sm text-center">
               <p>{errorMessage}</p>
             </div>
           </div>

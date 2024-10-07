@@ -8,7 +8,11 @@ import {
 import useAuth from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { getUserFromToken } from "@/utils/auth";
-import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
+import {
+  IoSettingsOutline,
+  IoLogOutOutline,
+  IoPersonOutline,
+} from "react-icons/io5";
 import { useMediaQuery } from "react-responsive";
 
 const User = () => {
@@ -16,6 +20,7 @@ const User = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const icons = {
+    user: <IoPersonOutline fill="currentColor" size={16} />,
     settings: <IoSettingsOutline fill="currentColor" size={16} />,
     logout: <IoLogOutOutline fill="currentColor" size={16} />,
   };
@@ -41,9 +46,15 @@ const User = () => {
               variant="bordered"
               radius="sm"
               isIconOnly={isMobile}
-              className="border-1 bg-white border-gray-200 font-medium"
+              className="border-1 bg-white border-gray-200 font-medium h-9"
             >
-              {isMobile ? <IoSettingsOutline size={20} /> : currentUser.email}
+              {isMobile ? (
+                <IoSettingsOutline size={20} />
+              ) : (
+                <>
+                  {<IoPersonOutline />} {currentUser.email}
+                </>
+              )}
             </Button>
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
@@ -55,7 +66,9 @@ const User = () => {
               className="cursor-default"
             >
               {isMobile ? (
-                <p className="font-medium">{currentUser.email}</p>
+                <p className="flex font-medium items-center gap-2">
+                  {icons.user} {currentUser.email}
+                </p>
               ) : (
                 <p className="font-medium">My Account</p>
               )}

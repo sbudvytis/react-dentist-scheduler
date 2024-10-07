@@ -9,16 +9,10 @@
 
 .fc-scrollgrid-section > td {
   background-color: #fff;
-  border-radius: 0px 0px 0px 0px !important;
 }
 
 .fc-scrollgrid-section > th {
   background-color: #fff;
-  border-radius: 0.5rem 0.5rem 0px 0px !important;
-}
-
-.fc-scrollgrid {
-  border-radius: 0.5rem 0.5rem 0.5rem 0px !important;
 }
 
 .fc-view {
@@ -66,7 +60,6 @@
 }
 
 .fc-day-today {
-  border-radius: 0px 0.5rem 0.5rem 0px !important;
   background-color: #fff !important;
 }
 
@@ -105,7 +98,7 @@
 }
 
 .fc-day-today .fc-daygrid-day-number {
-  background-color: #f31261;
+  background-color: #f25551;
   width: 24px;
   height: 24px;
   text-align: center;
@@ -182,7 +175,7 @@ a.fc-col-header-cell-cushion {
 }
 
 .fc-day-today a.fc-col-header-cell-cushion {
-  background-color: #f31261;
+  background-color: #f25551;
   border-radius: 5px !important;
   margin: 5px !important;
   color: #fff !important;

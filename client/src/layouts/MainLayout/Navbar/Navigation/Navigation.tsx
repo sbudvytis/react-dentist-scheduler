@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import useCalendar from "@/hooks/useCalendar";
 import useAuth from "@/hooks/useAuth";
@@ -22,6 +22,7 @@ const NavigationBar = ({ className }: Props) => {
   const [isLoading, setLoading] = useState<boolean>(true);
   const { isLoggedIn } = useAuth();
   const location = useLocation();
+  const sidebarRef = useRef<HTMLDivElement>(null); // Ref for the sidebar
 
   useEffect(() => {
     setLoading(schedulesLoading);
@@ -35,17 +36,39 @@ const NavigationBar = ({ className }: Props) => {
   // Disable scroll on menu open and enable it on menu close
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.style.overflow = "hidden"; // Disable scroll
-      document.body.style.touchAction = "none"; // Disable pull-to-refresh on iOS
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
     } else {
-      document.body.style.overflow = ""; // Re-enable scroll
-      document.body.style.touchAction = ""; // Re-enable pull-to-refresh
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
     }
 
     return () => {
       // Clean up in case component is unmounted
       document.body.style.overflow = "";
       document.body.style.touchAction = "";
+    };
+  }, [isMenuOpen]);
+
+  // Close menu when clicking outside of the sidebar
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isMenuOpen]);
 
@@ -112,7 +135,7 @@ const NavigationBar = ({ className }: Props) => {
               color="default"
               variant="bordered"
               radius="sm"
-              className="border-1 bg-white border-gray-200"
+              className="border-1 bg-white border-gray-200 h-9"
             >
               Sign in / Sign up
             </Button>
@@ -125,7 +148,10 @@ const NavigationBar = ({ className }: Props) => {
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="relative w-72 h-screen bg-white shadow-lg p-4 space-y-4 py-16">
+        <div
+          className="relative w-80 h-screen bg-white shadow-lg p-4 space-y-4 py-16"
+          ref={sidebarRef}
+        >
           <Button
             isIconOnly
             color="default"
@@ -161,7 +187,7 @@ const NavigationBar = ({ className }: Props) => {
 
       <div
         className={`fixed inset-0 bg-black z-20 transition-opacity duration-500 ${
-          isMenuOpen ? "opacity-50" : "opacity-0 pointer-events-none"
+          isMenuOpen ? "opacity-80" : "opacity-0 pointer-events-none"
         }`}
         onClick={closeMenu}
       ></div>
