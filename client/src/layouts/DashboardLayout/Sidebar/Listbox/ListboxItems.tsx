@@ -33,7 +33,10 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => {
+      const isMobile = window.innerWidth < 768;
+      setIsMobile(isMobile);
+    };
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -78,6 +81,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
       }}
       color="danger"
       variant="solid"
+      size="sm"
       className={cn(
         "flex items-center space-x-2 text-sm focus:outline-none w-full"
       )}
@@ -136,9 +140,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
 
       {/* Remove Schedule Button for Mobile */}
       {isMobile && hasSchedule && isDentist && (
-        <div className="mt-auto px-6 py-4 fixed bottom-0 left-0 right-0 max-w-72">
-          {" "}
-          {/* Make sure this div has w-72 */}
+        <div className="mt-auto px-4 py-4 fixed bottom-0 left-0 right-0 w-72 z-50">
           <RemoveScheduleButton />
         </div>
       )}
