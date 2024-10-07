@@ -1,4 +1,4 @@
-import { Modal, ModalContent, ModalBody } from "@nextui-org/react";
+import { Modal, ModalContent, ModalBody } from "@nextui-org/modal";
 
 interface ModalProps {
   isOpen: boolean;
@@ -22,7 +22,6 @@ const ModalComponent: React.FC<ModalProps> = ({
       radius="sm"
       size={size}
       scrollBehavior={scrollBehavior}
-      placement="center"
     >
       <ModalContent>
         <ModalBody>{content}</ModalBody>
