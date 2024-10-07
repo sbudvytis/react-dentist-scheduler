@@ -1,4 +1,4 @@
-import { Modal, ModalContent, ModalBody } from "@nextui-org/modal";
+import { Modal, ModalContent, ModalBody } from "@nextui-org/react";
 
 interface ModalProps {
   isOpen: boolean;
