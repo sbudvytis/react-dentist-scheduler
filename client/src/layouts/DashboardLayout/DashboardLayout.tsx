@@ -62,7 +62,7 @@ const DashboardLayout: React.FC<LayoutProps> = ({
     <main className="flex flex-col inset-0 min-h-[100dvh]">
       <NavigationBar />
       <div className="relative flex flex-1 w-full">
-        <Sidebar className="lg:min-w-64 lg:max-w-64 md:min-w-56 flex-none bg-gray-50">
+        <Sidebar className="lg:min-w-72 lg:max-w-72 md:min-w-56 flex-none bg-gray-50">
           {renderSidebarItems()}
         </Sidebar>
         <div

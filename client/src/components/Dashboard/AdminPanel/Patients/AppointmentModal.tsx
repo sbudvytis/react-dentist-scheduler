@@ -50,7 +50,11 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                 {new Date(appointment.end).toLocaleString()}
               </td>
               <td className="py-2 px-4">
-                <Tooltip content={appointment.notes} radius="sm">
+                <Tooltip
+                  content={appointment.notes}
+                  radius="sm"
+                  className="bg-black text-white"
+                >
                   <span className="cursor-pointer">
                     {appointment.notes && appointment.notes.length >= 10
                       ? `${appointment.notes.slice(0, 10)}...`

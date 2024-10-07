@@ -87,13 +87,13 @@ const Signup = () => {
         >
           {({ isSubmitting, touched, errors }) => (
             <Form className="grid space-y-4">
-              <div className="pb-8 flex-col space-y-2">
+              <div className="pb-4 flex-col space-y-2">
                 <h1 className="text-3xl font-semibold">New account</h1>
                 <p className="text-gray-500">
                   Already have an account?{" "}
                   <Link
                     to="/login"
-                    className="text-indigo-600 hover:text-indigo-700"
+                    className="text-black hover:text-indigo-600 font-medium"
                   >
                     Sign in
                   </Link>
@@ -105,7 +105,7 @@ const Signup = () => {
                     name="firstName"
                     as={Input}
                     type="text"
-                    label="First name"
+                    label="first name"
                     isInvalid={touched.firstName && !!errors.firstName}
                     errorMessage={errors.firstName}
                     required
@@ -120,7 +120,7 @@ const Signup = () => {
                     name="lastName"
                     as={Input}
                     type="text"
-                    label="Last name"
+                    label="last name"
                     isInvalid={touched.lastName && !!errors.lastName}
                     errorMessage={errors.lastName}
                     isRequired
@@ -134,7 +134,7 @@ const Signup = () => {
                   name="email"
                   as={Input}
                   type="email"
-                  label="Email"
+                  label="name@example.com"
                   isInvalid={touched.email && !!errors.email}
                   errorMessage={errors.email}
                   isRequired
@@ -147,7 +147,7 @@ const Signup = () => {
                   name="password"
                   as={Input}
                   type="password"
-                  label="Password"
+                  label="password"
                   isInvalid={touched.password && !!errors.password}
                   errorMessage={errors.password}
                   isRequired
@@ -159,7 +159,7 @@ const Signup = () => {
                 <Field
                   name="role"
                   as={Select}
-                  label="Select your role"
+                  label="select your role"
                   isInvalid={touched.role && !!errors.role}
                   errorMessage={errors.role}
                   isRequired
@@ -178,7 +178,7 @@ const Signup = () => {
                 radius="sm"
                 type="submit"
                 disabled={isSubmitting}
-                className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white"
+                className="bg-black hover:bg-indigo-600 text-white"
               >
                 Sign up
               </Button>
@@ -187,7 +187,7 @@ const Signup = () => {
         </Formik>
         {hasSucceeded && (
           <div className="pt-6">
-            <div className="bg-green-100 text-sm p-4 rounded-2xl text-center">
+            <div className="bg-indigo-400 text-white text-sm p-4 rounded-lg text-center">
               <p>{successMessage}</p>
             </div>
           </div>
@@ -195,7 +195,7 @@ const Signup = () => {
 
         {errorMessage && (
           <div className="pt-6">
-            <div className="bg-red-100 p-4 rounded-2xl text-sm text-center">
+            <div className="bg-red-500 text-white p-4 rounded-lg text-sm text-center">
               <p>{errorMessage}</p>
             </div>
           </div>

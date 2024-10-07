@@ -20,10 +20,15 @@ export default {
       },
       maxWidth: {
         "8xl": "96rem",
+        68: "17rem",
       },
       width: {
         "1/10": "10%",
         "4/10": "40%",
+        68: "17rem",
+      },
+      minWidth: {
+        68: "17rem",
       },
     },
   },

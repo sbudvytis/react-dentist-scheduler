@@ -23,7 +23,11 @@ const AdminPanel = () => {
       case "actions":
         return (
           <div className="relative flex gap-2">
-            <Tooltip content="Approve user" radius="sm">
+            <Tooltip
+              content="Approve user"
+              radius="sm"
+              className="bg-black text-white"
+            >
               <span
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
                 onClick={() => approveUser(user.id)}
@@ -31,7 +35,12 @@ const AdminPanel = () => {
                 <CheckIcon />
               </span>
             </Tooltip>
-            <Tooltip color="danger" content="Remove user" radius="sm">
+            <Tooltip
+              color="danger"
+              content="Remove user"
+              radius="sm"
+              className="bg-black"
+            >
               <span
                 className="text-lg text-danger cursor-pointer active:opacity-50"
                 onClick={() => removeUser(user.id)}

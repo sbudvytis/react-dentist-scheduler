@@ -45,7 +45,12 @@ const AllUsers = () => {
         return (
           <div className="relative flex gap-2">
             {user.id !== userId && (
-              <Tooltip color="danger" content="Remove user" radius="sm">
+              <Tooltip
+                color="danger"
+                content="Remove user"
+                radius="sm"
+                className="bg-black"
+              >
                 <span
                   className="text-lg text-red-500 cursor-pointer active:opacity-50"
                   onClick={() => removeUser(user.id)}

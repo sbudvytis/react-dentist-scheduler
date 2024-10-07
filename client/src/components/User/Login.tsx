@@ -61,7 +61,7 @@ const Login = () => {
                   Don't have an account?{" "}
                   <Link
                     to="/signup"
-                    className="text-indigo-600 hover:text-indigo-700"
+                    className="text-black hover:text-indigo-600 font-medium"
                   >
                     Sign up
                   </Link>
@@ -72,7 +72,7 @@ const Login = () => {
                   name="email"
                   as={Input}
                   type="email"
-                  label="Email"
+                  label="name@example.com"
                   isInvalid={touched.email && !!errors.email}
                   errorMessage={errors.email}
                   isRequired
@@ -86,7 +86,7 @@ const Login = () => {
                   name="password"
                   as={Input}
                   type="password"
-                  label="Password"
+                  label="password"
                   isInvalid={touched.password && !!errors.password}
                   errorMessage={errors.password}
                   isRequired
@@ -109,7 +109,7 @@ const Login = () => {
         </Formik>
         {errorMessage && (
           <div className="pt-6">
-            <div className="bg-red-100 p-4 rounded-2xl text-sm text-center">
+            <div className="bg-red-500 text-white p-4 rounded-lg text-sm text-center">
               <p>{errorMessage}</p>
             </div>
           </div>

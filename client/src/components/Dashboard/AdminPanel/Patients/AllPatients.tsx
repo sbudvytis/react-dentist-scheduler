@@ -53,7 +53,12 @@ const AllPatients = () => {
         return <div>{patient.contactNumber}</div>;
       case "history":
         return (
-          <Tooltip content="Appointment History" placement="top">
+          <Tooltip
+            content="Appointment History"
+            placement="top"
+            radius="sm"
+            className="bg-black text-white"
+          >
             <Button
               color="default"
               variant="bordered"

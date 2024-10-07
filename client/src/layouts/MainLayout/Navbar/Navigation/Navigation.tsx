@@ -37,7 +37,7 @@ const NavigationBar = () => {
   return (
     <nav className="border-b border-gray-200 bg-gray-50 relative z-20 h-16">
       <div className="mx-auto flex justify-between items-center h-full px-4">
-        <div className="flex items-center lg:min-w-60 lg:max-w-60 md:min-w-52">
+        <div className="flex items-center lg:min-w-68 lg:max-w-68 md:min-w-52">
           {isLoggedIn && (
             <Button
               isIconOnly
@@ -51,10 +51,10 @@ const NavigationBar = () => {
               <IoMenuOutline size={28} />
             </Button>
           )}
-          <div className="hidden md:flex items-center lg:min-w-60 lg:max-w-60">
+          <div className="hidden md:flex items-center lg:min-w-68 lg:max-w-68">
             <Link to="/dashboard" className="flex items-center">
               <img src="/logo1.png" alt="Logo" className="h-9" />
-              <p className="ml-3 md:text-sm font-bold">Dentist Scheduler</p>
+              <p className="ml-3 text-md font-semibold">Dentist Scheduler</p>
             </Link>
           </div>
         </div>
