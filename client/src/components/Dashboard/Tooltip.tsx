@@ -1,7 +1,7 @@
 import tippy, { Instance } from "tippy.js";
 import { EventHoveringArg } from "@fullcalendar/core/index.js";
 import "tippy.js/dist/tippy.css";
-import "tippy.js/themes/light.css";
+import "tippy.js/themes/light-border.css";
 import "tippy.js/animations/scale-extreme.css";
 
 export const createTooltip = (
@@ -46,7 +46,7 @@ export const createTooltip = (
   `;
 
   const instance = tippy(info.el, {
-    theme: "light",
+    theme: "light-border",
     animation: "scale-extreme",
     content: tooltipContent,
     allowHTML: true,

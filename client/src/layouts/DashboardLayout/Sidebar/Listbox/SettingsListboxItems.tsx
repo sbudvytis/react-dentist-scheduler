@@ -4,9 +4,10 @@ import { IoPeopleOutline } from "react-icons/io5";
 
 type Props = {
   isLoading: boolean;
+  closeMenu: () => void;
 };
 
-const SettingsListboxItems = ({ isLoading }: Props) => {
+const SettingsListboxItems = ({ isLoading, closeMenu }: Props) => {
   const location = useLocation();
   const iconClasses = "text-lg pointer-events-none flex-shrink-0";
 
@@ -30,6 +31,7 @@ const SettingsListboxItems = ({ isLoading }: Props) => {
     <div className="flex flex-col text-sm text-gray-500">
       <Link
         to="/dashboard/my-settings"
+        onClick={closeMenu}
         className={`${linkClasses} ${
           isSettingsActive || location.pathname === "/dashboard/my-settings"
             ? activeLinkClasses

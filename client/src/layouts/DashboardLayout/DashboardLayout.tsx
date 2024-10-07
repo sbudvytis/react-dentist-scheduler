@@ -22,6 +22,8 @@ const DashboardLayout: React.FC<LayoutProps> = ({
   const [hasSchedule, setHasSchedule] = useState(false);
   const { canApproveUsers } = useAuth();
 
+  const emptyFunction = () => {};
+
   useEffect(() => {
     setHasSchedule(schedules && schedules.length > 0);
   }, [schedules, schedulesLoading]);
@@ -30,16 +32,27 @@ const DashboardLayout: React.FC<LayoutProps> = ({
     switch (layoutType) {
       case "admin":
         if (canApproveUsers) {
-          return <AdminListboxItems isLoading={schedulesLoading} />;
+          return (
+            <AdminListboxItems
+              isLoading={schedulesLoading}
+              closeMenu={emptyFunction}
+            />
+          );
         }
         break;
       case "settings":
-        return <SettingsListboxItems isLoading={schedulesLoading} />;
+        return (
+          <SettingsListboxItems
+            isLoading={schedulesLoading}
+            closeMenu={emptyFunction}
+          />
+        );
       default:
         return (
           <ListboxItems
             hasSchedule={hasSchedule}
             isLoading={schedulesLoading}
+            closeMenu={emptyFunction}
           />
         );
     }

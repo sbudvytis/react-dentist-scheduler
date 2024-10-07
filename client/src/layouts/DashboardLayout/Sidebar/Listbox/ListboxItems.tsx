@@ -18,13 +18,14 @@ import {
 type Props = {
   hasSchedule: boolean;
   isLoading: boolean;
+  closeMenu: () => void;
 };
 
 interface ModalContentMap {
   [key: string]: React.ReactElement;
 }
 
-const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
+const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
   const iconClasses = "text-lg pointer-events-none flex-shrink-0";
 
   const [activeModal, setActiveModal] = useState<string | null>(null);
@@ -68,7 +69,10 @@ const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
         {hasSchedule && (
           <>
             <button
-              onClick={() => openModal("addAppointment")}
+              onClick={() => {
+                openModal("addAppointment");
+                closeMenu();
+              }}
               className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
             >
               <IoTodayOutline className={iconClasses} />
@@ -78,7 +82,10 @@ const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
             {isDentist && (
               <>
                 <button
-                  onClick={() => openModal("editSchedule")}
+                  onClick={() => {
+                    openModal("editSchedule");
+                    closeMenu();
+                  }}
                   className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
                 >
                   <IoCalendarClearOutline className={iconClasses} />
@@ -86,7 +93,10 @@ const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
                 </button>
 
                 <button
-                  onClick={() => openModal("removeSchedule")}
+                  onClick={() => {
+                    openModal("removeSchedule");
+                    closeMenu();
+                  }}
                   className={cn(
                     "flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
                   )}
@@ -101,7 +111,10 @@ const ListboxItems = ({ hasSchedule, isLoading }: Props) => {
 
         {!hasSchedule && isDentist && (
           <button
-            onClick={() => openModal("createSchedule")}
+            onClick={() => {
+              openModal("createSchedule");
+              closeMenu();
+            }}
             className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
           >
             <IoCalendarOutline className={iconClasses} />

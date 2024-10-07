@@ -8,9 +8,10 @@ import {
 
 type Props = {
   isLoading: boolean;
+  closeMenu: () => void;
 };
 
-const AdminListboxItems = ({ isLoading }: Props) => {
+const AdminListboxItems = ({ isLoading, closeMenu }: Props) => {
   const location = useLocation();
   const iconClasses = "text-lg pointer-events-none flex-shrink-0";
 
@@ -40,6 +41,7 @@ const AdminListboxItems = ({ isLoading }: Props) => {
     <div className="flex flex-col text-sm text-gray-500">
       <Link
         to="/dashboard/admin-panel/users"
+        onClick={closeMenu}
         className={`${linkClasses} ${
           isUsersActive || location.pathname === "/dashboard/admin-panel"
             ? activeLinkClasses
@@ -51,6 +53,7 @@ const AdminListboxItems = ({ isLoading }: Props) => {
       </Link>
       <Link
         to="/dashboard/admin-panel/patients"
+        onClick={closeMenu}
         className={`${linkClasses} ${
           isPatientsActive ? activeLinkClasses : "hover:text-gray-800"
         }`}
@@ -60,6 +63,7 @@ const AdminListboxItems = ({ isLoading }: Props) => {
       </Link>
       <Link
         to="/dashboard/admin-panel/settings"
+        onClick={closeMenu}
         className={`${linkClasses} ${
           isSettingsActive ? activeLinkClasses : "hover:text-gray-800"
         }`}

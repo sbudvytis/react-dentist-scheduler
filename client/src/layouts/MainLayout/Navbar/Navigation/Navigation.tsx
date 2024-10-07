@@ -11,7 +11,7 @@ import User from "@/layouts/MainLayout/Navbar/User/User";
 import { Button } from "@nextui-org/react";
 import { IoMenuOutline, IoCloseOutline } from "react-icons/io5";
 
-export default function NavigationBar() {
+const NavigationBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { schedules, schedulesLoading } = useCalendar();
   const [hasSchedule, setHasSchedule] = useState(false);
@@ -58,18 +58,27 @@ export default function NavigationBar() {
             </Link>
           </div>
         </div>
-        <div className="flex md:hidden items-center absolute left-1/2 transform -translate-x-1/2">
+
+        {/* Conditionally set the logo and title position for mobile view */}
+        <div
+          className={`md:hidden items-center absolute ${
+            isLoggedIn ? "left-1/2 transform -translate-x-1/2" : "left-4"
+          }`}
+        >
           <Link to="/dashboard" className="flex items-center">
             <img src="/logo1.png" alt="Logo" className="h-9" />
             <p className="ml-3 text-sm font-bold">Dentist Scheduler</p>
           </Link>
         </div>
+
         {isLoggedIn ? (
           <div className="hidden md:block border-l-1 border-gray-200 h-full"></div>
         ) : null}
+
         <div className="hidden md:flex items-center flex-grow px-4">
           {isLoggedIn && <NavItems className="text-sm pr-2" />}
         </div>
+
         <div className="flex items-center">
           {isLoggedIn ? (
             <User />
@@ -87,6 +96,7 @@ export default function NavigationBar() {
           )}
         </div>
       </div>
+
       <div
         className={`fixed inset-0 z-30 transform transition-transform duration-500 ease-in-out lg:hidden ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
@@ -110,14 +120,22 @@ export default function NavigationBar() {
           />
           {isLoggedIn &&
             (isAdminPanel ? (
-              <AdminListboxItems isLoading={isLoading} />
+              <AdminListboxItems isLoading={isLoading} closeMenu={closeMenu} />
             ) : isUserSettings ? (
-              <SettingsListboxItems isLoading={isLoading} />
+              <SettingsListboxItems
+                isLoading={isLoading}
+                closeMenu={closeMenu}
+              />
             ) : (
-              <ListboxItems hasSchedule={hasSchedule} isLoading={isLoading} />
+              <ListboxItems
+                hasSchedule={hasSchedule}
+                isLoading={isLoading}
+                closeMenu={closeMenu}
+              />
             ))}
         </div>
       </div>
+
       <div
         className={`fixed inset-0 bg-black z-20 transition-opacity duration-500 ${
           isMenuOpen ? "opacity-50" : "opacity-0 pointer-events-none"
@@ -126,4 +144,6 @@ export default function NavigationBar() {
       ></div>
     </nav>
   );
-}
+};
+
+export default NavigationBar;

@@ -160,7 +160,7 @@ const AllPatients = () => {
           patientName={selectedPatientName}
         />
       </div>
-      <div className="flex lg:justify-start justify-center items-center gap-4 py-4">
+      <div className="flex lg:justify-start justify-center items-center gap-4 py-4 z-10">
         <span className="text-sm">
           Page {currentPage} of {Math.ceil(totalPatients / pageSize)}
         </span>
