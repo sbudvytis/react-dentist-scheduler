@@ -11,7 +11,11 @@ import User from "@/layouts/MainLayout/Navbar/User/User";
 import { Button } from "@nextui-org/react";
 import { IoMenuOutline, IoCloseOutline } from "react-icons/io5";
 
-const NavigationBar = () => {
+type Props = {
+  className?: string;
+};
+
+const NavigationBar = ({ className }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { schedules, schedulesLoading } = useCalendar();
   const [hasSchedule, setHasSchedule] = useState(false);
@@ -35,7 +39,9 @@ const NavigationBar = () => {
   const isUserSettings = location.pathname.includes("/dashboard/my-settings");
 
   return (
-    <nav className="border-b border-gray-200 bg-gray-50 relative z-20 h-16">
+    <nav
+      className={`${className} border-b border-gray-200 bg-gray-50 relative z-20 h-16`}
+    >
       <div className="mx-auto flex justify-between items-center h-full px-4">
         <div className="flex items-center lg:min-w-68 lg:max-w-68 md:min-w-52">
           {isLoggedIn && (
@@ -98,7 +104,7 @@ const NavigationBar = () => {
       </div>
 
       <div
-        className={`fixed inset-0 z-30 transform transition-transform duration-500 ease-in-out lg:hidden ${
+        className={`fixed inset-0 z-30 h-screen transform transition-transform duration-500 ease-in-out lg:hidden ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

@@ -14,10 +14,10 @@ type LayoutProps = {
   className?: string;
 };
 
-const DashboardLayout: React.FC<LayoutProps> = ({
+export default function DashboardLayout({
   layoutType = "default",
   className = "",
-}) => {
+}: LayoutProps) {
   const { schedules, schedulesLoading } = useCalendar();
   const [hasSchedule, setHasSchedule] = useState(false);
   const { canApproveUsers } = useAuth();
@@ -59,21 +59,19 @@ const DashboardLayout: React.FC<LayoutProps> = ({
   };
 
   return (
-    <main className="flex flex-col inset-0 min-h-[100dvh]">
-      <NavigationBar />
-      <div className="relative flex flex-1 w-full">
-        <Sidebar className="lg:min-w-72 lg:max-w-72 md:min-w-56 flex-none bg-gray-50">
+    <div className="flex flex-col h-dvh overflow-hidden">
+      <NavigationBar className="flex-shrink-0" />
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar className="lg:min-w-72 lg:max-w-72 md:min-w-56 flex-shrink-0 overflow-y-auto bg-gray-50">
           {renderSidebarItems()}
         </Sidebar>
-        <div
-          className={`flex-1 bg-white w-full p-4 border-l border-gray-200 ${className}`}
+        <main
+          className={`hide-main-scrollbar flex-1 border-l border-gray-200 overflow-y-auto bg-white px-4 ${className}`}
         >
-          <Breadcrumbs className="pb-4" />
+          <Breadcrumbs className="pb-4 pt-4" />
           <Outlet />
-        </div>
+        </main>
       </div>
-    </main>
+    </div>
   );
-};
-
-export default DashboardLayout;
+}

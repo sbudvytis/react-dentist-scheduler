@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { cn, Spinner } from "@nextui-org/react";
+import { useState, useEffect } from "react";
+import { Button, cn, Spinner } from "@nextui-org/react";
 import ModalComponent from "./Modal";
 import AddAppointmentForm from "@/components/Dashboard/Forms/Appointment/AddAppointmentForm";
 import AddCalendarForm from "@/components/Dashboard/Forms/Calendar/AddCalendarForm";
@@ -27,10 +27,17 @@ interface ModalContentMap {
 
 const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
   const iconClasses = "text-lg pointer-events-none flex-shrink-0";
-
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const { selectedScheduleId } = useSelectedSchedule();
   const { isDentist } = useAuth();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const openModal = (modalId: string) => {
     setActiveModal(modalId);
@@ -63,24 +70,41 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
     );
   }
 
-  return (
-    <>
-      <div className="flex flex-col space-y-4 px-2 py-2 text-sm text-gray-500">
-        {hasSchedule && (
-          <>
-            <button
-              onClick={() => {
-                openModal("addAppointment");
-                closeMenu();
-              }}
-              className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
-            >
-              <IoTodayOutline className={iconClasses} />
-              <span>Create appointment</span>
-            </button>
+  const RemoveScheduleButton = () => (
+    <Button
+      onClick={() => {
+        openModal("removeSchedule");
+        closeMenu();
+      }}
+      color="danger"
+      variant="solid"
+      className={cn(
+        "flex items-center space-x-2 text-sm focus:outline-none w-full"
+      )}
+    >
+      <IoTrashBinOutline className={iconClasses} />
+      <span>Remove schedule</span>
+    </Button>
+  );
 
-            {isDentist && (
-              <>
+  return (
+    <div className="flex flex-col min-h-[calc(100dvh-4rem)] md:min-h-[calc(100dvh-5rem)]">
+      <div className="flex-grow overflow-y-auto">
+        <div className="flex flex-col space-y-4 px-2 py-2 text-sm text-gray-500">
+          {hasSchedule && (
+            <>
+              <button
+                onClick={() => {
+                  openModal("addAppointment");
+                  closeMenu();
+                }}
+                className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
+              >
+                <IoTodayOutline className={iconClasses} />
+                <span>Create appointment</span>
+              </button>
+
+              {isDentist && (
                 <button
                   onClick={() => {
                     openModal("editSchedule");
@@ -91,37 +115,40 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
                   <IoCalendarClearOutline className={iconClasses} />
                   <span>Edit schedule</span>
                 </button>
+              )}
+            </>
+          )}
 
-                <button
-                  onClick={() => {
-                    openModal("removeSchedule");
-                    closeMenu();
-                  }}
-                  className={cn(
-                    "flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
-                  )}
-                >
-                  <IoTrashBinOutline className={iconClasses} />
-                  <span>Remove schedule</span>
-                </button>
-              </>
-            )}
-          </>
-        )}
-
-        {!hasSchedule && isDentist && (
-          <button
-            onClick={() => {
-              openModal("createSchedule");
-              closeMenu();
-            }}
-            className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
-          >
-            <IoCalendarOutline className={iconClasses} />
-            <span>Create schedule</span>
-          </button>
-        )}
+          {!hasSchedule && isDentist && (
+            <button
+              onClick={() => {
+                openModal("createSchedule");
+                closeMenu();
+              }}
+              className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
+            >
+              <IoCalendarOutline className={iconClasses} />
+              <span>Create schedule</span>
+            </button>
+          )}
+        </div>
       </div>
+
+      {/* Remove Schedule Button for Mobile */}
+      {isMobile && hasSchedule && isDentist && (
+        <div className="mt-auto px-6 py-4 fixed bottom-0 left-0 right-0 max-w-72">
+          {" "}
+          {/* Make sure this div has w-72 */}
+          <RemoveScheduleButton />
+        </div>
+      )}
+
+      {/* Remove Schedule Button for Desktop */}
+      {!isMobile && hasSchedule && isDentist && (
+        <div className="mt-auto px-2 py-4">
+          <RemoveScheduleButton />
+        </div>
+      )}
 
       {activeModal && (
         <ModalComponent
@@ -131,7 +158,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
           scrollBehavior="inside"
         />
       )}
-    </>
+    </div>
   );
 };
 

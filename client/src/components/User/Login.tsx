@@ -109,7 +109,7 @@ const Login = () => {
         </Formik>
         {errorMessage && (
           <div className="pt-6">
-            <div className="bg-red-500 text-white p-4 rounded-lg text-sm text-center">
+            <div className="bg-[#f31260] text-white p-4 rounded-lg text-sm text-center">
               <p>{errorMessage}</p>
             </div>
           </div>
