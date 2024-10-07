@@ -104,11 +104,11 @@ const NavigationBar = ({ className }: Props) => {
       </div>
 
       <div
-        className={`fixed inset-0 z-30 h-screen transform transition-transform duration-500 ease-in-out lg:hidden ${
+        className={`fixed inset-0 z-30 min-h-[calc(100dvh-80px)] transform transition-transform duration-500 ease-in-out lg:hidden ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="relative w-72 h-full bg-white shadow-lg p-4 py-16 space-y-4">
+        <div className="relative w-72 bg-white shadow-lg p-4 space-y-4 py-16">
           <Button
             isIconOnly
             color="default"

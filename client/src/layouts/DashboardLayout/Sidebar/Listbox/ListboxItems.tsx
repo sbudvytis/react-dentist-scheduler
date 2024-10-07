@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button, cn, Spinner } from "@nextui-org/react";
 import ModalComponent from "./Modal";
 import AddAppointmentForm from "@/components/Dashboard/Forms/Appointment/AddAppointmentForm";
@@ -27,20 +27,10 @@ interface ModalContentMap {
 
 const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
   const iconClasses = "text-lg pointer-events-none flex-shrink-0";
+
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const { selectedScheduleId } = useSelectedSchedule();
   const { isDentist } = useAuth();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      const isMobile = window.innerWidth < 768;
-      setIsMobile(isMobile);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   const openModal = (modalId: string) => {
     setActiveModal(modalId);
@@ -73,26 +63,8 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
     );
   }
 
-  const RemoveScheduleButton = () => (
-    <Button
-      onClick={() => {
-        openModal("removeSchedule");
-        closeMenu();
-      }}
-      color="danger"
-      variant="solid"
-      size="sm"
-      className={cn(
-        "flex items-center space-x-2 text-sm focus:outline-none w-full"
-      )}
-    >
-      <IoTrashBinOutline className={iconClasses} />
-      <span>Remove schedule</span>
-    </Button>
-  );
-
   return (
-    <div className="flex flex-col min-h-[calc(100dvh-4rem)] md:min-h-[calc(100dvh-5rem)]">
+    <div className="flex flex-col min-h-[calc(100dvh-80px)]">
       <div className="flex-grow overflow-y-auto">
         <div className="flex flex-col space-y-4 px-2 py-2 text-sm text-gray-500">
           {hasSchedule && (
@@ -138,17 +110,23 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
         </div>
       </div>
 
-      {/* Remove Schedule Button for Mobile */}
-      {isMobile && hasSchedule && isDentist && (
-        <div className="mt-auto px-4 py-4 fixed bottom-0 left-0 right-0 w-72 z-50">
-          <RemoveScheduleButton />
-        </div>
-      )}
-
-      {/* Remove Schedule Button for Desktop */}
-      {!isMobile && hasSchedule && isDentist && (
-        <div className="mt-auto px-2 py-4">
-          <RemoveScheduleButton />
+      {hasSchedule && isDentist && (
+        <div className="mt-auto px-2 py-16 md:py-4 lg:py-4">
+          <Button
+            onClick={() => {
+              openModal("removeSchedule");
+              closeMenu();
+            }}
+            color="danger"
+            variant="solid"
+            size="sm"
+            className={cn(
+              "flex items-center space-x-2 text-sm focus:outline-none w-full"
+            )}
+          >
+            <IoTrashBinOutline className={iconClasses} />
+            <span>Remove schedule</span>
+          </Button>
         </div>
       )}
 
