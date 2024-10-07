@@ -4,7 +4,7 @@ import useCalendar from "@/hooks/useCalendar";
 import useAuth from "@/hooks/useAuth";
 import LogoAndTitle from "./LogoAndTitle";
 import HamburgerMenu from "./HamburgerMenu";
-import UserActions from "./userActions";
+import UserActions from "./UserActions";
 import Sidebar from "./MobileSidebar";
 import Overlay from "./Overlay";
 import NavItems from "./NavItems";
