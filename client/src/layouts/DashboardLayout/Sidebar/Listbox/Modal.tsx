@@ -1,4 +1,4 @@
-import { Modal, ModalContent, ModalBody } from "@nextui-org/react";
+import { Modal, ModalContent, ModalBody, ModalHeader } from "@nextui-org/react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -24,6 +24,7 @@ const ModalComponent: React.FC<ModalProps> = ({
       scrollBehavior={scrollBehavior}
     >
       <ModalContent>
+        <ModalHeader className="flex flex-col gap-1">Title</ModalHeader>
         <ModalBody>{content}</ModalBody>
       </ModalContent>
     </Modal>
