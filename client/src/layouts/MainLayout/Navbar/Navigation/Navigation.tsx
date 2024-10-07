@@ -32,6 +32,23 @@ const NavigationBar = ({ className }: Props) => {
     }
   }, [schedules, schedulesLoading]);
 
+  // Disable scroll on menu open and enable it on menu close
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden"; // Disable scroll
+      document.body.style.touchAction = "none"; // Disable pull-to-refresh on iOS
+    } else {
+      document.body.style.overflow = ""; // Re-enable scroll
+      document.body.style.touchAction = ""; // Re-enable pull-to-refresh
+    }
+
+    return () => {
+      // Clean up in case component is unmounted
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    };
+  }, [isMenuOpen]);
+
   const closeMenu = () => setIsMenuOpen(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -104,11 +121,11 @@ const NavigationBar = ({ className }: Props) => {
       </div>
 
       <div
-        className={`fixed inset-0 z-30 min-h-[calc(100dvh-80px)] transform transition-transform duration-500 ease-in-out lg:hidden ${
+        className={`fixed inset-0 z-30 transform transition-transform duration-500 ease-in-out lg:hidden ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="relative w-72 bg-white shadow-lg p-4 space-y-4 py-16">
+        <div className="relative w-72 h-screen bg-white shadow-lg p-4 space-y-4 py-16">
           <Button
             isIconOnly
             color="default"

@@ -117,11 +117,10 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
               openModal("removeSchedule");
               closeMenu();
             }}
-            color="danger"
             variant="solid"
             size="sm"
             className={cn(
-              "flex items-center space-x-2 text-sm focus:outline-none w-full"
+              "flex items-center space-x-2 text-sm focus:outline-none w-full bg-gradient-to-tr from-pink-500 to-yellow-500 text-white"
             )}
           >
             <IoTrashBinOutline className={iconClasses} />
