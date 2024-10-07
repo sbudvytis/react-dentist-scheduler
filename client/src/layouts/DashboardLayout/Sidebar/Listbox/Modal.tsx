@@ -22,6 +22,7 @@ const ModalComponent: React.FC<ModalProps> = ({
       radius="sm"
       size={size}
       scrollBehavior={scrollBehavior}
+      placement="center"
     >
       <ModalContent>
         <ModalBody>{content}</ModalBody>

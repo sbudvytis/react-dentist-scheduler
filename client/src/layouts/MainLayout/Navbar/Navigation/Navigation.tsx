@@ -1,15 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import useCalendar from "@/hooks/useCalendar";
 import useAuth from "@/hooks/useAuth";
-import MobileNavItems from "./MobileNavItems";
+import LogoAndTitle from "./LogoAndTitle";
+import HamburgerMenu from "./HamburgerMenu";
+import UserActions from "./userActions";
+import Sidebar from "./MobileSidebar";
+import Overlay from "./Overlay";
 import NavItems from "./NavItems";
-import ListboxItems from "@/layouts/DashboardLayout/Sidebar/Listbox/ListboxItems";
-import AdminListboxItems from "@/layouts/DashboardLayout/Sidebar/Listbox/AdminListboxItems";
-import SettingsListboxItems from "@/layouts/DashboardLayout/Sidebar/Listbox/SettingsListboxItems";
-import User from "@/layouts/MainLayout/Navbar/User/User";
-import { Button } from "@nextui-org/react";
-import { IoMenuOutline, IoCloseOutline } from "react-icons/io5";
 
 type Props = {
   className?: string;
@@ -22,7 +20,6 @@ const NavigationBar = ({ className }: Props) => {
   const [isLoading, setLoading] = useState<boolean>(true);
   const { isLoggedIn } = useAuth();
   const location = useLocation();
-  const sidebarRef = useRef<HTMLDivElement>(null); // Ref for the sidebar
 
   useEffect(() => {
     setLoading(schedulesLoading);
@@ -37,46 +34,19 @@ const NavigationBar = ({ className }: Props) => {
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
-      document.body.style.touchAction = "none";
     } else {
       document.body.style.overflow = "";
-      document.body.style.touchAction = "";
     }
-
     return () => {
-      // Clean up in case component is unmounted
       document.body.style.overflow = "";
-      document.body.style.touchAction = "";
     };
   }, [isMenuOpen]);
-
-  // Close menu when clicking outside of the sidebar
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node)
-      ) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    if (isMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isMenuOpen]);
-
-  const closeMenu = () => setIsMenuOpen(false);
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const isAdminPanel = location.pathname.includes("/dashboard/admin-panel");
   const isUserSettings = location.pathname.includes("/dashboard/my-settings");
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <nav
@@ -84,113 +54,31 @@ const NavigationBar = ({ className }: Props) => {
     >
       <div className="mx-auto flex justify-between items-center h-full px-4">
         <div className="flex items-center lg:min-w-68 lg:max-w-68 md:min-w-52">
-          {isLoggedIn && (
-            <Button
-              isIconOnly
-              color="default"
-              variant="bordered"
-              radius="sm"
-              onClick={toggleMenu}
-              className="border-1 bg-white border-gray-200 focus:outline-none md:hidden"
-              aria-label="Toggle Menu"
-            >
-              <IoMenuOutline size={28} />
-            </Button>
-          )}
-          <div className="hidden md:flex items-center lg:min-w-68 lg:max-w-68">
-            <Link to="/dashboard" className="flex items-center">
-              <img src="/logo1.png" alt="Logo" className="h-9" />
-              <p className="ml-3 text-md font-semibold">Dentist Scheduler</p>
-            </Link>
-          </div>
+          {isLoggedIn && <HamburgerMenu toggleMenu={toggleMenu} />}
+          <LogoAndTitle isLoggedIn={isLoggedIn} />
         </div>
 
-        {/* Conditionally set the logo and title position for mobile view */}
-        <div
-          className={`md:hidden items-center absolute ${
-            isLoggedIn ? "left-1/2 transform -translate-x-1/2" : "left-4"
-          }`}
-        >
-          <Link to="/dashboard" className="flex items-center">
-            <img src="/logo1.png" alt="Logo" className="h-9" />
-            <p className="ml-3 text-sm font-bold">Dentist Scheduler</p>
-          </Link>
-        </div>
-
-        {isLoggedIn ? (
+        {isLoggedIn && (
           <div className="hidden md:block border-l-1 border-gray-200 h-full"></div>
-        ) : null}
+        )}
 
-        <div className="hidden md:flex items-center flex-grow px-4">
-          {isLoggedIn && <NavItems className="text-sm pr-2" />}
+        <div className="hidden md:flex items-center flex-grow px-4 gap-2">
+          <NavItems /> {/* Add NavItems back for desktop */}
         </div>
 
-        <div className="flex items-center">
-          {isLoggedIn ? (
-            <User />
-          ) : (
-            <Button
-              as={Link}
-              to="/login"
-              color="default"
-              variant="bordered"
-              radius="sm"
-              className="border-1 bg-white border-gray-200 h-9"
-            >
-              Sign in / Sign up
-            </Button>
-          )}
-        </div>
+        <UserActions isLoggedIn={isLoggedIn} />
       </div>
 
-      <div
-        className={`fixed inset-0 z-30 transform transition-transform duration-500 ease-in-out lg:hidden ${
-          isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <div
-          className="relative w-80 h-screen bg-white shadow-lg p-4 space-y-4 py-16"
-          ref={sidebarRef}
-        >
-          <Button
-            isIconOnly
-            color="default"
-            variant="bordered"
-            radius="sm"
-            onClick={closeMenu}
-            className="absolute top-3 right-3 border-1 bg-white border-gray-200 focus:outline-none"
-            aria-label="Close Menu"
-          >
-            <IoCloseOutline size={28} />
-          </Button>
-          <MobileNavItems
-            className="text-sm text-gray-600"
-            closeMenu={closeMenu}
-          />
-          {isLoggedIn &&
-            (isAdminPanel ? (
-              <AdminListboxItems isLoading={isLoading} closeMenu={closeMenu} />
-            ) : isUserSettings ? (
-              <SettingsListboxItems
-                isLoading={isLoading}
-                closeMenu={closeMenu}
-              />
-            ) : (
-              <ListboxItems
-                hasSchedule={hasSchedule}
-                isLoading={isLoading}
-                closeMenu={closeMenu}
-              />
-            ))}
-        </div>
-      </div>
-
-      <div
-        className={`fixed inset-0 bg-black z-20 transition-opacity duration-500 ${
-          isMenuOpen ? "opacity-80" : "opacity-0 pointer-events-none"
-        }`}
-        onClick={closeMenu}
-      ></div>
+      <Sidebar
+        isMenuOpen={isMenuOpen}
+        closeMenu={closeMenu}
+        isAdminPanel={isAdminPanel}
+        isUserSettings={isUserSettings}
+        hasSchedule={hasSchedule}
+        isLoading={isLoading}
+        isLoggedIn={isLoggedIn}
+      />
+      <Overlay isMenuOpen={isMenuOpen} closeMenu={closeMenu} />
     </nav>
   );
 };

@@ -38,3 +38,16 @@ body {
   overflow-x: scroll; /* Enable horizontal scroll */
   overflow-y: scroll; /* Enable vertical scroll */
 }
+
+/* Ensure the container is scrollable */
+.form-container {
+  height: 100vh;
+  overflow-y: auto;
+  padding-bottom: 100px; /* Add space for the keyboard */
+}
+
+/* Ensure the inputs take up the full width */
+form input,
+form textarea {
+  width: 100%;
+}
