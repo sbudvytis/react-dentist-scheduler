@@ -13,7 +13,7 @@ const HamburgerMenuButton = ({ toggleMenu }: Props) => {
       variant="bordered"
       radius="sm"
       onClick={toggleMenu}
-      className="border-1 bg-white border-gray-200 focus:outline-none md:hidden"
+      className="border-1 bg-white border-gray-200 focus:outline-none md:hidden h-9"
       aria-label="Toggle Menu"
     >
       <IoMenuOutline size={28} />

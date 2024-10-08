@@ -63,7 +63,7 @@ const NavigationBar = ({ className }: Props) => {
         )}
 
         <div className="hidden md:flex items-center flex-grow px-4 gap-2">
-          <NavItems /> {/* Add NavItems back for desktop */}
+          <NavItems />
         </div>
 
         <UserActions isLoggedIn={isLoggedIn} />

@@ -64,7 +64,7 @@ const Sidebar = ({
           variant="bordered"
           radius="sm"
           onClick={closeMenu}
-          className="absolute top-3 right-3 border-1 bg-white border-gray-200 focus:outline-none"
+          className="absolute top-3 right-3 border-1 bg-white border-gray-200 focus:outline-none h-9"
           aria-label="Close Menu"
         >
           <IoCloseOutline size={28} />
