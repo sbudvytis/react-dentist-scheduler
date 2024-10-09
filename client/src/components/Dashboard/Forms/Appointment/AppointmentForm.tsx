@@ -99,16 +99,8 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   };
 
   return (
-    <div className="sm:mx-auto sm:w-full sm:max-w-lg p-6">
+    <>
       <form onSubmit={handleSubmit} className="grid space-y-4">
-        <div className="pb-4 flex-col space-y-2">
-          <h1 className="lg:text-3xl text-xl font-semibold">
-            {submitButtonText === "Create Appointment"
-              ? "Create an Appointment"
-              : "Edit Appointment"}
-          </h1>
-        </div>
-
         {showAutocomplete && (
           <div className="w-full">
             <Autocomplete
@@ -130,6 +122,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           <Input
             type="text"
             label="Appointment title"
+            autoFocus
             name="title"
             isRequired
             radius="sm"
@@ -256,7 +249,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           </Button>
         )}
       </form>
-    </div>
+    </>
   );
 };
 
