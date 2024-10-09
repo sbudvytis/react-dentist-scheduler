@@ -23,6 +23,8 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
     { name: "Notes", uid: "notes" },
   ];
 
+  const header: React.ReactNode = <h1>{patientName}'s Appointments</h1>;
+
   const renderAppointments = () => (
     <>
       <thead className="text-xs bg-white">
@@ -79,13 +81,8 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
   );
 
   const content = (
-    <div className="sm:mx-auto sm:w-full bg-white rounded-2xl p-6">
+    <div className="py-4">
       <div className="space-y-4">
-        <div className="pb-4 flex-col space-y-2">
-          <h1 className="lg:text-3xl text-xl font-semibold">
-            {patientName}'s Appointments
-          </h1>
-        </div>
         <div className="hide-scrollbar overflow-auto text-sm rounded-lg border border-gray-200 min-h-96 max-h-96">
           <table className="min-w-full">{renderAppointments()}</table>
         </div>
@@ -98,6 +95,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
       isOpen={isOpen}
       onClose={onClose}
       content={content}
+      header={header}
       size="5xl"
       scrollBehavior="normal"
     />
