@@ -38,39 +38,45 @@ export default function App() {
                   variant="bordered"
                 />
                 <Input
-                  autoFocus
-                  label="Email"
-                  placeholder="Enter your email"
+                  label="Password"
+                  placeholder="Enter your password"
+                  type="password"
                   variant="bordered"
                 />
                 <Input
-                  autoFocus
-                  label="Email"
-                  placeholder="Enter your email"
+                  label="Password"
+                  placeholder="Enter your password"
+                  type="password"
                   variant="bordered"
                 />
                 <Input
-                  autoFocus
-                  label="Email"
-                  placeholder="Enter your email"
+                  label="Password"
+                  placeholder="Enter your password"
+                  type="password"
                   variant="bordered"
                 />
                 <Input
-                  autoFocus
-                  label="Email"
-                  placeholder="Enter your email"
+                  label="Password"
+                  placeholder="Enter your password"
+                  type="password"
                   variant="bordered"
                 />
                 <Input
-                  autoFocus
-                  label="Email"
-                  placeholder="Enter your email"
+                  label="Password"
+                  placeholder="Enter your password"
+                  type="password"
                   variant="bordered"
                 />
                 <Input
-                  autoFocus
-                  label="Email"
-                  placeholder="Enter your email"
+                  label="Password"
+                  placeholder="Enter your password"
+                  type="password"
+                  variant="bordered"
+                />
+                <Input
+                  label="Password"
+                  placeholder="Enter your password"
+                  type="password"
                   variant="bordered"
                 />
                 <div className="flex py-2 px-1 justify-between">
