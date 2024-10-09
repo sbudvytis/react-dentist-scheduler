@@ -22,9 +22,9 @@ const ModalComponent: React.FC<ModalProps> = ({
       radius="sm"
       size={size}
       scrollBehavior={scrollBehavior}
+      placement="top-center"
     >
       <ModalContent>
-        <ModalHeader className="flex flex-col gap-1">Title</ModalHeader>
         <ModalBody>{content}</ModalBody>
       </ModalContent>
     </Modal>
