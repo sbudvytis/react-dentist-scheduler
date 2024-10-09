@@ -55,6 +55,13 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
     removeSchedule: <RemoveSchedule onClose={closeModal} />,
   };
 
+  const modalHeader: { [key: string]: string } = {
+    addAppointment: "Create Appointment",
+    createSchedule: "Create Schedule",
+    editSchedule: "Edit Schedule",
+    removeSchedule: "Remove Schedule",
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
@@ -133,6 +140,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
         <ModalComponent
           isOpen={true}
           onClose={closeModal}
+          header={modalHeader[activeModal]}
           content={modalContent[activeModal]}
           scrollBehavior="normal"
         />

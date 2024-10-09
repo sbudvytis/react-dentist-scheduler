@@ -32,12 +32,9 @@ const RemoveSchedule: React.FC<RemoveScheduleProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="sm:mx-auto sm:w-full sm:max-w-lg p-6">
+    <div className="py-4">
       <div className="grid space-y-4">
-        <div className="pb-4 flex-col space-y-2">
-          <h1 className="lg:text-3xl text-xl font-semibold">
-            Remove a schedule
-          </h1>
+        <div>
           <p className="text-gray-500">
             Are you sure you want to remove your schedule?
           </p>

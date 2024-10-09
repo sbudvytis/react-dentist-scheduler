@@ -4,6 +4,7 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   content: React.ReactNode;
+  header: React.ReactNode;
   size?: "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "full";
   scrollBehavior?: "inside" | "outside" | "normal";
 }
@@ -12,6 +13,7 @@ const ModalComponent: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   content,
+  header,
   size,
   scrollBehavior,
 }) => {
@@ -25,7 +27,9 @@ const ModalComponent: React.FC<ModalProps> = ({
       placement="top-center"
     >
       <ModalContent>
-        <ModalHeader className="flex flex-col gap-1">Header</ModalHeader>
+        <ModalHeader className="flex flex-col gap-1 text-2xl">
+          {header}
+        </ModalHeader>
         <ModalBody>{content}</ModalBody>
       </ModalContent>
     </Modal>

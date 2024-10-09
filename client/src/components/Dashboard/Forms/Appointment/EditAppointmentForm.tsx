@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Modal, ModalContent, ModalBody } from "@nextui-org/react";
+import { Modal, ModalContent, ModalBody, ModalHeader } from "@nextui-org/react";
 import { toast } from "react-toastify";
 import { Appointment } from "@/components/Dashboard/types";
 import AppointmentForm from "./AppointmentForm";
@@ -69,10 +69,14 @@ const EditAppointmentForm = ({
     <Modal
       isOpen={isOpen}
       onOpenChange={onClose}
-      scrollBehavior="inside"
+      scrollBehavior="normal"
+      placement="top-center"
       radius="sm"
     >
       <ModalContent>
+        <ModalHeader className="flex flex-col gap-1 text-2xl">
+          Edit Appointment
+        </ModalHeader>
         <ModalBody>
           <AppointmentForm
             initialData={formData}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Modal, ModalContent, ModalBody } from "@nextui-org/react";
+import { Modal, ModalContent, ModalBody, ModalHeader } from "@nextui-org/react";
 import useCalendar from "@/hooks/useCalendar";
 import useAppointments from "@/hooks/useAppointment";
 import { useSelectedSchedule } from "@/hooks/useSelectedSchedule";
@@ -138,9 +138,13 @@ const Dashboard = () => {
         isOpen={isAddModalOpen}
         onOpenChange={handleAddAppointmentClose}
         radius="sm"
-        scrollBehavior="inside"
+        scrollBehavior="normal"
+        placement="top-center"
       >
         <ModalContent>
+          <ModalHeader className="flex flex-col gap-1 text-2xl">
+            Create Appointment
+          </ModalHeader>
           <ModalBody>
             <AddAppointmentForm
               scheduleId={selectedScheduleId}

@@ -60,15 +60,8 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
   };
 
   return (
-    <div className="sm:mx-auto sm:w-full sm:max-w-lg p-6">
+    <div className="py-4">
       <form onSubmit={handleSubmit} className="grid space-y-4">
-        <div className="pb-4 flex-col space-y-2">
-          <h1 className="lg:text-3xl text-xl font-semibold">
-            {submitButtonText === "Create Schedule"
-              ? "Create a Schedule"
-              : "Edit Schedule"}
-          </h1>
-        </div>
         <div>
           <Select
             isRequired

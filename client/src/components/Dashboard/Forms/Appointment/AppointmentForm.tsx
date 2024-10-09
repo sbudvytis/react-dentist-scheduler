@@ -101,14 +101,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   return (
     <div className="py-4">
       <form onSubmit={handleSubmit} className="grid space-y-4">
-        <div className="pb-4 flex-col space-y-2">
-          <h1 className="lg:text-3xl text-xl font-semibold">
-            {submitButtonText === "Create Appointment"
-              ? "Create an Appointment"
-              : "Edit Appointment"}
-          </h1>
-        </div>
-
         {showAutocomplete && (
           <div className="w-full">
             <Autocomplete
@@ -234,28 +226,30 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             onChange={handleInputChange}
           />
         </div>
-        <Button
-          type="submit"
-          variant="solid"
-          radius="sm"
-          disabled={isSubmitting}
-          className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
-        >
-          {isSubmitting ? "Processing..." : submitButtonText}
-        </Button>
-
-        {showDeleteButton && (
+        <div className="flex flex-col gap-2">
           <Button
-            type="button"
-            variant="bordered"
-            color="danger"
+            type="submit"
+            variant="solid"
             radius="sm"
-            onClick={onDelete}
-            className="border-1 h-9"
+            disabled={isSubmitting}
+            className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
           >
-            {loading ? "Removing..." : "Remove Appointment"}
+            {isSubmitting ? "Processing..." : submitButtonText}
           </Button>
-        )}
+
+          {showDeleteButton && (
+            <Button
+              type="button"
+              variant="bordered"
+              color="danger"
+              radius="sm"
+              onClick={onDelete}
+              className="border-1 h-9"
+            >
+              {loading ? "Removing..." : "Remove Appointment"}
+            </Button>
+          )}
+        </div>
       </form>
     </div>
   );
