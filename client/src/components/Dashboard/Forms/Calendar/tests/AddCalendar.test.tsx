@@ -50,7 +50,7 @@ describe("CalendarForm", () => {
       />
     );
 
-    expect(screen.getByText("Create a Schedule")).toBeInTheDocument();
+    expect(screen.getByText("Create Schedule")).toBeInTheDocument();
     expect(screen.getByTestId("schedule-view-select")).toBeInTheDocument();
     expect(screen.getByText("Start time")).toBeInTheDocument();
     expect(screen.getByText("End time")).toBeInTheDocument();
