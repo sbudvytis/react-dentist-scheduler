@@ -1,10 +1,4 @@
-import {
-  Modal,
-  ModalContent,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-} from "@nextui-org/react";
+import { Modal, ModalContent, ModalBody, ModalHeader } from "@nextui-org/react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -33,9 +27,6 @@ const ModalComponent: React.FC<ModalProps> = ({
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">Header</ModalHeader>
         <ModalBody>{content}</ModalBody>
-        <ModalFooter>
-          <p>Footer</p>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   );
