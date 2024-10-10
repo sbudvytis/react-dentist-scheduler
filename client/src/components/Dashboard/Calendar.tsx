@@ -107,6 +107,7 @@ const Calendar: React.FC<CalendarProps> = ({
         slotLabelFormat={{ hour: "2-digit", minute: "2-digit", hour12: false }}
         eventTimeFormat={{ hour: "2-digit", minute: "2-digit", hour12: false }}
         weekNumbers
+        locale="en-GB"
         events={appointments.map((appointment) => ({
           id: appointment.id.toString(),
           title: appointment.title,

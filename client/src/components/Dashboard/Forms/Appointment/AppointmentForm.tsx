@@ -192,10 +192,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             label="Start"
             variant="flat"
             hideTimeZone
-            showMonthAndYearPickers
             isRequired
             radius="sm"
             size="sm"
+            description="dd/mm/yyyy, hh:mm format"
             value={parseAbsoluteToLocal(formData.start.toISOString())}
             onChange={handleDateChange("start")}
           />
@@ -206,10 +206,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             label="End"
             variant="flat"
             hideTimeZone
-            showMonthAndYearPickers
             isRequired
             radius="sm"
             size="sm"
+            description="dd/mm/yyyy, hh:mm format"
             value={parseAbsoluteToLocal(formData.end.toISOString())}
             onChange={handleDateChange("end")}
           />

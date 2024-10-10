@@ -59,25 +59,31 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
     onClose();
   };
 
+  const isMobile = window.innerWidth <= 1024;
+
   return (
     <div className="py-4">
       <form onSubmit={handleSubmit} className="grid space-y-4">
-        <div>
-          <Select
-            isRequired
-            required
-            radius="sm"
-            size="sm"
-            label="Select schedule view"
-            defaultSelectedKeys={[view]}
-            onChange={(e) => setView(e.target.value)}
-            data-testid="schedule-view-select"
-          >
-            {viewOptions.map((viewOption) => (
-              <SelectItem key={viewOption.value}>{viewOption.label}</SelectItem>
-            ))}
-          </Select>
-        </div>
+        {!isMobile && (
+          <div>
+            <Select
+              isRequired
+              required
+              radius="sm"
+              size="sm"
+              label="Select schedule view"
+              defaultSelectedKeys={[view]}
+              onChange={(e) => setView(e.target.value)}
+              data-testid="schedule-view-select"
+            >
+              {viewOptions.map((viewOption) => (
+                <SelectItem key={viewOption.value}>
+                  {viewOption.label}
+                </SelectItem>
+              ))}
+            </Select>
+          </div>
+        )}
         <div className="flex gap-4">
           <TimeInput
             isRequired

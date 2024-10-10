@@ -48,6 +48,16 @@ describe("EditAppointmentForm", () => {
       lastName: "Doe",
       contactNumber: "123456789",
     },
+    user: {
+      id: 0,
+      email: "",
+      firstName: "",
+      lastName: "",
+      password: "",
+      isApproved: false,
+      role: "",
+      permissions: [],
+    },
     email: "john.doe@example.com",
     notes: "Initial notes",
   };
