@@ -116,15 +116,17 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
             Include weekends
           </Switch>
         </div>
-        <Button
-          type="submit"
-          radius="sm"
-          variant="solid"
-          disabled={isSubmitting}
-          className="border-none bg-black hover:bg-indigo-600 text-white h-9"
-        >
-          {isSubmitting ? "Processing..." : submitButtonText}
-        </Button>
+        <div className="flex justify-center lg:justify-end">
+          <Button
+            type="submit"
+            radius="sm"
+            variant="solid"
+            disabled={isSubmitting}
+            className="border-none bg-black hover:bg-indigo-600 text-white h-9"
+          >
+            {isSubmitting ? "Submitting..." : submitButtonText}
+          </Button>
+        </div>
       </form>
     </div>
   );

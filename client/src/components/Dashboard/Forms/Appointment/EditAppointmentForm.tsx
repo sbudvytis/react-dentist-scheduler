@@ -72,6 +72,7 @@ const EditAppointmentForm = ({
       scrollBehavior="normal"
       placement="top-center"
       radius="sm"
+      size="4xl"
     >
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1 text-2xl">

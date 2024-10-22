@@ -143,6 +143,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
           header={modalHeader[activeModal]}
           content={modalContent[activeModal]}
           scrollBehavior="normal"
+          size="4xl"
         />
       )}
     </div>

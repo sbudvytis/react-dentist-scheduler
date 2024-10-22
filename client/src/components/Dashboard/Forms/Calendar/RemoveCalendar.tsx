@@ -44,16 +44,18 @@ const RemoveSchedule: React.FC<RemoveScheduleProps> = ({ onClose }) => {
             {removeScheduleError}
           </div>
         )}
-        <Button
-          onClick={handleRemoveSchedule}
-          variant="bordered"
-          radius="sm"
-          color="danger"
-          disabled={loading}
-          className="border-1 h-9"
-        >
-          {loading ? "Removing..." : "Remove Schedule"}
-        </Button>
+        <div className="flex justify-center gap-2 lg:justify-end">
+          <Button
+            onClick={handleRemoveSchedule}
+            color="danger"
+            variant="ghost"
+            radius="sm"
+            disabled={loading}
+            className="h-9"
+          >
+            {loading ? "Removing..." : "Remove Schedule"}
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -140,6 +140,7 @@ const Dashboard = () => {
         radius="sm"
         scrollBehavior="normal"
         placement="top-center"
+        size="4xl"
       >
         <ModalContent>
           <ModalHeader className="flex flex-col gap-1 text-2xl">

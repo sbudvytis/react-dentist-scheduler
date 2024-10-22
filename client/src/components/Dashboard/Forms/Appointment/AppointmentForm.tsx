@@ -6,6 +6,11 @@ import {
   DatePicker,
   Autocomplete,
   AutocompleteItem,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from "@nextui-org/react";
 import { ZonedDateTime, parseAbsoluteToLocal } from "@internationalized/date";
 import { Appointment, Patient } from "@/components/Dashboard/types";
@@ -43,6 +48,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   });
 
   const { patients } = usePatients(0, 0, "");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     setFormData({
@@ -96,6 +102,21 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     e.preventDefault();
     onSubmit(formData);
     onClose();
+  };
+
+  const openDeleteModal = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+  };
+
+  const confirmDelete = () => {
+    if (onDelete) {
+      onDelete();
+    }
+    closeDeleteModal();
   };
 
   return (
@@ -226,7 +247,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             onChange={handleInputChange}
           />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex justify-center gap-2 lg:justify-end">
           <Button
             type="submit"
             variant="solid"
@@ -239,18 +260,54 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
 
           {showDeleteButton && (
             <Button
-              type="button"
-              variant="bordered"
               color="danger"
+              variant="ghost"
               radius="sm"
-              onClick={onDelete}
-              className="border-1 h-9"
+              onClick={openDeleteModal}
+              className="h-9"
             >
               {loading ? "Removing..." : "Remove Appointment"}
             </Button>
           )}
         </div>
       </form>
+      {/* Modal for delete confirmation */}
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onClose={closeDeleteModal}
+        scrollBehavior="normal"
+        placement="top-center"
+        radius="sm"
+      >
+        <ModalContent>
+          <ModalHeader className="flex flex-col gap-1 text-2xl">
+            Confirmation
+          </ModalHeader>
+          <ModalBody>
+            <p>Are you sure you want to delete this appointment?</p>
+          </ModalBody>
+          <ModalFooter className="flex justify-center gap-2 lg:justify-end">
+            <Button
+              color="default"
+              variant="ghost"
+              radius="sm"
+              onClick={closeDeleteModal}
+              className="h-9"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="ghost"
+              radius="sm"
+              color="danger"
+              onClick={confirmDelete}
+              className="h-9"
+            >
+              Confirm
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

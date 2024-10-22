@@ -160,7 +160,7 @@ const Signup = () => {
                   name="role"
                   as={Select}
                   label="select your role"
-                  isInvalid={touched.role && !!errors.role}
+                  isInvalid={!touched.role && !!errors.role}
                   errorMessage={errors.role}
                   isRequired
                   radius="sm"

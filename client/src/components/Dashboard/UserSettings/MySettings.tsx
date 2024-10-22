@@ -16,7 +16,7 @@ export default function App() {
 
   return (
     <>
-      <Button onPress={onOpen} color="primary">
+      <Button onPress={onOpen} color="danger" variant="ghost">
         Open Modal
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">

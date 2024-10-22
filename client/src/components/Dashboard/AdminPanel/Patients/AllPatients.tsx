@@ -10,7 +10,7 @@ import PatientSearch from "./PatientSearch";
 const AllPatients = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const pageSize = 6;
+  const pageSize = 10;
 
   const { patients, isLoading, totalPatients } = usePatients(
     currentPage,
@@ -99,7 +99,7 @@ const AllPatients = () => {
         setSearchTerm={handleSearchTermChange}
       />
       <div className="hide-scrollbar overflow-auto text-sm flex-grow">
-        <div className="overflow-auto rounded-lg border border-gray-200 relative min-h-32 max-h-96">
+        <div className="overflow-auto rounded-lg border border-gray-200 relative min-h-32 max-h-full">
           <table className="min-w-full">
             <thead className="text-xs bg-white">
               <tr className="border-b border-gray-200">
