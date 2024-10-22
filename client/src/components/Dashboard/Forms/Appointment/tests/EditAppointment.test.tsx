@@ -123,8 +123,20 @@ describe("EditAppointmentForm", () => {
       />
     );
 
+    // Click on the "Remove Appointment" button to open the confirmation modal
     fireEvent.click(screen.getByText("Remove Appointment"));
 
+    // Wait for the confirmation modal to appear
+    await waitFor(() => {
+      expect(
+        screen.getByText("Are you sure you want to delete this appointment?")
+      ).toBeInTheDocument();
+    });
+
+    // Click on the "Confirm" button inside the modal
+    fireEvent.click(screen.getByText("Confirm"));
+
+    // Wait for the removeAppointmentMock to be called
     await waitFor(() => {
       expect(removeAppointmentMock).toHaveBeenCalledWith(
         expect.objectContaining({ id: 1 })
