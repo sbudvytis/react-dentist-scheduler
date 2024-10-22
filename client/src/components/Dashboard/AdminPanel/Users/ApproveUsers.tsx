@@ -42,7 +42,7 @@ const AdminPanel = () => {
               className="bg-black"
             >
               <span
-                className="text-lg text-danger cursor-pointer active:opacity-50"
+                className="text-lg text-danger-600 cursor-pointer active:opacity-50"
                 onClick={() => removeUser(user.id)}
               >
                 <IoPersonRemoveOutline />

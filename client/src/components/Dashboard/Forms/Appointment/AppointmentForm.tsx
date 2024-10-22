@@ -134,7 +134,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 label="Search for a patient"
                 radius="sm"
                 size="sm"
-                description="Search for a patient by name or create a new one"
+                description="Search by name or add a new patient"
                 onSelectionChange={handlePatientSelect}
               >
                 {patients.map((patient: Patient) => (
@@ -157,6 +157,11 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                   variant="flat"
                   radius="sm"
                   size="lg"
+                  aria-label={
+                    showPatientForm
+                      ? "Hide patient input fields"
+                      : "Show patient input fields"
+                  }
                   onClick={() => setShowPatientForm(!showPatientForm)}
                 >
                   {showPatientForm ? (

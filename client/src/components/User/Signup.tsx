@@ -187,7 +187,7 @@ const Signup = () => {
         </Formik>
         {hasSucceeded && (
           <div className="pt-6">
-            <div className="bg-indigo-400 text-white text-sm p-4 rounded-lg text-center">
+            <div className="bg-[#d8f5e1] text-[#095028] text-sm p-4 rounded-lg text-center">
               <p>{successMessage}</p>
             </div>
           </div>
@@ -195,7 +195,7 @@ const Signup = () => {
 
         {errorMessage && (
           <div className="pt-6">
-            <div className="bg-[#f25551] text-white p-4 rounded-lg text-sm text-center">
+            <div className="bg-[#fed5df] text-[#620726] p-4 rounded-lg text-sm text-center">
               <p>{errorMessage}</p>
             </div>
           </div>

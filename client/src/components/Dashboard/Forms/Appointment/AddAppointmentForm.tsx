@@ -69,6 +69,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
         submitButtonText="Create Appointment"
         loading={removeAppointmentLoading}
         showAutocomplete={true}
+        isEditing={false}
       />
       {appointmentsError && (
         <p className="text-red-500 text-sm mt-2">{appointmentsError}</p>

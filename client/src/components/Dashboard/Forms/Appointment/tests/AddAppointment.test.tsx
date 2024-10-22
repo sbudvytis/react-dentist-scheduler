@@ -51,8 +51,11 @@ describe("AppointmentForm", () => {
         submitButtonText="Add Appointment"
         showAutocomplete={true}
         selectedDateRange={selectedDateRange}
+        isEditing={false}
       />
     );
+
+    fireEvent.click(screen.getByLabelText("Show patient input fields"));
 
     expect(screen.getByText("Search for a patient")).toBeInTheDocument();
     expect(screen.getByText("Appointment title")).toBeInTheDocument();
@@ -77,8 +80,11 @@ describe("AppointmentForm", () => {
         submitButtonText="Add Appointment"
         showAutocomplete={true}
         selectedDateRange={selectedDateRange}
+        isEditing={false}
       />
     );
+
+    fireEvent.click(screen.getByLabelText("Show patient input fields"));
 
     fireEvent.change(screen.getByLabelText(/Appointment title/i), {
       target: { value: "Doctor Visit" },
