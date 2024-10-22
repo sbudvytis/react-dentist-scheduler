@@ -48,7 +48,7 @@ const RemoveSchedule: React.FC<RemoveScheduleProps> = ({ onClose }) => {
           <Button
             onClick={handleRemoveSchedule}
             color="danger"
-            variant="ghost"
+            variant="flat"
             radius="sm"
             disabled={loading}
             className="h-9"

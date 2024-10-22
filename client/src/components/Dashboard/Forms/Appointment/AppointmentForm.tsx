@@ -11,10 +11,12 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Tooltip,
 } from "@nextui-org/react";
 import { ZonedDateTime, parseAbsoluteToLocal } from "@internationalized/date";
 import { Appointment, Patient } from "@/components/Dashboard/types";
 import usePatients from "@/hooks/usePatients";
+import { IoPersonAddOutline, IoPersonRemoveOutline } from "react-icons/io5";
 
 interface AppointmentFormProps {
   initialData: Appointment;
@@ -27,6 +29,7 @@ interface AppointmentFormProps {
   showDeleteButton?: boolean;
   submitButtonText: string;
   showAutocomplete: boolean;
+  isEditing: boolean;
 }
 
 const AppointmentForm: React.FC<AppointmentFormProps> = ({
@@ -39,6 +42,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   showDeleteButton = false,
   onDelete,
   showAutocomplete,
+  isEditing,
 }) => {
   const [formData, setFormData] = useState<Appointment>({
     ...initialData,
@@ -49,6 +53,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
 
   const { patients } = usePatients(0, 0, "");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [showPatientForm, setShowPatientForm] = useState(false); // New state to control visibility
 
   useEffect(() => {
     setFormData({
@@ -122,22 +127,93 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   return (
     <div className="py-4">
       <form onSubmit={handleSubmit} className="grid space-y-4">
-        {showAutocomplete && (
-          <div className="w-full">
-            <Autocomplete
-              label="Search for a patient"
-              radius="sm"
-              size="sm"
-              description="Search for a patient by name or create a new down below"
-              onSelectionChange={handlePatientSelect}
-            >
-              {patients.map((patient: Patient) => (
-                <AutocompleteItem key={patient.patientId.toString()}>
-                  {`${patient.firstName} ${patient.lastName}`}
-                </AutocompleteItem>
-              ))}
-            </Autocomplete>
-          </div>
+        <div className="flex gap-3">
+          {showAutocomplete && !isEditing && (
+            <div className="w-full">
+              <Autocomplete
+                label="Search for a patient"
+                radius="sm"
+                size="sm"
+                description="Search for a patient by name or create a new one"
+                onSelectionChange={handlePatientSelect}
+              >
+                {patients.map((patient: Patient) => (
+                  <AutocompleteItem key={patient.patientId.toString()}>
+                    {`${patient.firstName} ${patient.lastName}`}
+                  </AutocompleteItem>
+                ))}
+              </Autocomplete>
+            </div>
+          )}
+          {!isEditing && (
+            <div>
+              <Tooltip
+                content="Add new patient"
+                radius="sm"
+                className="bg-black text-white"
+              >
+                <Button
+                  isIconOnly
+                  variant="flat"
+                  radius="sm"
+                  size="lg"
+                  onClick={() => setShowPatientForm(!showPatientForm)}
+                >
+                  {showPatientForm ? (
+                    <IoPersonRemoveOutline />
+                  ) : (
+                    <IoPersonAddOutline />
+                  )}
+                </Button>
+              </Tooltip>
+            </div>
+          )}
+        </div>
+
+        {(showPatientForm || isEditing) && (
+          <>
+            <div className="flex gap-3">
+              <div className="w-full">
+                <Input
+                  type="text"
+                  label="First name"
+                  name="firstName"
+                  isRequired
+                  radius="sm"
+                  size="sm"
+                  value={formData.patient.firstName}
+                  onChange={handlePatientDataChange}
+                  required
+                />
+              </div>
+              <div className="w-full">
+                <Input
+                  type="text"
+                  label="Last name"
+                  name="lastName"
+                  isRequired
+                  radius="sm"
+                  size="sm"
+                  value={formData.patient.lastName}
+                  onChange={handlePatientDataChange}
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <Input
+                type="text"
+                label="Phone number"
+                name="contactNumber"
+                isRequired
+                radius="sm"
+                size="sm"
+                value={formData.patient.contactNumber}
+                onChange={handlePatientDataChange}
+                required
+              />
+            </div>
+          </>
         )}
         <div>
           <Input
@@ -150,47 +226,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             value={formData.title}
             onChange={handleInputChange}
             autoFocus
-            required
-          />
-        </div>
-        <div className="flex gap-3">
-          <div className="w-full">
-            <Input
-              type="text"
-              label="First name"
-              name="firstName"
-              isRequired
-              radius="sm"
-              size="sm"
-              value={formData.patient.firstName}
-              onChange={handlePatientDataChange}
-              required
-            />
-          </div>
-          <div className="w-full">
-            <Input
-              type="text"
-              label="Last name"
-              name="lastName"
-              isRequired
-              radius="sm"
-              size="sm"
-              value={formData.patient.lastName}
-              onChange={handlePatientDataChange}
-              required
-            />
-          </div>
-        </div>
-        <div>
-          <Input
-            type="text"
-            label="Phone number"
-            name="contactNumber"
-            isRequired
-            radius="sm"
-            size="sm"
-            value={formData.patient.contactNumber}
-            onChange={handlePatientDataChange}
             required
           />
         </div>
@@ -207,33 +242,35 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             required
           />
         </div>
-        <div>
-          <DatePicker
-            hourCycle={24}
-            label="Start"
-            variant="flat"
-            hideTimeZone
-            isRequired
-            radius="sm"
-            size="sm"
-            description="dd/mm/yyyy, hh:mm format"
-            value={parseAbsoluteToLocal(formData.start.toISOString())}
-            onChange={handleDateChange("start")}
-          />
-        </div>
-        <div>
-          <DatePicker
-            hourCycle={24}
-            label="End"
-            variant="flat"
-            hideTimeZone
-            isRequired
-            radius="sm"
-            size="sm"
-            description="dd/mm/yyyy, hh:mm format"
-            value={parseAbsoluteToLocal(formData.end.toISOString())}
-            onChange={handleDateChange("end")}
-          />
+        <div className="flex flex-col md:flex-row w-full gap-3">
+          <div className="w-full">
+            <DatePicker
+              hourCycle={24}
+              label="Start"
+              variant="flat"
+              hideTimeZone
+              isRequired
+              radius="sm"
+              size="sm"
+              description="dd/mm/yyyy, hh:mm format"
+              value={parseAbsoluteToLocal(formData.start.toISOString())}
+              onChange={handleDateChange("start")}
+            />
+          </div>
+          <div className="w-full">
+            <DatePicker
+              hourCycle={24}
+              label="End"
+              variant="flat"
+              hideTimeZone
+              isRequired
+              radius="sm"
+              size="sm"
+              description="dd/mm/yyyy, hh:mm format"
+              value={parseAbsoluteToLocal(formData.end.toISOString())}
+              onChange={handleDateChange("end")}
+            />
+          </div>
         </div>
         <div>
           <Textarea
@@ -247,6 +284,8 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             onChange={handleInputChange}
           />
         </div>
+
+        {/* Form actions */}
         <div className="flex justify-center gap-2 lg:justify-end">
           <Button
             type="submit"
@@ -261,7 +300,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           {showDeleteButton && (
             <Button
               color="danger"
-              variant="ghost"
+              variant="flat"
               radius="sm"
               onClick={openDeleteModal}
               className="h-9"
@@ -271,6 +310,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           )}
         </div>
       </form>
+
       {/* Modal for delete confirmation */}
       <Modal
         isOpen={isDeleteModalOpen}
@@ -284,22 +324,22 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             Confirmation
           </ModalHeader>
           <ModalBody>
-            <p>Are you sure you want to delete this appointment?</p>
+            Are you sure you want to delete this appointment?
           </ModalBody>
           <ModalFooter className="flex justify-center gap-2 lg:justify-end">
             <Button
               color="default"
-              variant="ghost"
+              variant="solid"
               radius="sm"
               onClick={closeDeleteModal}
-              className="h-9"
+              className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
             >
               Cancel
             </Button>
             <Button
-              variant="ghost"
-              radius="sm"
               color="danger"
+              variant="flat"
+              radius="sm"
               onClick={confirmDelete}
               className="h-9"
             >

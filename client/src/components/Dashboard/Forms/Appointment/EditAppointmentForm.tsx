@@ -89,6 +89,7 @@ const EditAppointmentForm = ({
             submitButtonText="Save Changes"
             showDeleteButton
             showAutocomplete={false}
+            isEditing={true}
             onDelete={handleDelete}
           />
         </ModalBody>
