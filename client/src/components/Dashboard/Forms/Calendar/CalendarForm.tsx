@@ -69,7 +69,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
             <Select
               isRequired
               required
-              radius="sm"
+              radius="lg"
               size="sm"
               label="Select schedule view"
               defaultSelectedKeys={[view]}
@@ -87,7 +87,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
         <div className="flex gap-4">
           <TimeInput
             isRequired
-            radius="sm"
+            radius="lg"
             size="sm"
             label="Start time"
             value={slotMinTime}
@@ -97,7 +97,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
           />
           <TimeInput
             isRequired
-            radius="sm"
+            radius="lg"
             size="sm"
             label="End time"
             value={slotMaxTime}
@@ -119,7 +119,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
         <div className="flex justify-center lg:justify-end">
           <Button
             type="submit"
-            radius="sm"
+            radius="lg"
             variant="solid"
             disabled={isSubmitting}
             className="border-none bg-black hover:bg-indigo-600 text-white h-9"

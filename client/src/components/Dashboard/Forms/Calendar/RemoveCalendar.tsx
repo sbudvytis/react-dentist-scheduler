@@ -40,7 +40,7 @@ const RemoveSchedule: React.FC<RemoveScheduleProps> = ({ onClose }) => {
           </p>
         </div>
         {removeScheduleError && (
-          <div className="bg-[#fed5df] text-[#620726] p-4 rounded-lg text-sm text-center">
+          <div className="bg-[#ffe7ef] text-[#f31261] p-4 rounded-2xl text-sm text-center">
             {removeScheduleError}
           </div>
         )}
@@ -49,7 +49,7 @@ const RemoveSchedule: React.FC<RemoveScheduleProps> = ({ onClose }) => {
             onClick={handleRemoveSchedule}
             color="danger"
             variant="flat"
-            radius="sm"
+            radius="lg"
             disabled={loading}
             className="h-9"
           >

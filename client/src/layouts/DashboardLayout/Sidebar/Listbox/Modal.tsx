@@ -21,7 +21,7 @@ const ModalComponent: React.FC<ModalProps> = ({
     <Modal
       isOpen={isOpen}
       onOpenChange={onClose}
-      radius="sm"
+      radius="lg"
       size={size}
       scrollBehavior={scrollBehavior}
       placement="top-center"

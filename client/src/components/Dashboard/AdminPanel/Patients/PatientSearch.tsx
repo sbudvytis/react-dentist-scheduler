@@ -13,6 +13,7 @@ const PatientSearch: React.FC<PatientSearchProps> = ({
   return (
     <div className="pb-4">
       <Input
+        radius="lg"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Search patients by typing their name or contact number"

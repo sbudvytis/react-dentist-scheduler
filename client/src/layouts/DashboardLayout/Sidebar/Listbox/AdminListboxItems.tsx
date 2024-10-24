@@ -17,7 +17,7 @@ const AdminListboxItems = ({ isLoading, closeMenu }: Props) => {
 
   // Define active link styles
   const linkClasses = "flex items-center space-x-4 p-2";
-  const activeLinkClasses = "bg-gray-100 text-gray-800 rounded-lg";
+  const activeLinkClasses = "bg-gray-100 text-gray-800 rounded-2xl";
 
   const isUsersActive = location.pathname.startsWith(
     "/dashboard/admin-panel/users"

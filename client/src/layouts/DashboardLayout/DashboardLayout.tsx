@@ -66,7 +66,7 @@ export default function DashboardLayout({
           {renderSidebarItems()}
         </Sidebar>
         <main
-          className={`hide-main-scrollbar flex-1 border-l border-gray-200 overflow-y-auto bg-white px-6 ${className}`}
+          className={`hide-main-scrollbar flex-1 border-l border-gray-200 overflow-y-auto bg-white px-6 pb-6 ${className}`}
         >
           <Breadcrumbs className="pb-6 pt-6" />
           <Outlet />

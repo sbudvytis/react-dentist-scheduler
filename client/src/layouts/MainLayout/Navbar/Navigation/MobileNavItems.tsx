@@ -13,58 +13,60 @@ const MobileNavItems = ({ className, closeMenu }: Props) => {
   const { isLoggedIn, canApproveUsers } = useAuth();
 
   return (
-    <div className="flex gap-2 justify-center">
-      {isLoggedIn ? (
-        <>
-          <div className={`${className}`}>
-            <Button
-              as={Link}
-              to="/dashboard"
-              color="default"
-              variant="solid"
-              radius="sm"
-              startContent={<IoAlbumsOutline />}
-              className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
-              onClick={closeMenu}
-            >
-              Dashboard
-            </Button>
-          </div>
-          {canApproveUsers ? (
+    <>
+      <div className="flex gap-2 justify-center">
+        {isLoggedIn ? (
+          <>
             <div className={`${className}`}>
               <Button
                 as={Link}
-                to="/dashboard/admin-panel"
+                to="/dashboard"
                 color="default"
                 variant="solid"
-                radius="sm"
-                startContent={<IoShieldCheckmarkOutline />}
-                className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
+                radius="lg"
+                startContent={<IoAlbumsOutline />}
+                className="bg-black hover:bg-indigo-600 text-white h-9 font-medium"
                 onClick={closeMenu}
               >
-                Admin Panel
+                Dashboard
               </Button>
             </div>
-          ) : null}
-        </>
-      ) : (
-        <>
-          <div>
-            <Button
-              as={Link}
-              to="/login"
-              color="default"
-              variant="bordered"
-              radius="sm"
-              className="border-1 bg-white border-gray-200"
-              onClick={closeMenu}
-            >
-              Sign in / Sign up
-            </Button>
-          </div>
-        </>
-      )}
-    </div>
+            {canApproveUsers ? (
+              <div className={`${className}`}>
+                <Button
+                  as={Link}
+                  to="/dashboard/admin-panel"
+                  color="default"
+                  variant="solid"
+                  radius="lg"
+                  startContent={<IoShieldCheckmarkOutline />}
+                  className="bg-black hover:bg-indigo-600 text-white h-9 font-medium"
+                  onClick={closeMenu}
+                >
+                  Admin Panel
+                </Button>
+              </div>
+            ) : null}
+          </>
+        ) : (
+          <>
+            <div>
+              <Button
+                as={Link}
+                to="/login"
+                color="default"
+                variant="bordered"
+                radius="sm"
+                className="border-1 bg-white border-gray-200"
+                onClick={closeMenu}
+              >
+                Sign in / Sign up
+              </Button>
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

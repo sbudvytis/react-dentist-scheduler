@@ -38,13 +38,13 @@ const User = () => {
   return (
     <div>
       {isLoggedIn && currentUser && (
-        <Dropdown placement="bottom-end" radius="sm" className="text-gray-600">
+        <Dropdown placement="bottom-end" radius="lg" className="text-gray-600">
           <DropdownTrigger>
             <Button
               name={`${currentUser.firstName} ${currentUser.lastName}`}
               color="default"
               variant="bordered"
-              radius="sm"
+              radius="lg"
               isIconOnly={isMobile}
               className="border-1 bg-white border-gray-200 font-medium h-9"
             >

@@ -132,7 +132,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             <div className="w-full">
               <Autocomplete
                 label="Search for a patient"
-                radius="sm"
+                radius="lg"
                 size="sm"
                 description="Search by name or add a new patient"
                 onSelectionChange={handlePatientSelect}
@@ -155,7 +155,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 <Button
                   isIconOnly
                   variant="flat"
-                  radius="sm"
+                  radius="lg"
                   size="lg"
                   aria-label={
                     showPatientForm
@@ -184,7 +184,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                   label="First name"
                   name="firstName"
                   isRequired
-                  radius="sm"
+                  radius="lg"
                   size="sm"
                   value={formData.patient.firstName}
                   onChange={handlePatientDataChange}
@@ -197,7 +197,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                   label="Last name"
                   name="lastName"
                   isRequired
-                  radius="sm"
+                  radius="lg"
                   size="sm"
                   value={formData.patient.lastName}
                   onChange={handlePatientDataChange}
@@ -211,7 +211,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 label="Phone number"
                 name="contactNumber"
                 isRequired
-                radius="sm"
+                radius="lg"
                 size="sm"
                 value={formData.patient.contactNumber}
                 onChange={handlePatientDataChange}
@@ -226,7 +226,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             label="Appointment title"
             name="title"
             isRequired
-            radius="sm"
+            radius="lg"
             size="sm"
             value={formData.title}
             onChange={handleInputChange}
@@ -240,7 +240,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             label="Email"
             name="email"
             isRequired
-            radius="sm"
+            radius="lg"
             size="sm"
             value={formData.email}
             onChange={handleInputChange}
@@ -255,7 +255,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               variant="flat"
               hideTimeZone
               isRequired
-              radius="sm"
+              radius="lg"
               size="sm"
               description="dd/mm/yyyy, hh:mm format"
               value={parseAbsoluteToLocal(formData.start.toISOString())}
@@ -269,7 +269,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               variant="flat"
               hideTimeZone
               isRequired
-              radius="sm"
+              radius="lg"
               size="sm"
               description="dd/mm/yyyy, hh:mm format"
               value={parseAbsoluteToLocal(formData.end.toISOString())}
@@ -283,7 +283,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             name="notes"
             isRequired
             required
-            radius="sm"
+            radius="lg"
             size="sm"
             value={formData.notes}
             onChange={handleInputChange}
@@ -295,7 +295,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           <Button
             type="submit"
             variant="solid"
-            radius="sm"
+            radius="lg"
             disabled={isSubmitting}
             className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
           >
@@ -306,7 +306,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             <Button
               color="danger"
               variant="flat"
-              radius="sm"
+              radius="lg"
               onClick={openDeleteModal}
               className="h-9"
             >
@@ -322,20 +322,20 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         onClose={closeDeleteModal}
         scrollBehavior="normal"
         placement="top-center"
-        radius="sm"
+        radius="lg"
       >
         <ModalContent>
           <ModalHeader className="flex flex-col gap-1 text-2xl">
             Confirmation
           </ModalHeader>
           <ModalBody>
-            Are you sure you want to delete this appointment?
+            Are you sure you want to remove this appointment?
           </ModalBody>
           <ModalFooter className="flex justify-center gap-2 lg:justify-end">
             <Button
               color="default"
               variant="solid"
-              radius="sm"
+              radius="lg"
               onClick={closeDeleteModal}
               className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
             >
@@ -344,7 +344,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             <Button
               color="danger"
               variant="flat"
-              radius="sm"
+              radius="lg"
               onClick={confirmDelete}
               className="h-9"
             >

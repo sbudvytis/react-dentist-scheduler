@@ -17,7 +17,7 @@ const UserActions = ({ isLoggedIn }: Props) => {
           to="/login"
           color="default"
           variant="bordered"
-          radius="sm"
+          radius="lg"
           className="border-1 bg-white border-gray-200 h-9"
         >
           Sign in / Sign up

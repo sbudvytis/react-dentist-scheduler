@@ -83,7 +83,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
   const content = (
     <div className="py-4">
       <div className="space-y-4">
-        <div className="hide-scrollbar overflow-auto text-sm rounded-lg border border-gray-200 min-h-96 max-h-96">
+        <div className="hide-scrollbar overflow-auto text-sm rounded-2xl border border-gray-200 min-h-96 max-h-96">
           <table className="min-w-full">{renderAppointments()}</table>
         </div>
       </div>

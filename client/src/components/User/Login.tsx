@@ -47,7 +47,7 @@ const Login = () => {
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-lg bg-white rounded-lg p-6 border-1 border-gray-200">
+      <div className="sm:mx-auto sm:w-full sm:max-w-lg bg-white rounded-2xl p-6 border-1 border-gray-200">
         <Formik
           initialValues={initialValues}
           validationSchema={LoginSchema}
@@ -76,7 +76,7 @@ const Login = () => {
                   isInvalid={touched.email && !!errors.email}
                   errorMessage={errors.email}
                   isRequired
-                  radius="sm"
+                  radius="lg"
                   size="sm"
                 />
               </div>
@@ -90,14 +90,14 @@ const Login = () => {
                   isInvalid={touched.password && !!errors.password}
                   errorMessage={errors.password}
                   isRequired
-                  radius="sm"
+                  radius="lg"
                   size="sm"
                 />
               </div>
 
               <Button
                 variant="solid"
-                radius="sm"
+                radius="lg"
                 type="submit"
                 disabled={isSubmitting}
                 className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
@@ -109,7 +109,7 @@ const Login = () => {
         </Formik>
         {errorMessage && (
           <div className="pt-6">
-            <div className="bg-[#fed5df] text-[#620726] p-4 rounded-lg text-sm text-center">
+            <div className="bg-[#ffe7ef] text-[#f31261] p-4 rounded-2xl text-sm text-center">
               <p>{errorMessage}</p>
             </div>
           </div>

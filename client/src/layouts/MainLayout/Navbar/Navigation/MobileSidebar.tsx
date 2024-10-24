@@ -50,19 +50,19 @@ const Sidebar = ({
 
   return (
     <div
-      className={`fixed inset-0 z-30 transform transition-transform duration-500 ease-in-out lg:hidden ${
+      className={`fixed top-2 bottom-2 left-0 z-30 transform transition-transform duration-500 ease-in-out lg:hidden ${
         isMenuOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
       <div
-        className="relative w-80 h-screen bg-white shadow-lg p-4 space-y-4 py-16"
+        className="relative w-80 h-full bg-white shadow-lg rounded-r-2xl p-4 space-y-4 py-16"
         ref={sidebarRef}
       >
         <Button
           isIconOnly
           color="default"
           variant="bordered"
-          radius="sm"
+          radius="lg"
           onClick={closeMenu}
           className="absolute top-3 right-3 border-1 bg-white border-gray-200 focus:outline-none h-9"
           aria-label="Close Menu"

@@ -83,7 +83,7 @@ const AllUsers = () => {
   }
 
   return (
-    <div className="hide-scrollbar overflow-auto text-sm rounded-lg border border-gray-200 min-h-96 max-h-96">
+    <div className="hide-scrollbar overflow-auto text-sm rounded-2xl border border-gray-200 min-h-96 max-h-96">
       <table className="min-w-full">
         <thead className="text-xs bg-white sticky top-0 z-10">
           <tr className="border-b border-gray-200">

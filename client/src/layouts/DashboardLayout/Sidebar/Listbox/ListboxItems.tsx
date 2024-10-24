@@ -118,16 +118,17 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
       </div>
 
       {hasSchedule && isDentist && (
-        <div className="mt-auto px-2 py-16 md:py-4 lg:py-4">
+        <div className="mt-auto px-2 py-20 md:py-6 lg:py-6">
           <Button
             onClick={() => {
               openModal("removeSchedule");
               closeMenu();
             }}
-            variant="solid"
-            radius="sm"
+            color="danger"
+            variant="flat"
+            radius="lg"
             className={cn(
-              "flex items-center space-x-2 text-sm focus:outline-none w-full bg-black hover:bg-indigo-600 text-white h-9"
+              "flex items-center space-x-2 text-sm focus:outline-none w-full"
             )}
           >
             <IoTrashBinOutline className={iconClasses} />

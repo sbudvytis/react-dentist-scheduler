@@ -21,9 +21,9 @@ const NavItems = ({ className }: Props) => {
               to="/dashboard"
               color="default"
               variant="solid"
-              radius="sm"
+              radius="lg"
               startContent={<IoAlbumsOutline />}
-              className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
+              className="bg-black hover:bg-indigo-600 text-white h-9 font-medium"
             >
               Dashboard
             </Button>
@@ -35,9 +35,9 @@ const NavItems = ({ className }: Props) => {
                 to="/dashboard/admin-panel"
                 color="default"
                 variant="solid"
-                radius="sm"
+                radius="lg"
                 startContent={<IoShieldCheckmarkOutline />}
-                className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white  h-9"
+                className="bg-black hover:bg-indigo-600 text-white h-9 font-medium"
               >
                 Admin Panel
               </Button>

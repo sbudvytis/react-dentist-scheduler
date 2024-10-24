@@ -62,10 +62,10 @@ const AllPatients = () => {
             <Button
               color="default"
               variant="bordered"
-              radius="sm"
+              radius="lg"
               isIconOnly
               startContent={<IoCalendarOutline />}
-              className="border-1 bg-white border-gray-200 h-9"
+              className="border-1 bg-white border-gray-200"
               onClick={() =>
                 openModal(
                   patient.appointments,
@@ -99,7 +99,7 @@ const AllPatients = () => {
         setSearchTerm={handleSearchTermChange}
       />
       <div className="hide-scrollbar overflow-auto text-sm flex-grow">
-        <div className="overflow-auto rounded-lg border border-gray-200 relative min-h-32 max-h-full">
+        <div className="overflow-auto rounded-2xl border border-gray-200 relative min-h-32 max-h-full">
           <table className="min-w-full">
             <thead className="text-xs bg-white">
               <tr className="border-b border-gray-200">

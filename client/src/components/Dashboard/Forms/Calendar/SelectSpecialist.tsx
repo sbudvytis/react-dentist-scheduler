@@ -26,6 +26,7 @@ const SelectSpecialist: React.FC<SelectSpecialistProps> = ({
           handleSelectedScheduleById(selectedValue);
         }}
         className="w-full"
+        radius="lg"
       >
         {schedules.map((schedule) => (
           <SelectItem key={schedule.scheduleId} value={schedule.scheduleId}>

@@ -71,7 +71,7 @@ const EditAppointmentForm = ({
       onOpenChange={onClose}
       scrollBehavior="normal"
       placement="top-center"
-      radius="sm"
+      radius="lg"
       size="4xl"
     >
       <ModalContent>
