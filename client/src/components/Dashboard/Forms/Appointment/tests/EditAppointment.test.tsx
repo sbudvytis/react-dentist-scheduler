@@ -129,7 +129,7 @@ describe("EditAppointmentForm", () => {
     // Wait for the confirmation modal to appear
     await waitFor(() => {
       expect(
-        screen.getByText("Are you sure you want to delete this appointment?")
+        screen.getByText("Are you sure you want to remove this appointment?")
       ).toBeInTheDocument();
     });
 

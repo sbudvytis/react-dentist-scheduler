@@ -15,11 +15,11 @@ import {
   IoCalendarOutline,
 } from "react-icons/io5";
 
-type Props = {
+interface Props {
   hasSchedule: boolean;
   isLoading: boolean;
   closeMenu: () => void;
-};
+}
 
 interface ModalContentMap {
   [key: string]: React.ReactElement;
