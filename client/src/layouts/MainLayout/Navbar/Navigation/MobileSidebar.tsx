@@ -6,7 +6,7 @@ import ListboxItems from "@/layouts/DashboardLayout/Sidebar/Listbox/ListboxItems
 import AdminListboxItems from "@/layouts/DashboardLayout/Sidebar/Listbox/AdminListboxItems";
 import SettingsListboxItems from "@/layouts/DashboardLayout/Sidebar/Listbox/SettingsListboxItems";
 
-type Props = {
+interface Props {
   isMenuOpen: boolean;
   closeMenu: () => void;
   isAdminPanel: boolean;
@@ -14,7 +14,7 @@ type Props = {
   hasSchedule: boolean;
   isLoading: boolean;
   isLoggedIn: boolean;
-};
+}
 
 const Sidebar = ({
   isMenuOpen,

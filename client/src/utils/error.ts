@@ -1,4 +1,4 @@
-export type ErrorResponse = {
+export interface ErrorResponse {
   validation?: string;
   code: string;
   message: string;
@@ -7,7 +7,7 @@ export type ErrorResponse = {
   type?: string;
   inclusive?: boolean;
   exact?: boolean;
-};
+}
 
 export const transformErrorMessages = (errors: ErrorResponse[]): string => {
   return errors

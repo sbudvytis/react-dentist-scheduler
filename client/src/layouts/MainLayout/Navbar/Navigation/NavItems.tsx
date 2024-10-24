@@ -4,9 +4,9 @@ import useAuth from "@/hooks/useAuth";
 
 import { IoAlbumsOutline, IoShieldCheckmarkOutline } from "react-icons/io5";
 
-type Props = {
+interface Props {
   className?: string;
-};
+}
 
 const NavItems = ({ className }: Props) => {
   const { isLoggedIn, canApproveUsers } = useAuth();

@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { Button } from "@nextui-org/react";
 import User from "@/layouts/MainLayout/Navbar/User/User";
 
-type Props = {
+interface Props {
   isLoggedIn: boolean;
-};
+}
 
 const UserActions = ({ isLoggedIn }: Props) => {
   return (

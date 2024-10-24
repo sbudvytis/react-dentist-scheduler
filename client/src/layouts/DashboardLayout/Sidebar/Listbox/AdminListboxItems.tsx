@@ -6,10 +6,10 @@ import {
   IoMedicalOutline,
 } from "react-icons/io5";
 
-type Props = {
+interface Props {
   isLoading: boolean;
   closeMenu: () => void;
-};
+}
 
 const AdminListboxItems = ({ isLoading, closeMenu }: Props) => {
   const location = useLocation();

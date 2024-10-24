@@ -9,9 +9,9 @@ import Sidebar from "./MobileSidebar";
 import Overlay from "./Overlay";
 import NavItems from "./NavItems";
 
-type Props = {
+interface Props {
   className?: string;
-};
+}
 
 const NavigationBar = ({ className }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

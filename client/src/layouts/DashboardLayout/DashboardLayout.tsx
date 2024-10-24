@@ -9,10 +9,10 @@ import SettingsListboxItems from "./Sidebar/Listbox/SettingsListboxItems";
 import useAuth from "@/hooks/useAuth";
 import NavigationBar from "../MainLayout/Navbar/Navigation/Navigation";
 
-type LayoutProps = {
+interface LayoutProps {
   layoutType?: "admin" | "default" | "settings";
   className?: string;
-};
+}
 
 export default function DashboardLayout({
   layoutType = "default",

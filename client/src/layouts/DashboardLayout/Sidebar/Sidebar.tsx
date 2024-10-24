@@ -1,7 +1,7 @@
-type Props = {
+interface Props {
   className?: string;
   children?: React.ReactNode;
-};
+}
 
 const Sidebar = ({ className = "", children }: Props) => {
   return (

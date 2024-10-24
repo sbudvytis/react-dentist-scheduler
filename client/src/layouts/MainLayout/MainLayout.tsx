@@ -3,9 +3,9 @@ import "react-toastify/dist/ReactToastify.css";
 import NavigationBar from "./Navbar/Navbar";
 import useAuth from "@/hooks/useAuth";
 
-type Props = {
+interface Props {
   children: React.ReactNode;
-};
+}
 
 const App = ({ children }: Props) => {
   const { isLoggedIn } = useAuth();

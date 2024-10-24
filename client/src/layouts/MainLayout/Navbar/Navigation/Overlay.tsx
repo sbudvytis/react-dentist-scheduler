@@ -1,7 +1,7 @@
-type Props = {
+interface Props {
   isMenuOpen: boolean;
   closeMenu: () => void;
-};
+}
 
 const Overlay = ({ isMenuOpen, closeMenu }: Props) => {
   return (

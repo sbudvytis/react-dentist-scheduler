@@ -1,9 +1,9 @@
 import { Button } from "@nextui-org/react";
 import { IoMenuOutline } from "react-icons/io5";
 
-type Props = {
+interface Props {
   toggleMenu: () => void;
-};
+}
 
 const HamburgerMenuButton = ({ toggleMenu }: Props) => {
   return (

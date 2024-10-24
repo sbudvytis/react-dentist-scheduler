@@ -2,10 +2,10 @@ import { Spinner } from "@nextui-org/react";
 import { Link, useLocation } from "react-router-dom";
 import { IoPeopleOutline } from "react-icons/io5";
 
-type Props = {
+interface Props {
   isLoading: boolean;
   closeMenu: () => void;
-};
+}
 
 const SettingsListboxItems = ({ isLoading, closeMenu }: Props) => {
   const location = useLocation();

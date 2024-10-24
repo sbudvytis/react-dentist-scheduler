@@ -1,10 +1,10 @@
 // LoadingContext.tsx
 import React, { createContext, useState } from "react";
 
-type LoadingContextType = {
+interface LoadingContextType {
   loading: boolean;
   setLoading: (loading: boolean) => void;
-};
+}
 
 export const LoadingContext = createContext<LoadingContextType>({
   loading: false,

@@ -1,10 +1,10 @@
 import { create } from "zustand";
 import { Appointment } from "@/components/Dashboard/types";
 
-type FormDataState = {
+interface FormDataState {
   formData: Appointment;
   setFormData: (formData: Partial<Appointment>) => void;
-};
+}
 
 const useFormDataStore = create<FormDataState>((set) => ({
   formData: {

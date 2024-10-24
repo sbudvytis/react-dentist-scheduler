@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-type Props = {
+interface Props {
   isLoggedIn: boolean;
-};
+}
 
 const LogoAndTitle = ({ isLoggedIn }: Props) => {
   return (

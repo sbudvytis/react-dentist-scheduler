@@ -98,12 +98,12 @@
 }
 
 .fc-day-today .fc-daygrid-day-number {
-  background-color: #ffe7ef;
-  color: #f31261 !important;
+  background-color: #f25551;
   width: 24px;
   height: 24px;
   text-align: center;
   border-radius: 5px !important;
+  color: #fff !important;
 }
 
 .fc-day-other {
@@ -176,8 +176,8 @@ a.fc-col-header-cell-cushion {
 
 .fc-day-today a.fc-col-header-cell-cushion {
   background-color: #ffe7ef;
-  color: #f31261 !important;
   border-radius: 5px !important;
+  color: #f31261 !important;
   margin: 5px !important;
 }
 

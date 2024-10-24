@@ -4,10 +4,10 @@ import useAuth from "@/hooks/useAuth";
 
 import { IoAlbumsOutline, IoShieldCheckmarkOutline } from "react-icons/io5";
 
-type Props = {
+interface Props {
   className?: string;
   closeMenu: () => void;
-};
+}
 
 const MobileNavItems = ({ className, closeMenu }: Props) => {
   const { isLoggedIn, canApproveUsers } = useAuth();

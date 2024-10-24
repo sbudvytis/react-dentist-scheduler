@@ -11,7 +11,7 @@ import {
   Link,
 } from "@nextui-org/react";
 
-export default function App() {
+export default function MySettings() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
