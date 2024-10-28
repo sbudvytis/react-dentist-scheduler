@@ -80,7 +80,7 @@ const AllPatients = () => {
 
   const columns = [
     { name: "Full Name", uid: "name" },
-    { name: "Contact Number", uid: "contactNumber" },
+    { name: "Number", uid: "contactNumber" },
     { name: "History", uid: "history" },
   ];
 
@@ -93,69 +93,71 @@ const AllPatients = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-[calc(100dvh-200px)] relative">
+    <div className="flex flex-col min-h-[calc(100dvh-220px)] relative">
       <PatientSearch
         searchTerm={searchTerm}
         setSearchTerm={handleSearchTermChange}
       />
-      <div className="hide-scrollbar overflow-auto text-sm flex-grow">
-        <div className="overflow-auto rounded-2xl border border-gray-200 relative min-h-32 max-h-full">
-          <table className="min-w-full">
-            <thead className="text-xs bg-white">
-              <tr className="border-b border-gray-200">
-                {columns.map((column) => (
-                  <th
-                    key={column.uid}
-                    className={`text-left py-2 px-4 font-semibold text-gray-500 ${
-                      column.uid === "name"
-                        ? "w-[55%]"
-                        : column.uid === "contactNumber"
-                        ? "w-[35%]"
-                        : "w-[10%]"
-                    }`}
-                  >
-                    {column.name}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {patients.length > 0 ? (
-                patients.map((patient) => (
-                  <tr
-                    key={patient.patientId}
-                    className="hover:bg-gray-100 even:bg-white odd:bg-gray-50"
-                  >
-                    {columns.map((column) => (
-                      <td
-                        key={column.uid}
-                        className={`py-2 px-2 ${
-                          column.uid === "name"
-                            ? "w-[55%]"
-                            : column.uid === "contactNumber"
-                            ? "w-[35%]"
-                            : "w-[10%]"
-                        }`}
-                      >
-                        <div className="px-2">
-                          {renderCell(patient, column.uid)}
-                        </div>
-                      </td>
-                    ))}
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan={columns.length}
-                    className="text-center py-4 text-gray-500"
-                  >
-                    No appointments found.
-                  </td>
+      <div className="text-sm flex-grow">
+        <div className="overflow-hidden rounded-2xl border border-gray-200 relative">
+          <div className="overflow-x-auto overflow-y-auto min-h-32 max-h-full">
+            <table className="min-w-full">
+              <thead className="text-xs bg-white">
+                <tr className="border-b border-gray-200">
+                  {columns.map((column) => (
+                    <th
+                      key={column.uid}
+                      className={`text-left py-2 px-4 font-semibold text-gray-500 ${
+                        column.uid === "name"
+                          ? "w-[55%]"
+                          : column.uid === "contactNumber"
+                          ? "w-[35%]"
+                          : "w-[10%]"
+                      }`}
+                    >
+                      {column.name}
+                    </th>
+                  ))}
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {patients.length > 0 ? (
+                  patients.map((patient) => (
+                    <tr
+                      key={patient.patientId}
+                      className="hover:bg-gray-100 even:bg-white odd:bg-gray-50"
+                    >
+                      {columns.map((column) => (
+                        <td
+                          key={column.uid}
+                          className={`py-2 px-2 ${
+                            column.uid === "name"
+                              ? "w-[55%]"
+                              : column.uid === "contactNumber"
+                              ? "w-[35%]"
+                              : "w-[10%]"
+                          }`}
+                        >
+                          <div className="px-2">
+                            {renderCell(patient, column.uid)}
+                          </div>
+                        </td>
+                      ))}
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={columns.length}
+                      className="text-center py-4 text-gray-500"
+                    >
+                      No appointments found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <AppointmentModal
@@ -176,6 +178,8 @@ const AllPatients = () => {
           initialPage={1}
           variant="bordered"
           color="default"
+          size="lg"
+          radius="lg"
           showControls
         />
       </div>

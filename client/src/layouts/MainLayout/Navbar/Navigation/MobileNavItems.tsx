@@ -25,7 +25,7 @@ const MobileNavItems = ({ className, closeMenu }: Props) => {
                 variant="solid"
                 radius="lg"
                 startContent={<IoAlbumsOutline />}
-                className="bg-black hover:bg-indigo-600 text-white h-9 font-medium"
+                className="border-1 bg-white border-gray-200 font-medium h-9"
                 onClick={closeMenu}
               >
                 Dashboard
@@ -40,7 +40,7 @@ const MobileNavItems = ({ className, closeMenu }: Props) => {
                   variant="solid"
                   radius="lg"
                   startContent={<IoShieldCheckmarkOutline />}
-                  className="bg-black hover:bg-indigo-600 text-white h-9 font-medium"
+                  className="border-1 bg-white border-gray-200 font-medium h-9"
                   onClick={closeMenu}
                 >
                   Admin Panel
@@ -57,7 +57,7 @@ const MobileNavItems = ({ className, closeMenu }: Props) => {
                 color="default"
                 variant="bordered"
                 radius="sm"
-                className="border-1 bg-white border-gray-200"
+                className="border-1 bg-white border-gray-200 font-medium h-9"
                 onClick={closeMenu}
               >
                 Sign in / Sign up

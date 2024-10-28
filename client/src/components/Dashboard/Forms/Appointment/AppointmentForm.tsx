@@ -17,6 +17,7 @@ import { ZonedDateTime, parseAbsoluteToLocal } from "@internationalized/date";
 import { Appointment, Patient } from "@/components/Dashboard/types";
 import usePatients from "@/hooks/usePatients";
 import { IoPersonAddOutline, IoPersonRemoveOutline } from "react-icons/io5";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface AppointmentFormProps {
   initialData: Appointment;
@@ -53,7 +54,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
 
   const { patients } = usePatients(0, 0, "");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [showPatientForm, setShowPatientForm] = useState(false); // New state to control visibility
+  const [showPatientForm, setShowPatientForm] = useState(false);
 
   useEffect(() => {
     setFormData({
@@ -126,10 +127,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
 
   return (
     <div className="py-4">
-      <form onSubmit={handleSubmit} className="grid space-y-4">
+      <form onSubmit={handleSubmit} className="grid">
         <div className="flex gap-3">
           {showAutocomplete && !isEditing && (
-            <div className="w-full">
+            <div className="w-full mb-4">
               <Autocomplete
                 label="Search for a patient"
                 radius="lg"
@@ -175,52 +176,70 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           )}
         </div>
 
-        {(showPatientForm || isEditing) && (
-          <>
-            <div className="flex gap-3">
-              <div className="w-full">
+        <AnimatePresence>
+          {showPatientForm || isEditing ? (
+            <motion.div
+              key="patient-form"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <div className="flex gap-3">
+                <div className="w-full mb-4">
+                  {" "}
+                  {/* Added mb-4 to create space */}
+                  <Input
+                    type="text"
+                    label="First name"
+                    name="firstName"
+                    isRequired
+                    radius="lg"
+                    size="sm"
+                    value={formData.patient.firstName}
+                    onChange={handlePatientDataChange}
+                    required
+                  />
+                </div>
+                <div className="w-full mb-4">
+                  {" "}
+                  {/* Added mb-4 */}
+                  <Input
+                    type="text"
+                    label="Last name"
+                    name="lastName"
+                    isRequired
+                    radius="lg"
+                    size="sm"
+                    value={formData.patient.lastName}
+                    onChange={handlePatientDataChange}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="mb-4">
+                {" "}
+                {/* Added mb-4 */}
                 <Input
                   type="text"
-                  label="First name"
-                  name="firstName"
+                  label="Phone number"
+                  name="contactNumber"
                   isRequired
                   radius="lg"
                   size="sm"
-                  value={formData.patient.firstName}
+                  value={formData.patient.contactNumber}
                   onChange={handlePatientDataChange}
                   required
                 />
               </div>
-              <div className="w-full">
-                <Input
-                  type="text"
-                  label="Last name"
-                  name="lastName"
-                  isRequired
-                  radius="lg"
-                  size="sm"
-                  value={formData.patient.lastName}
-                  onChange={handlePatientDataChange}
-                  required
-                />
-              </div>
-            </div>
-            <div>
-              <Input
-                type="text"
-                label="Phone number"
-                name="contactNumber"
-                isRequired
-                radius="lg"
-                size="sm"
-                value={formData.patient.contactNumber}
-                onChange={handlePatientDataChange}
-                required
-              />
-            </div>
-          </>
-        )}
-        <div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+
+        <div className="mb-4">
+          {" "}
+          {/* Added mb-4 */}
           <Input
             type="text"
             label="Appointment title"
@@ -234,7 +253,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             required
           />
         </div>
-        <div>
+        <div className="mb-4">
+          {" "}
+          {/* Added mb-4 */}
           <Input
             type="email"
             label="Email"
@@ -247,7 +268,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             required
           />
         </div>
-        <div className="flex flex-col md:flex-row w-full gap-3">
+        <div className="flex flex-col md:flex-row w-full gap-3 mb-4">
+          {" "}
+          {/* Added mb-4 */}
           <div className="w-full">
             <DatePicker
               hourCycle={24}
@@ -277,7 +300,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             />
           </div>
         </div>
-        <div>
+        <div className="mb-4">
+          {" "}
+          {/* Added mb-4 */}
           <Textarea
             label="Notes"
             name="notes"

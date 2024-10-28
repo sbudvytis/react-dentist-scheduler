@@ -70,7 +70,9 @@ const User = () => {
                   {icons.user} {currentUser.email}
                 </p>
               ) : (
-                <p className="font-medium">My Account</p>
+                <p className="font-medium">
+                  Welcome, {currentUser.firstName} {currentUser.lastName}
+                </p>
               )}
             </DropdownItem>
             <DropdownItem

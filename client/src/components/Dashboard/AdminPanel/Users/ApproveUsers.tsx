@@ -69,46 +69,48 @@ const AdminPanel = () => {
   }
 
   return (
-    <div className="hide-scrollbar overflow-auto text-sm rounded-2xl border border-gray-200 min-h-96 max-h-96">
-      <table className="min-w-full">
-        <thead className="text-xs bg-white sticky top-0 z-10">
-          <tr className="border-b border-gray-200">
-            {columns.map((column) => (
-              <th
-                key={column.uid}
-                className="text-left py-2 px-4 font-semibold text-gray-500"
-              >
-                {column.name}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {users.length === 0 ? (
-            <tr>
-              <td
-                colSpan={columns.length}
-                className="text-center py-4 text-gray-500"
-              >
-                No results.
-              </td>
+    <div className="overflow-hidden text-sm rounded-2xl border border-gray-200">
+      <div className="overflow-x-auto overflow-y-auto min-h-96 max-h-96">
+        <table className="min-w-full">
+          <thead className="text-xs bg-white sticky top-0 z-10">
+            <tr className="border-b border-gray-200">
+              {columns.map((column) => (
+                <th
+                  key={column.uid}
+                  className="text-left py-2 px-4 font-semibold text-gray-500"
+                >
+                  {column.name}
+                </th>
+              ))}
             </tr>
-          ) : (
-            users.map((user: UserBare) => (
-              <tr
-                key={user.id}
-                className="hover:bg-gray-100 even:bg-white odd:bg-gray-50"
-              >
-                {columns.map((column) => (
-                  <td key={column.uid} className="py-2 px-2">
-                    <div className="px-2">{renderCell(user, column.uid)}</div>
-                  </td>
-                ))}
+          </thead>
+          <tbody>
+            {users.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="text-center py-4 text-gray-500"
+                >
+                  No results.
+                </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              users.map((user: UserBare) => (
+                <tr
+                  key={user.id}
+                  className="hover:bg-gray-100 even:bg-white odd:bg-gray-50"
+                >
+                  {columns.map((column) => (
+                    <td key={column.uid} className="py-2 px-2">
+                      <div className="px-2">{renderCell(user, column.uid)}</div>
+                    </td>
+                  ))}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
