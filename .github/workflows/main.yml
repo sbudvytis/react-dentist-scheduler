@@ -141,7 +141,7 @@ jobs:
                 "DB_PASSWORD": "${{ secrets.PROD_DB_PASSWORD }}",
                 "TOKEN_KEY": "${{ secrets.TOKEN_KEY }}",
                 "SERVICE_EMAIL": "${{ secrets.SERVICE_EMAIL }}",
-                "SERVICE_PASSWORD": "${{ secrets.SERVICE_PASSWORD }}"
+                "SERVICE_PASSWORD": "${{ secrets.SERVICE_PASSWORD }}",
                 "CLIENT_URL": ${{ vars.API_ORIGIN }}
               }
             }

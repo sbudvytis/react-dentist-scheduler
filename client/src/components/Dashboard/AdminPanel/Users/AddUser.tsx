@@ -120,55 +120,63 @@ const AddUser: React.FC<AddUserFormProps> = ({ currentClinicId }) => {
               >
                 {({ isSubmitting, touched, errors }) => (
                   <Form className="grid space-y-4 pt-6">
-                    <Field
-                      name="email"
-                      as={Input}
-                      type="email"
-                      label="Email"
-                      isInvalid={touched.email && !!errors.email}
-                      errorMessage={errors.email}
-                      required
-                      radius="lg"
-                      size="sm"
-                    />
-                    <Field
-                      name="firstName"
-                      as={Input}
-                      type="text"
-                      label="First Name"
-                      isInvalid={touched.firstName && !!errors.firstName}
-                      errorMessage={errors.firstName}
-                      required
-                      radius="lg"
-                      size="sm"
-                    />
-                    <Field
-                      name="lastName"
-                      as={Input}
-                      type="text"
-                      label="Last Name"
-                      isInvalid={touched.lastName && !!errors.lastName}
-                      errorMessage={errors.lastName}
-                      required
-                      radius="lg"
-                      size="sm"
-                    />
-                    <Field
-                      name="role"
-                      as={Select}
-                      label="Select your role"
-                      isInvalid={!touched.role && !!errors.role}
-                      errorMessage={errors.role}
-                      required
-                      radius="lg"
-                      size="sm"
-                    >
-                      {roles.map((role) => (
-                        <SelectItem key={role.value} value={role.value}>
-                          {role.name}
-                        </SelectItem>
-                      ))}
-                    </Field>
+                    <div className="min-h-14">
+                      <Field
+                        name="email"
+                        as={Input}
+                        type="email"
+                        label="Email"
+                        isInvalid={touched.email && !!errors.email}
+                        errorMessage={errors.email}
+                        required
+                        radius="lg"
+                        size="sm"
+                      />
+                    </div>
+                    <div className="min-h-14">
+                      <Field
+                        name="firstName"
+                        as={Input}
+                        type="text"
+                        label="First Name"
+                        isInvalid={touched.firstName && !!errors.firstName}
+                        errorMessage={errors.firstName}
+                        required
+                        radius="lg"
+                        size="sm"
+                      />
+                    </div>
+                    <div className="min-h-14">
+                      <Field
+                        name="lastName"
+                        as={Input}
+                        type="text"
+                        label="Last Name"
+                        isInvalid={touched.lastName && !!errors.lastName}
+                        errorMessage={errors.lastName}
+                        required
+                        radius="lg"
+                        size="sm"
+                      />
+                    </div>
+                    <div className="min-h-14">
+                      <Field
+                        name="role"
+                        as={Select}
+                        label="Select your role"
+                        isInvalid={!touched.role && !!errors.role}
+                        errorMessage={errors.role}
+                        required
+                        radius="lg"
+                        size="sm"
+                      >
+                        {roles.map((role) => (
+                          <SelectItem key={role.value} value={role.value}>
+                            {role.name}
+                          </SelectItem>
+                        ))}
+                      </Field>
+                    </div>
                     <div className="flex justify-center gap-2 lg:justify-end">
                       <Button
                         type="submit"
