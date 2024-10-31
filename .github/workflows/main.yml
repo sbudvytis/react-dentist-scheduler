@@ -142,7 +142,7 @@ jobs:
                 "TOKEN_KEY": "${{ secrets.TOKEN_KEY }}",
                 "SERVICE_EMAIL": "${{ secrets.SERVICE_EMAIL }}",
                 "SERVICE_PASSWORD": "${{ secrets.SERVICE_PASSWORD }}",
-                "CLIENT_URL": ${{ vars.API_ORIGIN }}
+                "CLIENT_URL": "${{ secrets.CLIENT_URL }}"
               }
             }
           }' > containers.json
