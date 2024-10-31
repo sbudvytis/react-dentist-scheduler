@@ -44,7 +44,6 @@ const Dashboard = () => {
     setIsEditModalOpen,
     isAddModalOpen,
     setIsAddModalOpen,
-
     setSelectInfo,
     handleAddAppointmentClose,
   } = useModal();
@@ -83,7 +82,7 @@ const Dashboard = () => {
     <div>
       {hasSchedules ? (
         <>
-          <div className="pb-4">
+          <div className="pb-6">
             <h1 className="text-xl text-left flex items-center gap-2 text-gray-800 font-semibold">
               Schedule
             </h1>

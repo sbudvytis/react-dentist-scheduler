@@ -12,6 +12,7 @@ const useCalendar = () => {
   const { setSelectedScheduleId } = useSelectedSchedule();
   const { isLoggedIn } = useAuth();
 
+  // Fetch schedules
   const {
     data: schedules = { schedules: [] },
     isLoading: schedulesLoading,
@@ -21,20 +22,20 @@ const useCalendar = () => {
     enabled: isLoggedIn,
   });
 
-  // select schedule by id
+  // Select schedule by ID
   const selectScheduleById = (scheduleId: number | null) => {
     return schedules.schedules.find(
       (schedule: CalendarConfig) => schedule.scheduleId === scheduleId
     );
   };
 
-  // add schedule
+  // Add schedule mutation
   const addCalendarMutation = useMutation(
     (calendarConfig: CalendarConfig) =>
       trpc.schedule.create.mutate(calendarConfig),
     {
       onSuccess: () => {
-        refetch();
+        refetch(); // Refetch schedules after successful addition
       },
       onError: (error: unknown) => {
         console.error("Error adding calendar:", error);
@@ -42,17 +43,22 @@ const useCalendar = () => {
     }
   );
 
-  const addCalendar = (calendarConfig: CalendarConfig) => {
-    addCalendarMutation.mutate(calendarConfig);
+  // Use `mutateAsync` to await the mutation in the form component
+  const addCalendar = async (calendarConfig: CalendarConfig) => {
+    try {
+      await addCalendarMutation.mutateAsync(calendarConfig); // Use async version to await completion
+    } catch (error) {
+      console.error("Error adding calendar:", error);
+    }
   };
 
-  // edit schedule
+  // Edit schedule mutation
   const editCalendarMutation = useMutation(
     (calendarConfig: CalendarConfig) =>
       trpc.schedule.edit.mutate(calendarConfig),
     {
       onSuccess: () => {
-        refetch();
+        refetch(); // Refetch schedules after successful edit
       },
       onError: (error: unknown) => {
         console.error("Error editing calendar:", error);
@@ -60,17 +66,22 @@ const useCalendar = () => {
     }
   );
 
-  const editCalendar = (calendarConfig: CalendarConfig) => {
-    editCalendarMutation.mutate(calendarConfig);
+  // Use `mutateAsync` for edit as well
+  const editCalendar = async (calendarConfig: CalendarConfig) => {
+    try {
+      await editCalendarMutation.mutateAsync(calendarConfig); // Await for better control
+    } catch (error) {
+      console.error("Error editing calendar:", error);
+    }
   };
 
-  // remove schedule
+  // Remove schedule mutation
   const removeScheduleMutation = useMutation(
     (calendarConfig: CalendarConfig) =>
       trpc.schedule.remove.mutate(calendarConfig),
     {
       onSuccess: () => {
-        setSelectedScheduleId(null);
+        setSelectedScheduleId(null); // Reset selected schedule on success
         refetch();
         setRemoveScheduleError(null);
       },
@@ -83,9 +94,9 @@ const useCalendar = () => {
     }
   );
 
-  const removeSchedule = (calendarConfig: CalendarConfig) => {
+  const removeSchedule = async (calendarConfig: CalendarConfig) => {
     if (schedules.schedules.length > 0) {
-      return removeScheduleMutation.mutateAsync(calendarConfig);
+      return await removeScheduleMutation.mutateAsync(calendarConfig); // Use async version for consistency
     }
     return Promise.resolve();
   };
@@ -95,11 +106,13 @@ const useCalendar = () => {
     selectScheduleById,
     schedulesLoading,
     schedulesError,
-    addCalendar,
-    editCalendar,
+    addCalendar, // Now async, you can await it in components
+    editCalendar, // Now async as well
     removeSchedule,
     addCalendarLoading: addCalendarMutation.isLoading,
     addCalendarError: addCalendarMutation.error,
+    editCalendarLoading: editCalendarMutation.isLoading,
+    editCalendarError: editCalendarMutation.error,
     removeScheduleError,
   };
 };

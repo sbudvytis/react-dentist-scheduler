@@ -10,6 +10,7 @@ import {
 import { z } from 'zod'
 import { User } from './user'
 import { Appointment } from './appointment'
+import { Clinic } from './clinic'
 
 @Entity()
 export class Schedule {
@@ -22,6 +23,10 @@ export class Schedule {
   @ManyToOne(() => User, (user) => user.appointments)
   @JoinColumn()
   user: User
+
+  @ManyToOne(() => Clinic, (clinic) => clinic.schedules)
+  @JoinColumn({ name: 'clinic_id' })
+  clinic: Clinic
 
   @OneToMany(() => Appointment, (appointment) => appointment.schedule, {
     cascade: ['insert'],
@@ -41,7 +46,7 @@ export class Schedule {
   slotMaxTime: string
 }
 
-export type ScheduleBare = Omit<Schedule, 'user' | 'appointments'>
+export type ScheduleBare = Omit<Schedule, 'user' | 'appointments' | 'clinic'>
 export type ScheduleWithUser = ScheduleBare & { user: User }
 
 export const scheduleSchema = validates<ScheduleBare>().with({

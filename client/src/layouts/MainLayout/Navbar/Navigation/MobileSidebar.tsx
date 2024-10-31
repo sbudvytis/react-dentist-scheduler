@@ -50,12 +50,12 @@ const Sidebar = ({
 
   return (
     <div
-      className={`fixed top-2 bottom-2 left-0 z-30 transform transition-transform duration-500 ease-in-out lg:hidden ${
+      className={`fixed top-0 bottom-0 left-0 z-30 transform transition-transform duration-500 ease-in-out lg:hidden ${
         isMenuOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
       <div
-        className="relative w-80 h-full bg-white shadow-lg rounded-r-2xl p-4 space-y-4 py-16"
+        className="relative w-80 h-full bg-white shadow-lg p-4 space-y-6 py-14"
         ref={sidebarRef}
       >
         <Button

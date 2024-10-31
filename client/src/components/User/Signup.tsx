@@ -2,8 +2,8 @@ import useAuth from "@/hooks/useAuth";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import useSignupLoginStore from "@/stores/useSignupLoginStore";
 import { Link, useNavigate } from "react-router-dom";
-import { Input, Button, Select, SelectItem } from "@nextui-org/react";
-import SignupSchema from "@/utils/signupValidation";
+import { Input, Button } from "@nextui-org/react";
+import { SignupSchema } from "@/utils/signupValidation";
 import { useEffect } from "react";
 
 interface SignupFormValues {
@@ -12,23 +12,28 @@ interface SignupFormValues {
   email: string;
   password: string;
   role: string;
+  clinic: {
+    name: string;
+    address: string;
+    contactNumber: string;
+  };
 }
 
 interface SignupResponse {
   id: number;
 }
 
-const roles = [
-  { value: "dentist", name: "Dentist" },
-  { value: "staff", name: "Staff" },
-];
-
 const initialValues: SignupFormValues = {
   firstName: "",
   lastName: "",
   email: "",
   password: "",
-  role: "",
+  role: "admin",
+  clinic: {
+    name: "",
+    address: "",
+    contactNumber: "",
+  },
 };
 
 const Signup = () => {
@@ -40,7 +45,15 @@ const Signup = () => {
     setErrorMessage,
     setSuccessMessage,
     setHasSucceeded,
+    resetMessages,
   } = useSignupLoginStore();
+
+  useEffect(() => {
+    return () => {
+      // Clear all messages on unmount
+      resetMessages();
+    };
+  }, [resetMessages]);
 
   const navigate = useNavigate();
 
@@ -67,7 +80,6 @@ const Signup = () => {
         );
       }
       setHasSucceeded(true);
-      setErrorMessage("");
       resetForm();
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -88,8 +100,8 @@ const Signup = () => {
           {({ isSubmitting, touched, errors }) => (
             <Form className="grid space-y-4">
               <div className="pb-4 flex-col space-y-2">
-                <h1 className="text-3xl font-semibold">New account</h1>
-                <p className="text-gray-500">
+                <h1 className="text-2xl font-semibold">New account</h1>
+                <p className="text-gray-500 text-sm">
                   Already have an account?{" "}
                   <Link
                     to="/login"
@@ -157,27 +169,53 @@ const Signup = () => {
               </div>
               <div className="min-h-14">
                 <Field
-                  name="role"
-                  as={Select}
-                  label="select your role"
-                  isInvalid={!touched.role && !!errors.role}
-                  errorMessage={errors.role}
+                  name="clinic.name"
+                  as={Input}
+                  type="text"
+                  label="Clinic Name"
+                  isInvalid={touched.clinic?.name && !!errors.clinic?.name}
+                  errorMessage={errors.clinic?.name}
                   isRequired
                   radius="lg"
                   size="sm"
-                >
-                  {roles.map((role) => (
-                    <SelectItem key={role.value} value={role.value}>
-                      {role.name}
-                    </SelectItem>
-                  ))}
-                </Field>
+                />
+              </div>
+              <div className="min-h-14">
+                <Field
+                  name="clinic.address"
+                  as={Input}
+                  type="text"
+                  label="Clinic Address"
+                  isInvalid={
+                    touched.clinic?.address && !!errors.clinic?.address
+                  }
+                  errorMessage={errors.clinic?.address}
+                  radius="lg"
+                  isRequired
+                  size="sm"
+                />
+              </div>
+              <div className="min-h-14">
+                <Field
+                  name="clinic.contactNumber"
+                  as={Input}
+                  type="text"
+                  label="Clinic Contact Number"
+                  isInvalid={
+                    touched.clinic?.contactNumber &&
+                    !!errors.clinic?.contactNumber
+                  }
+                  errorMessage={errors.clinic?.contactNumber}
+                  radius="lg"
+                  isRequired
+                  size="sm"
+                />
               </div>
               <Button
                 variant="solid"
                 radius="lg"
                 type="submit"
-                disabled={isSubmitting}
+                isLoading={isSubmitting}
                 className="bg-black hover:bg-indigo-600 text-white h-9"
               >
                 Sign up

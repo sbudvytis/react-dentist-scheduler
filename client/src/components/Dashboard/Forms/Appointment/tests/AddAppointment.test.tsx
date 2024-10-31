@@ -38,14 +38,12 @@ describe("AppointmentForm", () => {
   const selectedDateRange = { start: new Date(), end: new Date() };
 
   const onSubmit = vi.fn();
-  const onClose = vi.fn();
 
   it("renders form fields correctly", () => {
     render(
       <AppointmentForm
         initialData={initialData}
         onSubmit={onSubmit}
-        onClose={onClose}
         isSubmitting={false}
         loading={false}
         submitButtonText="Add Appointment"
@@ -74,7 +72,6 @@ describe("AppointmentForm", () => {
       <AppointmentForm
         initialData={initialData}
         onSubmit={onSubmit}
-        onClose={onClose}
         isSubmitting={false}
         loading={false}
         submitButtonText="Add Appointment"

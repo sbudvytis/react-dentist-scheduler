@@ -45,18 +45,30 @@ export default authenticatedProcedure
     let schedulesQuery = db
       .getRepository(Schedule)
       .createQueryBuilder('schedule')
-      .leftJoinAndSelect('schedule.user', 'user')
+      .leftJoinAndSelect('schedule.user', 'user') // Join the user who created the schedule
+      .leftJoinAndSelect('user.clinic', 'clinic') // Join the clinic related to the user
 
     if (scheduleId) {
+      // Filter by a specific scheduleId if provided
       schedulesQuery = schedulesQuery.where(
         'schedule.scheduleId = :scheduleId',
         { scheduleId }
       )
-    } else if (canViewAllSchedules || userRole === 'dentist') {
+    } else if (canViewAllSchedules) {
+      // If the user has the permission to view all schedules,
+      // ensure they can only view schedules from dentists in their own clinic
       schedulesQuery = schedulesQuery.where(
-        canViewAllSchedules ? {} : { userId }
+        'user.role = :role AND clinic.clinicId = :clinicId', // Filter for dentists and same clinic
+        { role: 'dentist', clinicId: authUser.clinicId }
+      )
+    } else if (userRole === 'dentist') {
+      // Dentists can only view their own schedules
+      schedulesQuery = schedulesQuery.where(
+        'user.id = :userId AND clinic.clinicId = :clinicId',
+        { userId, clinicId: authUser.clinicId }
       )
     } else {
+      // Other users can only view their own schedules
       schedulesQuery = schedulesQuery.where({ userId })
     }
 
@@ -68,7 +80,9 @@ export default authenticatedProcedure
     const schedules = (await schedulesQuery.getMany()) as ScheduleWithUser[]
 
     const total = await db.getRepository(Schedule).count({
-      where: canViewAllSchedules ? {} : { userId },
+      where: canViewAllSchedules
+        ? { user: { role: 'dentist', clinic: { clinicId: authUser.clinicId } } } // Count only dentists' schedules in the same clinic
+        : { userId },
     })
 
     return { schedules, total }

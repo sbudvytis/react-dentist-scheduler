@@ -1,7 +1,15 @@
 import usersRouter from '..'
 
+const clinicSeed = {
+  clinicId: 1,
+  name: 'Test Clinic',
+  address: '123 Main St',
+  contactNumber: '1234567890',
+}
+
 const userSeed = {
   id: 12345,
+  clinic: clinicSeed,
   email: 'existing@user.com',
   password: '$2b$10$sD53fzWIQBjXWfSDzuwmMOyY1ZAygLpRZlLxxPhcNG5r9BFWrNaDC',
   role: 'dentist',

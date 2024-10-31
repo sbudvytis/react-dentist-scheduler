@@ -15,6 +15,7 @@ import {
 } from './patient'
 import { User } from './user'
 import { Schedule } from './schedule'
+import { Clinic } from './clinic'
 
 @Entity()
 export class Appointment {
@@ -36,6 +37,10 @@ export class Appointment {
   @JoinColumn({ name: 'schedule_id' })
   schedule: Schedule
 
+  @ManyToOne(() => Clinic, (clinic) => clinic.appointments)
+  @JoinColumn({ name: 'clinic_id' })
+  clinic: Clinic
+
   @Column('text')
   title: string
 
@@ -54,7 +59,7 @@ export class Appointment {
 
 export type AppointmentBare = Omit<
   Appointment,
-  'user' | 'patient' | 'schedule'
+  'user' | 'patient' | 'schedule' | 'clinic'
 > & {
   patient?: PatientBare
 }
@@ -79,4 +84,4 @@ export const appointmentInsertSchema = appointmentSchema
     scheduleId: z.number().int().positive().nullable(),
   })
 
-export type AppointmenttInsert = z.infer<typeof appointmentInsertSchema>
+export type AppointmentInsert = z.infer<typeof appointmentInsertSchema>

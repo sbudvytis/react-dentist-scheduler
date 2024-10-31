@@ -93,7 +93,7 @@ const AllPatients = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-[calc(100dvh-220px)] relative">
+    <div className="flex flex-col min-h-[calc(100dvh-195px)] relative">
       <PatientSearch
         searchTerm={searchTerm}
         setSearchTerm={handleSearchTermChange}
@@ -151,7 +151,7 @@ const AllPatients = () => {
                       colSpan={columns.length}
                       className="text-center py-4 text-gray-500"
                     >
-                      No appointments found.
+                      No patients found.
                     </td>
                   </tr>
                 )}
@@ -167,7 +167,7 @@ const AllPatients = () => {
           patientName={selectedPatientName}
         />
       </div>
-      <div className="flex lg:justify-start justify-center items-center gap-4 py-4 z-10">
+      <div className="flex lg:justify-start justify-center items-center gap-4 z-10">
         <span className="text-sm">
           Page {currentPage} of {Math.ceil(totalPatients / pageSize)}
         </span>

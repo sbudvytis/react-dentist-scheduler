@@ -50,10 +50,10 @@ const RemoveSchedule: React.FC<RemoveScheduleProps> = ({ onClose }) => {
             color="danger"
             variant="flat"
             radius="lg"
-            disabled={loading}
+            isLoading={loading}
             className="h-9"
           >
-            {loading ? "Removing..." : "Remove Schedule"}
+            Remove Schedule
           </Button>
         </div>
       </div>

@@ -9,6 +9,17 @@ export interface CalendarConfig {
   slotMaxTime: string;
 }
 
+export interface User {
+  id: number;
+  role: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string | null;
+  isApproved: boolean;
+  permissions: string[];
+}
+
 export interface PatientData {
   patientId: number;
   firstName: string;

@@ -51,6 +51,7 @@ const schema = z
         : z.string().trim().toLowerCase().email(),
       servicePassword: isDevTest ? z.string().optional() : z.string().trim(),
     }),
+    clientUrl: isDevTest ? z.string().optional() : z.string(),
   })
   .readonly()
 
@@ -81,6 +82,8 @@ const config = schema.parse({
     serviceEmail: env.SERVICE_EMAIL,
     servicePassword: env.SERVICE_PASSWORD,
   },
+
+  clientUrl: env.CLIENT_URL,
 })
 
 export default config

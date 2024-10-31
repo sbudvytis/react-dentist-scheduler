@@ -3,7 +3,6 @@ import {
   clearStoredAccessToken,
   clearSelectedId,
   getStoredAccessToken,
-  getUserIdFromToken,
   storeAccessToken,
   getUserFromToken,
 } from "@/utils/auth";
@@ -16,25 +15,48 @@ const useAuth = () => {
     getStoredAccessToken(localStorage)
   );
   const [userId, setUserId] = useState<number | null>(null);
+  const [clinicId, setClinicId] = useState<number | null>(null); // Add clinicId state
   const { resetSelectedScheduleId } = useSelectedSchedule();
   const queryClient = useQueryClient();
 
   useEffect(() => {
     if (authToken) {
-      setUserId(getUserIdFromToken(authToken));
+      const user = getUserFromToken(authToken);
+      setUserId(user.id);
+      setClinicId(user.clinicId); // Assuming clinicId is part of the user object
     }
   }, [authToken]);
 
   const signup = trpc.user.signup.mutate;
 
+  const addUser = trpc.user.add.mutate;
+
   const isLoggedIn = !!authToken;
 
   const login = async (userLogin: { email: string; password: string }) => {
-    const { accessToken } = await trpc.user.login.mutate(userLogin);
+    const {
+      accessToken,
+      userRole,
+      userPermissions,
+      userFirstName,
+      userLastName,
+      userEmail,
+    } = await trpc.user.login.mutate(userLogin);
+
     setAuthToken(accessToken);
     storeAccessToken(localStorage, accessToken);
     queryClient.removeQueries();
-    return { message: "Login successful" };
+
+    // Create a user object from the response
+    const user = {
+      role: userRole,
+      permissions: userPermissions,
+      firstName: userFirstName,
+      lastName: userLastName,
+      email: userEmail,
+    };
+
+    return user; // Return the constructed user object
   };
 
   const logout = () => {
@@ -57,16 +79,29 @@ const useAuth = () => {
     ? getUserFromToken(authToken).role === "dentist"
     : false;
 
+  const isAdmin = authToken
+    ? getUserFromToken(authToken).role === "admin"
+    : false;
+
+  const isAdminUser = () => isAdmin;
+
+  const userRole = authToken ? getUserFromToken(authToken).role : "";
+
   return {
     authToken,
     userId,
+    clinicId,
     isLoggedIn,
     login,
     logout,
     signup,
+    addUser,
     canApproveUsers,
     canViewAllSchedules,
     isDentist,
+    isAdmin,
+    isAdminUser,
+    userRole,
   };
 };
 

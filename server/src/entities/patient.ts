@@ -1,7 +1,15 @@
 import { validates } from '@server/utils/validation'
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  JoinColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 import { z } from 'zod'
 import { Appointment } from './appointment'
+import { Clinic } from './clinic'
 
 @Entity()
 export class Patient {
@@ -17,13 +25,17 @@ export class Patient {
   @Column('text')
   contactNumber: string
 
+  @ManyToOne(() => Clinic, (clinic) => clinic.patients)
+  @JoinColumn({ name: 'clinic_id' })
+  clinic: Clinic
+
   @OneToMany(() => Appointment, (appointment) => appointment.patient, {
     cascade: ['insert'],
   })
   appointments: Appointment[]
 }
 
-export type PatientBare = Omit<Patient, 'appointments'>
+export type PatientBare = Omit<Patient, 'appointments' | 'clinic'>
 
 export const patientSchema = validates<PatientBare>().with({
   patientId: z.number().int().positive(),

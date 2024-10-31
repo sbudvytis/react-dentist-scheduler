@@ -32,7 +32,7 @@ const NavItems = ({ className }: Props) => {
             <div className={`${className}`}>
               <Button
                 as={Link}
-                to="/dashboard/admin-panel"
+                to="/admin-panel"
                 color="default"
                 variant="solid"
                 radius="lg"

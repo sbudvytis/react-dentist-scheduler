@@ -10,6 +10,7 @@ import Users from "@/components/Dashboard/AdminPanel/Users/Users";
 import Settings from "@/components/Dashboard/AdminPanel/Settings/Settings";
 import Patients from "@/components/Dashboard/AdminPanel/Patients/Patients";
 import MySettings from "@/components/Dashboard/UserSettings/MySettings";
+import SetPassword from "@/components/User/SetPassword"; // import SetPassword component
 
 export const router = createBrowserRouter([
   {
@@ -41,7 +42,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard/admin-panel",
+    path: "/admin-panel",
     element: (
       <AppProviders>
         <AuthGuardProps>
@@ -104,6 +105,16 @@ export const router = createBrowserRouter([
       <AppProviders>
         <MainLayout>
           <Login />
+        </MainLayout>
+      </AppProviders>
+    ),
+  },
+  {
+    path: "/set-password/:token",
+    element: (
+      <AppProviders>
+        <MainLayout>
+          <SetPassword />
         </MainLayout>
       </AppProviders>
     ),

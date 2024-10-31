@@ -42,7 +42,7 @@ const NavigationBar = ({ className }: Props) => {
     };
   }, [isMenuOpen]);
 
-  const isAdminPanel = location.pathname.includes("/dashboard/admin-panel");
+  const isAdminPanel = location.pathname.includes("/admin-panel");
   const isUserSettings = location.pathname.includes("/dashboard/my-settings");
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -50,9 +50,9 @@ const NavigationBar = ({ className }: Props) => {
 
   return (
     <nav
-      className={`${className} border-b border-gray-200 bg-gray-50 relative z-20 h-16`}
+      className={`${className} border-b border-gray-200 bg-[#fbfbfb] relative z-20 h-16`}
     >
-      <div className="mx-auto flex justify-between items-center h-full px-4">
+      <div className="mx-auto flex justify-between items-center h-full px-7">
         <div className="flex items-center lg:min-w-68 lg:max-w-68 md:min-w-52">
           {isLoggedIn && <HamburgerMenu toggleMenu={toggleMenu} />}
           <LogoAndTitle isLoggedIn={isLoggedIn} />

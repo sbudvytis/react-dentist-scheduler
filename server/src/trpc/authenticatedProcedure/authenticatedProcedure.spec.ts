@@ -16,6 +16,7 @@ vi.mock('jsonwebtoken', () => ({
       return {
         user: {
           id: 2,
+          clinicId: 1,
           firstName: 'John',
           lastName: 'Doe',
           email: 'valid@email.com',

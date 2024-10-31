@@ -15,6 +15,7 @@ const EditCalendarForm: React.FC<EditCalendarFormProps> = ({
 }) => {
   const { selectScheduleById, editCalendar, schedulesLoading } = useCalendar();
   const [initialData, setInitialData] = useState<CalendarConfig | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const schedule = selectScheduleById(scheduleId);
@@ -23,14 +24,17 @@ const EditCalendarForm: React.FC<EditCalendarFormProps> = ({
     }
   }, [scheduleId, selectScheduleById]);
 
-  const handleEditCalendar = (updatedCalendarConfig: CalendarConfig) => {
+  const handleEditCalendar = async (updatedCalendarConfig: CalendarConfig) => {
+    setLoading(true);
     try {
-      editCalendar(updatedCalendarConfig);
+      await editCalendar(updatedCalendarConfig);
       toast.success("Schedule updated successfully!");
       onClose();
     } catch (error) {
       toast.error("Failed to update schedule.");
       console.error("Error updating schedule:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,7 +48,7 @@ const EditCalendarForm: React.FC<EditCalendarFormProps> = ({
         initialData={initialData}
         onSubmit={handleEditCalendar}
         onClose={onClose}
-        isSubmitting={false}
+        isSubmitting={loading}
         submitButtonText="Save Changes"
       />
     </>

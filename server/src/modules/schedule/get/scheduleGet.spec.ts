@@ -1,12 +1,15 @@
 import { authContext } from '@tests/utils/context'
-import { fakeUser } from '@server/entities/tests/fakes'
+import { fakeClinic, fakeUser } from '@server/entities/tests/fakes'
 import { createTestDatabase } from '@tests/utils/database'
-import { User } from '@server/entities'
+import { Clinic, User } from '@server/entities'
 import scheduleRouter from '..'
 
 it('should get a dentists schedule by id', async () => {
   const db = await createTestDatabase()
-  const user = await db.getRepository(User).save(fakeUser({ role: 'dentist' }))
+  const clinic = await db.getRepository(Clinic).save(fakeClinic())
+  const user = await db
+    .getRepository(User)
+    .save(fakeUser({ role: 'dentist', clinicId: clinic.clinicId }))
   const { create, get } = scheduleRouter.createCaller(authContext({ db }, user))
 
   const scheduleCreated = await create({

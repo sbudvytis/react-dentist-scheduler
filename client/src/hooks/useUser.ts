@@ -6,7 +6,12 @@ const useUser = (
   filterApproved: boolean = false,
   currentUserId: number | null
 ) => {
+  // Only load users if currentUserId is valid (i.e., the user is logged in)
   const loadUsers = async () => {
+    if (!currentUserId) {
+      throw new Error("User is not logged in");
+    }
+
     try {
       const response = await trpc.user.find.query();
       return filterApproved
@@ -23,7 +28,9 @@ const useUser = (
     isError: usersError,
     data: usersData,
     refetch,
-  } = useQuery(["users", filterApproved], loadUsers);
+  } = useQuery(["users", filterApproved], loadUsers, {
+    enabled: !!currentUserId, // Prevents the query from running if user is not logged in
+  });
 
   const approveUsers = useMutation(
     (id: number) => trpc.user.approve.mutate({ id }),
@@ -61,12 +68,22 @@ const useUser = (
     removeUsers.mutate(id);
   };
 
+  const setPasswordApi = async (token: string, password: string) => {
+    try {
+      await trpc.user.verify.mutate({ token, password });
+      return { success: true };
+    } catch (error) {
+      throw new Error("Failed to set password.");
+    }
+  };
+
   return {
     users: usersData || [],
     usersLoading,
     usersError,
     approveUser,
     removeUser,
+    setPasswordApi,
   };
 };
 

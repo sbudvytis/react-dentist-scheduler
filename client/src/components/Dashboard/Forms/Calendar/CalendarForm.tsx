@@ -20,7 +20,6 @@ interface CalendarFormProps {
 const CalendarForm: React.FC<CalendarFormProps> = ({
   initialData,
   onSubmit,
-  onClose,
   isSubmitting,
   submitButtonText,
 }) => {
@@ -45,8 +44,9 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
     { value: "dayGridMonth", label: "Month" },
   ];
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const newCalendarConfig: CalendarConfig = {
       scheduleId: initialData.scheduleId,
       userId: initialData.userId,
@@ -55,8 +55,8 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
       slotMinTime: `${slotMinTime.toString()}:00`,
       slotMaxTime: `${slotMaxTime.toString()}:00`,
     };
-    onSubmit(newCalendarConfig);
-    onClose();
+
+    await onSubmit(newCalendarConfig); // Ensure we await the submission
   };
 
   const isMobile = window.innerWidth <= 1024;
@@ -121,10 +121,10 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
             type="submit"
             radius="lg"
             variant="solid"
-            disabled={isSubmitting}
+            isLoading={isSubmitting}
             className="border-none bg-black hover:bg-indigo-600 text-white h-9"
           >
-            {isSubmitting ? "Submitting..." : submitButtonText}
+            {submitButtonText}
           </Button>
         </div>
       </form>

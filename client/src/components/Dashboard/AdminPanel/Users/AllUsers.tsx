@@ -1,6 +1,6 @@
 import useUser from "@/hooks/useUser";
 import useAuth from "@/hooks/useAuth";
-import type { UserBare } from "@mono/server/src/shared/entities";
+import { User as UserTypes } from "@/components/Dashboard/types";
 import { IoPersonRemoveOutline } from "react-icons/io5";
 import { Chip, ChipProps, Spinner, Tooltip, User } from "@nextui-org/react"; // Keep Tooltip from NextUI
 
@@ -13,7 +13,7 @@ const AllUsers = () => {
   const { userId } = useAuth(); // Get the current user's ID
   const { users, removeUser, usersLoading } = useUser(true, userId); // Pass it to useUser
 
-  const renderCell = (user: UserBare, columnKey: React.Key) => {
+  const renderCell = (user: UserTypes, columnKey: React.Key) => {
     switch (columnKey) {
       case "name":
         return (
@@ -63,7 +63,7 @@ const AllUsers = () => {
         );
 
       default:
-        return user[columnKey as keyof UserBare];
+        return user[columnKey as keyof UserTypes];
     }
   };
 
@@ -99,7 +99,7 @@ const AllUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user: UserBare) => (
+            {users.map((user: UserTypes) => (
               <tr
                 key={user.id}
                 className="hover:bg-gray-100 even:bg-white odd:bg-gray-50"

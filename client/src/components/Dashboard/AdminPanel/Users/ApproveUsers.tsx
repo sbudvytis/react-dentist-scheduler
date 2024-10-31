@@ -2,13 +2,13 @@ import { User, Tooltip, Spinner } from "@nextui-org/react";
 import { IoPersonRemoveOutline } from "react-icons/io5";
 import { CheckIcon } from "../icons/CheckIcon";
 import useUser from "@/hooks/useUser";
-import type { UserBare } from "@mono/server/src/shared/entities";
+import { User as UserTypes } from "@/components/Dashboard/types";
 
 const AdminPanel = () => {
   const { users, approveUser, removeUser, usersLoading } = useUser(false, null);
 
-  const renderCell = (user: UserBare, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof UserBare];
+  const renderCell = (user: UserTypes, columnKey: React.Key) => {
+    const cellValue = user[columnKey as keyof UserTypes];
 
     switch (columnKey) {
       case "name":
@@ -95,7 +95,7 @@ const AdminPanel = () => {
                 </td>
               </tr>
             ) : (
-              users.map((user: UserBare) => (
+              users.map((user: UserTypes) => (
                 <tr
                   key={user.id}
                   className="hover:bg-gray-100 even:bg-white odd:bg-gray-50"

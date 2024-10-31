@@ -19,14 +19,12 @@ const AdminListboxItems = ({ isLoading, closeMenu }: Props) => {
   const linkClasses = "flex items-center space-x-4 p-2";
   const activeLinkClasses = "bg-gray-100 text-gray-800 rounded-2xl";
 
-  const isUsersActive = location.pathname.startsWith(
-    "/dashboard/admin-panel/users"
-  );
+  const isUsersActive = location.pathname.startsWith("/admin-panel/users");
   const isSettingsActive = location.pathname.startsWith(
-    "/dashboard/admin-panel/settings"
+    "/admin-panel/settings"
   );
   const isPatientsActive = location.pathname.startsWith(
-    "/dashboard/admin-panel/patients"
+    "/admin-panel/patients"
   );
 
   if (isLoading) {
@@ -40,10 +38,10 @@ const AdminListboxItems = ({ isLoading, closeMenu }: Props) => {
   return (
     <div className="flex flex-col text-sm text-gray-500">
       <Link
-        to="/dashboard/admin-panel/users"
+        to="/admin-panel/users"
         onClick={closeMenu}
         className={`${linkClasses} ${
-          isUsersActive || location.pathname === "/dashboard/admin-panel"
+          isUsersActive || location.pathname === "/admin-panel"
             ? activeLinkClasses
             : "hover:text-gray-800"
         }`}
@@ -52,7 +50,7 @@ const AdminListboxItems = ({ isLoading, closeMenu }: Props) => {
         <span>Users</span>
       </Link>
       <Link
-        to="/dashboard/admin-panel/patients"
+        to="/admin-panel/patients"
         onClick={closeMenu}
         className={`${linkClasses} ${
           isPatientsActive ? activeLinkClasses : "hover:text-gray-800"
@@ -62,7 +60,7 @@ const AdminListboxItems = ({ isLoading, closeMenu }: Props) => {
         <span>Patients</span>
       </Link>
       <Link
-        to="/dashboard/admin-panel/settings"
+        to="/admin-panel/settings"
         onClick={closeMenu}
         className={`${linkClasses} ${
           isSettingsActive ? activeLinkClasses : "hover:text-gray-800"

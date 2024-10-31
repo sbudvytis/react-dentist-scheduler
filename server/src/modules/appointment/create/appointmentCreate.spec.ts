@@ -3,18 +3,30 @@ import {
   fakeUser,
   fakeSchedule,
   fakePatient,
+  fakeClinic,
 } from '@server/entities/tests/fakes'
 import { createTestDatabase } from '@tests/utils/database'
-import { User, Schedule, Patient } from '@server/entities'
+import { User, Schedule, Patient, Clinic } from '@server/entities'
 import { TRPCError } from '@trpc/server'
 import appointmentRouter from '..'
 
 it('should create an appointment', async () => {
   const db = await createTestDatabase()
-  const user = await db.getRepository(User).save(fakeUser({ role: 'dentist' }))
+
+  // Create a fake clinic and save it to the database
+  const clinic = await db.getRepository(Clinic).save(fakeClinic())
+
+  // Create a user and associate it with the clinic
+  const user = await db
+    .getRepository(User)
+    .save(fakeUser({ role: 'dentist', clinicId: clinic.clinicId }))
+
+  // Create a schedule for the user
   const schedule = await db
     .getRepository(Schedule)
     .save(fakeSchedule({ userId: user.id }))
+
+  // Create a patient and associate it with the same clinic
   const patient = await db.getRepository(Patient).save(fakePatient())
 
   const { create } = appointmentRouter.createCaller(authContext({ db }, user))
@@ -59,10 +71,17 @@ it('should create an appointment', async () => {
 
 it('should not create a new patient if the patient already exists', async () => {
   const db = await createTestDatabase()
-  const user = await db.getRepository(User).save(fakeUser({ role: 'dentist' }))
+
+  const clinic = await db.getRepository(Clinic).save(fakeClinic())
+
+  const user = await db
+    .getRepository(User)
+    .save(fakeUser({ role: 'dentist', clinicId: clinic.clinicId }))
+
   const schedule = await db
     .getRepository(Schedule)
     .save(fakeSchedule({ userId: user.id }))
+
   const patient = await db.getRepository(Patient).save(fakePatient())
 
   const { create } = appointmentRouter.createCaller(authContext({ db }, user))

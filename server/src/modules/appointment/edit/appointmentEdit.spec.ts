@@ -3,14 +3,18 @@ import {
   fakeUser,
   fakePatient,
   fakeSchedule,
+  fakeClinic,
 } from '@server/entities/tests/fakes'
 import { createTestDatabase } from '@tests/utils/database'
-import { User, Patient, Schedule } from '@server/entities'
+import { User, Patient, Schedule, Clinic } from '@server/entities'
 import appointmentRouter from '..'
 
 it('should edit a dentists appointment', async () => {
   const db = await createTestDatabase()
-  const user = await db.getRepository(User).save(fakeUser({ role: 'dentist' }))
+  const clinic = await db.getRepository(Clinic).save(fakeClinic())
+  const user = await db
+    .getRepository(User)
+    .save(fakeUser({ role: 'dentist', clinicId: clinic.clinicId }))
   const schedule = await db
     .getRepository(Schedule)
     .save(fakeSchedule({ userId: user.id }))

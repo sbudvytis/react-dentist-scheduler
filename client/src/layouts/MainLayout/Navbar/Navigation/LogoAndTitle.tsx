@@ -10,8 +10,10 @@ const LogoAndTitle = ({ isLoggedIn }: Props) => {
       {/* Desktop logo */}
       <div className="hidden md:flex items-center lg:min-w-68 lg:max-w-68">
         <Link to="/dashboard" className="flex items-center">
-          <img src="/logo1.png" alt="Logo" className="h-9" />
-          <p className="ml-3 text-md font-semibold">Dentist Scheduler</p>
+          <img src="/logo1.png" alt="Logo" className="h-8" />
+          <p className="ml-2 text-xl font-semibold font-bitter text-indigo-950">
+            Calendent
+          </p>
         </Link>
       </div>
 
@@ -22,8 +24,10 @@ const LogoAndTitle = ({ isLoggedIn }: Props) => {
         }`}
       >
         <Link to="/dashboard" className="flex items-center">
-          <img src="/logo1.png" alt="Logo" className="h-9" />
-          <p className="ml-3 text-sm font-bold">Dentist Scheduler</p>
+          <img src="/logo1.png" alt="Logo" className="h-7" />
+          <p className="ml-2 text-lg font-semibold font-bitter text-indigo-950">
+            Calendent
+          </p>
         </Link>
       </div>
     </>

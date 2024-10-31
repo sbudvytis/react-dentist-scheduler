@@ -70,7 +70,10 @@ export default authenticatedProcedure
       .getOne()
 
     if (!patient) {
-      patient = db.getRepository(Patient).create(appointmentData.patient)
+      patient = db.getRepository(Patient).create({
+        ...appointmentData.patient,
+        clinic: { clinicId: authUser.clinicId },
+      })
       patient = await db.getRepository(Patient).save(patient)
     }
 
@@ -79,6 +82,7 @@ export default authenticatedProcedure
       userId: authUser.id,
       patient,
       schedule: dentistSchedule,
+      clinic: { clinicId: authUser.clinicId },
     })
 
     const appointmentCreated = await db

@@ -8,7 +8,7 @@ const Patients = () => {
     <div className="flex flex-col lg:flex-row gap-4 w-full">
       {canApproveUsers ? (
         <div className="lg:w-full">
-          <div className="pb-4">
+          <div className="pb-6">
             <h1 className="text-xl text-left flex items-center gap-2 text-gray-800 font-semibold">
               Patients
             </h1>

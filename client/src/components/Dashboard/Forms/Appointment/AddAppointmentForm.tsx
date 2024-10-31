@@ -44,7 +44,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
   const handleAddAppointment = async (appointmentData: Appointment) => {
     if (selectedScheduleId !== null) {
       try {
-        addAppointment({
+        await addAppointment({
           ...appointmentData,
           scheduleId: selectedScheduleId,
         });
@@ -63,7 +63,6 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
       <AppointmentForm
         initialData={localFormData}
         onSubmit={handleAddAppointment}
-        onClose={onClose}
         selectedDateRange={selectedDateRange}
         isSubmitting={addAppointmentLoading}
         submitButtonText="Create Appointment"

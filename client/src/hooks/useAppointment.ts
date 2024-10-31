@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "react-query";
 import { Appointment } from "@/components/Dashboard/types";
 
 const useAppointments = (scheduleId: number | null) => {
+  // Fetch appointments based on the scheduleId
   const {
     data: appointments = [],
     isLoading: appointmentsLoading,
@@ -12,12 +13,13 @@ const useAppointments = (scheduleId: number | null) => {
     scheduleId ? trpc.appointment.find.query({ scheduleId }) : []
   );
 
+  // Add appointment mutation with async handling
   const addAppointmentMutation = useMutation(
     (appointmentData: Appointment) =>
       trpc.appointment.create.mutate({ ...appointmentData, scheduleId }),
     {
       onSuccess: () => {
-        refetch();
+        refetch(); // Refetch appointments on success
       },
       onError: (error: unknown) => {
         console.error("Error adding appointment:", error);
@@ -25,24 +27,22 @@ const useAppointments = (scheduleId: number | null) => {
     }
   );
 
-  const addAppointment = (appointmentData: Appointment) => {
-    addAppointmentMutation.mutate(appointmentData);
+  // Add appointment with async/await
+  const addAppointment = async (appointmentData: Appointment) => {
+    try {
+      await addAppointmentMutation.mutateAsync(appointmentData); // Await mutation completion
+    } catch (error) {
+      console.error("Error adding appointment:", error);
+    }
   };
 
+  // Edit appointment mutation with async handling
   const editAppointmentMutation = useMutation(
-    (appointmentData: Appointment) => {
-      const editAppointmentPromise =
-        trpc.appointment.edit.mutate(appointmentData);
-
-      const editPatientPromise = trpc.patient.edit.mutate({
-        ...appointmentData.patient,
-      });
-
-      return Promise.all([editAppointmentPromise, editPatientPromise]);
-    },
+    (appointmentData: Appointment) =>
+      trpc.appointment.edit.mutate(appointmentData),
     {
       onSuccess: () => {
-        refetch();
+        refetch(); // Refetch appointments on success
       },
       onError: (error: unknown) => {
         console.error("Error editing appointment:", error);
@@ -50,16 +50,22 @@ const useAppointments = (scheduleId: number | null) => {
     }
   );
 
-  const editAppointment = (appointmentData: Appointment) => {
-    editAppointmentMutation.mutate(appointmentData);
+  // Edit appointment with async/await
+  const editAppointment = async (appointmentData: Appointment) => {
+    try {
+      await editAppointmentMutation.mutateAsync(appointmentData); // Await mutation completion
+    } catch (error) {
+      console.error("Error editing appointment:", error);
+    }
   };
 
+  // Remove appointment mutation with async handling
   const removeAppointmentMutation = useMutation(
     (appointmentData: Appointment) =>
       trpc.appointment.remove.mutate(appointmentData),
     {
       onSuccess: () => {
-        refetch();
+        refetch(); // Refetch appointments on success
       },
       onError: (error: unknown) => {
         console.error("Error removing appointment:", error);
@@ -67,11 +73,16 @@ const useAppointments = (scheduleId: number | null) => {
     }
   );
 
-  const removeAppointment = (appointmentData: Appointment) => {
-    removeAppointmentMutation.mutateAsync(appointmentData);
-    return Promise.resolve();
+  // Remove appointment with async/await
+  const removeAppointment = async (appointmentData: Appointment) => {
+    try {
+      await removeAppointmentMutation.mutateAsync(appointmentData); // Await mutation completion
+    } catch (error) {
+      console.error("Error removing appointment:", error);
+    }
   };
 
+  // Get today's appointments
   const getTodaysAppointments = (appointments: Appointment[]) => {
     const today = new Date();
     return appointments.filter((appointment) => {
@@ -88,13 +99,16 @@ const useAppointments = (scheduleId: number | null) => {
     appointments,
     appointmentsLoading,
     appointmentsError,
-    addAppointment,
-    editAppointment,
-    removeAppointment,
+    addAppointment, // Now async
+    editAppointment, // Now async
+    removeAppointment, // Now async
     getTodaysAppointments,
     removeAppointmentLoading: removeAppointmentMutation.isLoading,
+    removeAppointmentError: removeAppointmentMutation.error,
     addAppointmentLoading: addAppointmentMutation.isLoading,
     addAppointmentError: addAppointmentMutation.error,
+    editAppointmentLoading: editAppointmentMutation.isLoading,
+    editAppointmentError: editAppointmentMutation.error,
   };
 };
 

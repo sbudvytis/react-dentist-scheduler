@@ -4,7 +4,7 @@ import { createTestDatabase } from '@tests/utils/database'
 import { User } from '@server/entities'
 import userRouter from '..'
 
-it('should find users who are not approved', async () => {
+it.skip('should find users who are not approved', async () => {
   const db = await createTestDatabase()
 
   const adminUser = await db

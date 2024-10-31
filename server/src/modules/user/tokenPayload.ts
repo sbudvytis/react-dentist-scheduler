@@ -9,6 +9,7 @@ const tokenPayloadSchema = z.object({
     firstName: z.string(),
     lastName: z.string(),
     email: z.string().email(),
+    clinicId: z.number(),
   }),
 })
 

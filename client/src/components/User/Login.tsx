@@ -23,8 +23,16 @@ const initialValues: LoginFormValues = {
 
 const Login = () => {
   const { login, isLoggedIn } = useAuth();
-  const { errorMessage, setErrorMessage } = useSignupLoginStore();
+  const { errorMessage, setErrorMessage, resetMessages } =
+    useSignupLoginStore();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    return () => {
+      // Clear all messages on unmount
+      resetMessages();
+    };
+  }, [resetMessages]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -56,8 +64,8 @@ const Login = () => {
           {({ isSubmitting, touched, errors }) => (
             <Form className="grid space-y-4">
               <div className="pb-4 flex-col space-y-2">
-                <h1 className="text-3xl font-semibold">Sign in</h1>
-                <p className="text-gray-500">
+                <h1 className="text-2xl font-semibold">Sign in</h1>
+                <p className="text-gray-500 text-sm">
                   Don't have an account?{" "}
                   <Link
                     to="/signup"
@@ -99,7 +107,7 @@ const Login = () => {
                 variant="solid"
                 radius="lg"
                 type="submit"
-                disabled={isSubmitting}
+                isLoading={isSubmitting}
                 className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
               >
                 Sign in

@@ -22,7 +22,6 @@ import { AnimatePresence, motion } from "framer-motion";
 interface AppointmentFormProps {
   initialData: Appointment;
   onSubmit: (appointmentData: Appointment) => void;
-  onClose: () => void;
   onDelete?: () => void;
   selectedDateRange: { start: Date; end: Date };
   isSubmitting: boolean;
@@ -36,7 +35,6 @@ interface AppointmentFormProps {
 const AppointmentForm: React.FC<AppointmentFormProps> = ({
   initialData,
   onSubmit,
-  onClose,
   isSubmitting,
   loading,
   submitButtonText,
@@ -107,7 +105,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(formData);
-    onClose();
   };
 
   const openDeleteModal = () => {
@@ -184,12 +181,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.2, ease: "easeInOut" }}
-              className="overflow-hidden"
             >
               <div className="flex gap-3">
                 <div className="w-full mb-4">
-                  {" "}
-                  {/* Added mb-4 to create space */}
                   <Input
                     type="text"
                     label="First name"
@@ -203,8 +197,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                   />
                 </div>
                 <div className="w-full mb-4">
-                  {" "}
-                  {/* Added mb-4 */}
                   <Input
                     type="text"
                     label="Last name"
@@ -219,8 +211,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
                 </div>
               </div>
               <div className="mb-4">
-                {" "}
-                {/* Added mb-4 */}
                 <Input
                   type="text"
                   label="Phone number"
@@ -238,8 +228,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         </AnimatePresence>
 
         <div className="mb-4">
-          {" "}
-          {/* Added mb-4 */}
           <Input
             type="text"
             label="Appointment title"
@@ -254,8 +242,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           />
         </div>
         <div className="mb-4">
-          {" "}
-          {/* Added mb-4 */}
           <Input
             type="email"
             label="Email"
@@ -269,7 +255,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           />
         </div>
         <div className="flex flex-col md:flex-row w-full gap-3 mb-4">
-          {" "}
           {/* Added mb-4 */}
           <div className="w-full">
             <DatePicker
@@ -301,7 +286,6 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           </div>
         </div>
         <div className="mb-4">
-          {" "}
           {/* Added mb-4 */}
           <Textarea
             label="Notes"
@@ -321,10 +305,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
             type="submit"
             variant="solid"
             radius="lg"
-            disabled={isSubmitting}
+            isLoading={isSubmitting}
             className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
           >
-            {isSubmitting ? "Processing..." : submitButtonText}
+            {submitButtonText}
           </Button>
 
           {showDeleteButton && (
@@ -333,9 +317,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               variant="flat"
               radius="lg"
               onClick={openDeleteModal}
+              isLoading={loading}
               className="h-9"
             >
-              {loading ? "Removing..." : "Remove Appointment"}
+              Remove Appointment
             </Button>
           )}
         </div>

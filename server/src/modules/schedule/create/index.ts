@@ -18,6 +18,7 @@ export default authenticatedProcedure
     const schedule = {
       ...scheduleData,
       userId: authUser.id,
+      clinic: { clinicId: authUser.clinicId },
     }
 
     const scheduleCreated = await db.getRepository(Schedule).save(schedule)

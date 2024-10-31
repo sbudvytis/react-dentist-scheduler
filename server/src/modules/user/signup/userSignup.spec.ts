@@ -1,6 +1,6 @@
 import { createTestDatabase } from '@tests/utils/database'
 import { User } from '@server/entities'
-import { fakeUser } from '@server/entities/tests/fakes'
+import { fakeUserSignUp } from '@server/entities/tests/fakes'
 import usersRouter from '..'
 
 const db = await createTestDatabase()
@@ -8,7 +8,14 @@ const userRepository = db.getRepository(User)
 const { signup } = usersRouter.createCaller({ db })
 
 it('should save a user', async () => {
-  const user = fakeUser()
+  const user = {
+    ...fakeUserSignUp(),
+    clinic: {
+      name: 'Test Clinic',
+      address: '123 Test St',
+      contactNumber: '1234567890',
+    },
+  }
 
   const response = await signup(user)
 
@@ -38,6 +45,10 @@ it('should save a user', async () => {
     lastName: user.lastName,
     role: user.role,
     permissions: expect.any(Array),
+    clinic: {
+      id: expect.any(Number),
+      name: user.clinic.name,
+    },
   })
 
   expect(response.id).toEqual(userCreated!.id)
@@ -50,7 +61,12 @@ it('should require a valid email', async () => {
       lastName: 'Doe',
       email: 'user-email-invalid',
       password: 'password.123',
-      role: 'Dentist',
+      role: 'Admin',
+      clinic: {
+        name: 'Test Clinic',
+        address: '123 Test St',
+        contactNumber: '1234567890',
+      },
     })
   ).rejects.toThrow(/email/i)
 })
@@ -62,7 +78,12 @@ it('should require a password with at least 8 characters', async () => {
       lastName: 'Doe',
       email: 'user2@domain.com',
       password: 'pas.123',
-      role: 'Dentist',
+      role: 'Admin',
+      clinic: {
+        name: 'Test Clinic',
+        address: '123 Test St',
+        contactNumber: '1234567890',
+      },
     })
   ).rejects.toThrow(/password/i)
 })
@@ -74,17 +95,29 @@ it('throws an error for invalid email', async () => {
       lastName: 'Doe',
       email: 'not-an-email',
       password: 'some-password',
-      role: 'Dentist',
+      role: 'Admin',
+      clinic: {
+        name: 'Test Clinic',
+        address: '123 Test St',
+        contactNumber: '1234567890',
+      },
     })
   ).rejects.toThrow(/email/)
 })
 
 it('stores lowercased email', async () => {
-  const user = fakeUser()
+  const user = {
+    ...fakeUserSignUp(),
+    clinic: {
+      name: 'Test Clinic',
+      address: '123 Test St',
+      contactNumber: '1234567890',
+    },
+  }
+
   await signup({
     ...user,
     email: user.email.toUpperCase(),
-    role: 'Dentist',
   })
 
   await expect(
@@ -95,11 +128,18 @@ it('stores lowercased email', async () => {
 })
 
 it('stores email with trimmed whitespace', async () => {
-  const user = fakeUser()
+  const user = {
+    ...fakeUserSignUp(),
+    clinic: {
+      name: 'Test Clinic',
+      address: '123 Test St',
+      contactNumber: '1234567890',
+    },
+  }
   await signup({
     ...user,
     email: ` \t ${user.email}\t `,
-    role: 'Dentist',
+    role: 'Admin',
   })
 
   await expect(

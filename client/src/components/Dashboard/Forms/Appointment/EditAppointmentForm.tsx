@@ -12,7 +12,7 @@ interface EditAppointmentFormProps {
   isOpen: boolean;
   scheduleId: number | null;
   onClose: () => void;
-  editAppointment: (appointment: Appointment) => void;
+  editAppointment: (appointment: Appointment) => Promise<void>; // Ensure it returns a promise
 }
 
 const EditAppointmentForm = ({
@@ -30,7 +30,8 @@ const EditAppointmentForm = ({
 
   const { selectedScheduleId } = useSelectedSchedule();
   const { removeAppointment } = useAppointments(selectedScheduleId);
-  const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [addLoading, setAddLoading] = useState(false);
 
   useEffect(() => {
     setFormData({
@@ -41,7 +42,7 @@ const EditAppointmentForm = ({
   }, [appointment]);
 
   const handleDelete = async () => {
-    setLoading(true);
+    setDeleteLoading(true);
     try {
       await removeAppointment(formData);
       toast.success("Appointment removed successfully!");
@@ -50,18 +51,21 @@ const EditAppointmentForm = ({
       toast.error("Failed to remove appointment.");
       console.error("Error removing appointment:", error);
     } finally {
-      setLoading(false);
+      setDeleteLoading(false);
     }
   };
 
   const handleSubmit = async (updatedAppointment: Appointment) => {
+    setAddLoading(true);
     try {
-      editAppointment(updatedAppointment);
+      await editAppointment(updatedAppointment); // Await the editAppointment function
       toast.success("Appointment updated successfully!");
       onClose();
     } catch (error) {
       toast.error("Failed to update appointment.");
       console.error("Error updating appointment:", error);
+    } finally {
+      setAddLoading(false);
     }
   };
 
@@ -83,9 +87,8 @@ const EditAppointmentForm = ({
             initialData={formData}
             selectedDateRange={selectedDateRange}
             onSubmit={handleSubmit}
-            onClose={onClose}
-            isSubmitting={false}
-            loading={loading}
+            isSubmitting={addLoading}
+            loading={deleteLoading}
             submitButtonText="Save Changes"
             showDeleteButton
             showAutocomplete={false}

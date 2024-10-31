@@ -11,7 +11,7 @@ const inputSchema = z.object({
 
 export default authenticatedProcedure
   .input(inputSchema)
-  .query(async ({ input, ctx: { db } }) => {
+  .query(async ({ input, ctx: { db, authUser } }) => {
     const { page = 0, pageSize = 1, all = false, searchTerm = '' } = input
 
     let skip
@@ -30,12 +30,14 @@ export default authenticatedProcedure
     let query = patientRepository
       .createQueryBuilder('patient')
       .leftJoinAndSelect('patient.appointments', 'appointments')
+      .leftJoin('patient.clinic', 'clinic') // Join the clinic table
+      .where('clinic.clinicId = :clinicId', { clinicId: authUser.clinicId }) // Filter by the currently logged-in admin's clinic
       .orderBy('patient.patientId', 'DESC')
       .skip(skip)
       .take(take)
 
     if (searchTerm) {
-      query = query.where(
+      query = query.andWhere(
         'patient.firstName ILIKE :searchTerm OR patient.lastName ILIKE :searchTerm OR patient.contactNumber ILIKE :searchTerm',
         { searchTerm: `%${searchTerm}%` }
       )

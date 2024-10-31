@@ -1,12 +1,15 @@
 import { authContext } from '@tests/utils/context'
-import { fakeUser } from '@server/entities/tests/fakes'
+import { fakeClinic, fakeUser } from '@server/entities/tests/fakes'
 import { createTestDatabase } from '@tests/utils/database'
-import { User } from '@server/entities'
+import { Clinic, User } from '@server/entities'
 import scheduleRouter from '..'
 
 it('should edit a dentists schedule', async () => {
   const db = await createTestDatabase()
-  const user = await db.getRepository(User).save(fakeUser({ role: 'dentist' }))
+  const clinic = await db.getRepository(Clinic).save(fakeClinic())
+  const user = await db
+    .getRepository(User)
+    .save(fakeUser({ role: 'dentist', clinicId: clinic.clinicId }))
   const { create, edit } = scheduleRouter.createCaller(
     authContext({ db }, user)
   )
@@ -39,12 +42,13 @@ it('should edit a dentists schedule', async () => {
 
 it("should deny a staff member from editing a dentist's schedule", async () => {
   const db = await createTestDatabase()
+  const clinic = await db.getRepository(Clinic).save(fakeClinic())
   const dentistUser = await db
     .getRepository(User)
-    .save(fakeUser({ role: 'dentist' }))
+    .save(fakeUser({ role: 'dentist', clinicId: clinic.clinicId }))
   const staffUser = await db
     .getRepository(User)
-    .save(fakeUser({ role: 'staff' }))
+    .save(fakeUser({ role: 'staff', clinicId: clinic.clinicId }))
   const { create } = scheduleRouter.createCaller(
     authContext({ db }, dentistUser)
   )

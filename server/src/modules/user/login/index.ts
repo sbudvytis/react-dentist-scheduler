@@ -29,6 +29,7 @@ export default publicProcedure
         lastName: true,
         email: true,
       },
+      relations: ['clinic'], // Ensure that the clinic relationship is loaded
       where: {
         email,
       },
@@ -43,6 +44,7 @@ export default publicProcedure
           | 'firstName'
           | 'lastName'
           | 'email'
+          | 'clinic'
         >
       | undefined
 
@@ -54,7 +56,7 @@ export default publicProcedure
       })
     }
 
-    if (!user.isApproved) {
+    if (!user.isApproved || password === null || user.password === null) {
       logger.error('User %s is not approved', email)
       throw new TRPCError({
         code: 'UNAUTHORIZED',
@@ -79,6 +81,7 @@ export default publicProcedure
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
+      clinicId: user.clinic.clinicId,
     })
 
     const accessToken = jsonwebtoken.sign(payload, tokenKey, {
