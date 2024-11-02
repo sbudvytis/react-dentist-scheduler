@@ -11,7 +11,7 @@ const usePatients = (
       ["patients", currentPage, pageSize, searchTerm],
       () =>
         trpc.patient.find.query({
-          page: currentPage - 1,
+          page: Math.max(0, currentPage - 1),
           pageSize: pageSize,
           searchTerm: searchTerm,
         }),

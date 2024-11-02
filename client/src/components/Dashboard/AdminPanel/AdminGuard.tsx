@@ -12,12 +12,14 @@ const AdminGuard = () => {
           alt="Not allowed"
           className="size-96 mb-4"
         />
-        <p className="text-gray-800">
-          You do not have permission to view this page.{" "}
-          <Link to="/" className="font-medium text-black hover:text-indigo-600">
-            Go back to Dashboard
-          </Link>
-        </p>
+        <div className="bg-[#ffe7ef] text-[#f31261] p-4 rounded-2xl text-sm">
+          <p>
+            You do not have permission to view this page.{" "}
+            <Link to="/" className="font-semibold hover:text-[#ff1567]">
+              Go back to Dashboard
+            </Link>
+          </p>
+        </div>
       </div>
     );
   }

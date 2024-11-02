@@ -1,5 +1,15 @@
 import { useState, useEffect } from "react";
-import { Modal, ModalContent, ModalBody, ModalHeader } from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalBody,
+  ModalHeader,
+  Chip,
+} from "@nextui-org/react";
+import {
+  IoInformationCircleOutline,
+  IoCloseCircleOutline,
+} from "react-icons/io5";
 import useCalendar from "@/hooks/useCalendar";
 import useAppointments from "@/hooks/useAppointment";
 import { useSelectedSchedule } from "@/hooks/useSelectedSchedule";
@@ -65,7 +75,20 @@ const Dashboard = () => {
 
   // Show error message if there's an error
   if (schedulesError || (appointmentsError && selectedScheduleId != null)) {
-    return <p>Error loading data</p>;
+    return (
+      <div className="text-center">
+        <Chip
+          className="text-sm text-center p-4"
+          startContent={<IoCloseCircleOutline size={18} />}
+          radius="md"
+          variant="flat"
+          color="danger"
+          size="lg"
+        >
+          <p>Error loading data</p>
+        </Chip>
+      </div>
+    );
   }
 
   const handleSelectedScheduleById = (value: string | number) => {
@@ -114,11 +137,20 @@ const Dashboard = () => {
       ) : (
         <div className="flex flex-col justify-center items-center text-center p-4">
           <img src="/no-data.svg" alt="No data" className="size-96 mb-4" />
-          <p className="text-gray-800">
-            {isDentist
-              ? "You have not created your schedule yet."
-              : "No schedules available."}
-          </p>
+          <Chip
+            className="text-sm text-center p-4"
+            startContent={<IoInformationCircleOutline size={18} />}
+            radius="md"
+            variant="flat"
+            color="warning"
+            size="lg"
+          >
+            <p>
+              {isDentist
+                ? "You have not created your schedule yet."
+                : "No schedules available."}
+            </p>
+          </Chip>
         </div>
       )}
 

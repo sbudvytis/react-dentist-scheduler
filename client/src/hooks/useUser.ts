@@ -32,6 +32,10 @@ const useUser = (
     enabled: !!currentUserId, // Prevents the query from running if user is not logged in
   });
 
+  const findUserByEmail = (email: string) => {
+    return usersData?.find((user) => user.email === email);
+  };
+
   const approveUsers = useMutation(
     (id: number) => trpc.user.approve.mutate({ id }),
     {
@@ -72,8 +76,31 @@ const useUser = (
     try {
       await trpc.user.verify.mutate({ token, password });
       return { success: true };
-    } catch (error) {
-      throw new Error("Failed to set password.");
+    } catch (error: unknown) {
+      if (
+        error instanceof Error &&
+        error.message === "Invalid or expired token"
+      ) {
+        throw new Error("Your setup link has expired or is invalid.");
+      } else {
+        throw new Error("Failed to set password.");
+      }
+    }
+  };
+
+  const requestNewSetupLinkApi = async (email: string) => {
+    try {
+      await trpc.user.request.mutate({ email });
+      return { success: true };
+    } catch (error: unknown) {
+      if (
+        error instanceof Error &&
+        error.message === "Invalid or expired token"
+      ) {
+        throw new Error("Your setup link has expired or is invalid.");
+      } else {
+        throw new Error("Failed to set password.");
+      }
     }
   };
 
@@ -84,6 +111,8 @@ const useUser = (
     approveUser,
     removeUser,
     setPasswordApi,
+    requestNewSetupLinkApi,
+    findUserByEmail,
   };
 };
 

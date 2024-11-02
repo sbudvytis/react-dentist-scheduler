@@ -92,6 +92,10 @@ const AllPatients = () => {
     );
   }
 
+  // Calculate total pages
+  const totalPages =
+    totalPatients > 0 ? Math.ceil(totalPatients / pageSize) : 1;
+
   return (
     <div className="flex flex-col min-h-[calc(100dvh-195px)] relative">
       <PatientSearch
@@ -169,10 +173,10 @@ const AllPatients = () => {
       </div>
       <div className="flex lg:justify-start justify-center items-center gap-4 z-10">
         <span className="text-sm">
-          Page {currentPage} of {Math.ceil(totalPatients / pageSize)}
+          Page {currentPage} of {totalPages}
         </span>
         <Pagination
-          total={Math.ceil(totalPatients / pageSize)}
+          total={totalPages}
           page={currentPage}
           onChange={(page) => setCurrentPage(page)}
           initialPage={1}

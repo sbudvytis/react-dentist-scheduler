@@ -6,6 +6,7 @@ import find from './find'
 import remove from './remove'
 import add from './add'
 import verify from './verify'
+import request from './request'
 
 export default router({
   login,
@@ -15,4 +16,5 @@ export default router({
   find,
   remove,
   verify,
+  request,
 })

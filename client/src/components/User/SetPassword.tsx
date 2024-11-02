@@ -1,19 +1,26 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import useUser from "@/hooks/useUser";
-import useAuth from "@/hooks/useAuth";
 import { Button, Input } from "@nextui-org/react";
+import useAuth from "@/hooks/useAuth";
 
 interface PasswordFormValues {
   password: string;
 }
 
+interface ApiError {
+  message?: string;
+}
+
 const SetPassword: React.FC = () => {
   const { token } = useParams<{ token: string }>();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const email = queryParams.get("email"); // Extract email from the URL
   const { userId } = useAuth();
-  const { setPasswordApi } = useUser(true, userId);
+  const { setPasswordApi, requestNewSetupLinkApi } = useUser(true, userId);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -21,7 +28,6 @@ const SetPassword: React.FC = () => {
     password: "",
   };
 
-  // Validation schema
   const validationSchema = Yup.object({
     password: Yup.string()
       .min(8, "Password must be at least 8 characters long")
@@ -30,7 +36,7 @@ const SetPassword: React.FC = () => {
 
   const handleSubmit = async (
     values: PasswordFormValues,
-    { resetForm }: FormikHelpers<PasswordFormValues> // Accept resetForm as a parameter
+    { resetForm }: FormikHelpers<PasswordFormValues>
   ) => {
     if (!token) {
       setErrorMessage("Invalid or missing token.");
@@ -39,11 +45,39 @@ const SetPassword: React.FC = () => {
 
     try {
       await setPasswordApi(token, values.password);
-      setSuccessMessage("Password has been set successfully! You can now ");
+      setSuccessMessage(
+        "Password has been set successfully! You can now login."
+      );
       setErrorMessage("");
-      resetForm(); // Clear the form after successful submission
+      resetForm();
     } catch (error) {
-      setErrorMessage("Failed to set password.");
+      const apiError = error as ApiError;
+      setErrorMessage(
+        apiError.message || "Failed to set password. Please try again."
+      );
+    }
+    resetForm();
+  };
+
+  const handleRequestNewSetupLink = async () => {
+    if (!email) {
+      setErrorMessage("Email not found. Please contact support.");
+      return;
+    }
+
+    setErrorMessage("");
+
+    try {
+      await requestNewSetupLinkApi(email);
+      setSuccessMessage(
+        "A new setup link has been sent to your email. Please check your inbox."
+      );
+    } catch (error) {
+      const apiError = error as ApiError;
+      setErrorMessage(
+        apiError.message ||
+          "Failed to request a new setup link. Please try again."
+      );
     }
   };
 
@@ -92,22 +126,24 @@ const SetPassword: React.FC = () => {
         {successMessage && (
           <div className="pt-6">
             <div className="bg-[#d8f5e1] text-[#095028] text-sm p-4 rounded-2xl text-center">
-              <p>
-                {successMessage}{" "}
-                <Link
-                  to="/login"
-                  className="text-[#095028] hover:text-green-700 font-medium"
-                >
-                  login
-                </Link>
-              </p>
+              <p>{successMessage}</p>
             </div>
           </div>
         )}
         {errorMessage && (
           <div className="pt-6">
             <div className="bg-[#ffe7ef] text-[#f31261] p-4 rounded-2xl text-sm text-center">
-              <p>{errorMessage}</p>
+              <p>
+                {errorMessage}{" "}
+                {errorMessage.includes("expired") && (
+                  <button
+                    onClick={handleRequestNewSetupLink}
+                    className="text-[#f31261] hover:underline font-medium"
+                  >
+                    Request a new setup link
+                  </button>
+                )}
+              </p>
             </div>
           </div>
         )}

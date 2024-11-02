@@ -180,7 +180,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2, ease: "easeInOut" }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <div className="flex gap-3">
                 <div className="w-full mb-4">

@@ -74,7 +74,9 @@ export default authenticatedProcedure
         })
 
         // Sends password setup email in the background
-        const setupLink = `${config.clientUrl}/set-password/${setupToken}`
+        const setupLink = `${
+          config.clientUrl
+        }/set-password/${setupToken}?email=${encodeURIComponent(email)}`
         sendPasswordSetupEmail(user.email, setupLink).catch((error) => {
           logger.error('Error sending email:', error)
         })

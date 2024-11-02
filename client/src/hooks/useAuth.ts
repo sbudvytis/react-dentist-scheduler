@@ -16,6 +16,7 @@ const useAuth = () => {
   );
   const [userId, setUserId] = useState<number | null>(null);
   const [clinicId, setClinicId] = useState<number | null>(null); // Add clinicId state
+  const [usersEmail, setUsersEmail] = useState<string | null>(null);
   const { resetSelectedScheduleId } = useSelectedSchedule();
   const queryClient = useQueryClient();
 
@@ -24,6 +25,7 @@ const useAuth = () => {
       const user = getUserFromToken(authToken);
       setUserId(user.id);
       setClinicId(user.clinicId); // Assuming clinicId is part of the user object
+      setUsersEmail(user.email);
     }
   }, [authToken]);
 
@@ -96,6 +98,7 @@ const useAuth = () => {
     logout,
     signup,
     addUser,
+    usersEmail,
     canApproveUsers,
     canViewAllSchedules,
     isDentist,
