@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import showToast from "@/utils/showToast";
 import useAddAppointment from "@/hooks/useAppointment";
 import useFormDataStore from "@/stores/useAppointmentFormStore";
 import AppointmentForm from "./AppointmentForm";
@@ -48,9 +48,9 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
           ...appointmentData,
           scheduleId: selectedScheduleId,
         });
-        toast.success("Appointment created successfully!");
+        showToast("success", "Appointment created successfully!");
       } catch (error) {
-        toast.error("Failed to create appointment.");
+        showToast("error", "Failed to create appointment!");
       }
       onClose();
     } else {

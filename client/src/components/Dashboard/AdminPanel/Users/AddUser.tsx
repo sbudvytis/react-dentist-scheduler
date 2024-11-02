@@ -7,6 +7,7 @@ import useSignupLoginStore from "@/stores/useSignupLoginStore";
 import { AddUserSchema } from "@/utils/signupValidation";
 import { UserInsert } from "@mono/server/src/shared/entities";
 import { AnimatePresence, motion } from "framer-motion";
+import showToast from "@/utils/showToast";
 
 interface AddUserFormProps {
   currentClinicId: number | null;
@@ -71,10 +72,12 @@ const AddUser: React.FC<AddUserFormProps> = ({ currentClinicId }) => {
       };
 
       await addUser(userToAdd);
+      showToast("success", "User added successfully!");
       setSuccessMessage("User added successfully!");
       resetForm();
-      setIsFormVisible(false); // Optionally hide the form after submission
+      setIsFormVisible(false);
     } catch (error) {
+      showToast("error", "Failed to add user!");
       setErrorMessage(
         error instanceof Error ? error.message : "Failed to add user."
       );

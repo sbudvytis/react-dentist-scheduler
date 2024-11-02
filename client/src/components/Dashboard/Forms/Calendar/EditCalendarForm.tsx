@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import showToast from "@/utils/showToast";
 import CalendarForm from "./CalendarForm";
 import useCalendar from "@/hooks/useCalendar";
 import { CalendarConfig } from "@/components/Dashboard/types";
@@ -28,10 +28,10 @@ const EditCalendarForm: React.FC<EditCalendarFormProps> = ({
     setLoading(true);
     try {
       await editCalendar(updatedCalendarConfig);
-      toast.success("Schedule updated successfully!");
+      showToast("success", "Schedule updated successfully!");
       onClose();
     } catch (error) {
-      toast.error("Failed to update schedule.");
+      showToast("error", "Failed to update schedule!");
       console.error("Error updating schedule:", error);
     } finally {
       setLoading(false);

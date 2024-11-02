@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
-import { toast } from "react-toastify";
+import showToast from "@/utils/showToast";
 import { Instance } from "tippy.js";
 import {
   EventDropArg,
@@ -53,7 +53,7 @@ const Calendar: React.FC<CalendarProps> = ({
       };
 
       editAppointment(updatedAppointment);
-      toast.success("Appointment updated successfully!");
+      showToast("success", "Appointment updated successfully!");
     }
   };
 

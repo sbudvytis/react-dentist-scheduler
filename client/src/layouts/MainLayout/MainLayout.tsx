@@ -1,5 +1,4 @@
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "sonner";
 import NavigationBar from "./Navbar/Navbar";
 import useAuth from "@/hooks/useAuth";
 
@@ -15,7 +14,7 @@ const App = ({ children }: Props) => {
       <div className="relative flex h-[100dvh] flex-col hide-main-scrollbar">
         {!isLoggedIn && <NavigationBar />}
         <div className="flex-1">{children}</div>
-        <ToastContainer position="bottom-right" theme="colored" />
+        <Toaster richColors position="bottom-right" />
       </div>
     </main>
   );

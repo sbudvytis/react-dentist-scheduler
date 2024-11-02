@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useUser from "@/hooks/useUser";
 import useAuth from "@/hooks/useAuth";
+import showToast from "@/utils/showToast";
 import useCalendar from "@/hooks/useCalendar";
 import { User as UserTypes } from "@/components/Dashboard/types";
 import UserRow from "./UserRow";
@@ -35,11 +36,13 @@ const AllUsers = () => {
         );
 
         if (userHasSchedules) {
+          showToast("error", "Failed to remove user!");
           setDeleteError("Cannot delete user with existing schedule.");
           return;
         }
 
         await removeUser(userToDelete.id);
+        showToast("success", "User removed successfully!");
         closeDeleteModal();
       } catch (error) {
         console.error("Error removing user:", error);

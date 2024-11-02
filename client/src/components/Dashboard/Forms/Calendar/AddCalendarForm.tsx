@@ -2,7 +2,7 @@ import { useState } from "react";
 import CalendarForm from "./CalendarForm";
 import useCalendar from "@/hooks/useCalendar";
 import { CalendarConfig } from "@/components/Dashboard/types";
-import { toast } from "react-toastify";
+import showToast from "@/utils/showToast";
 
 interface AddCalendarFormProps {
   onClose: () => void;
@@ -15,11 +15,11 @@ const AddCalendarForm: React.FC<AddCalendarFormProps> = ({ onClose }) => {
   const handleAddCalendar = async (newCalendarConfig: CalendarConfig) => {
     setLoading(true); // Set loading state to true
     try {
-      await addCalendar(newCalendarConfig); // Await async operation
-      toast.success("Schedule created successfully!");
+      await addCalendar(newCalendarConfig);
+      showToast("success", "Schedule created successfully!");
       onClose(); // Close the modal on success
     } catch (error) {
-      toast.error("Failed to create schedule.");
+      showToast("error", "Failed to create schedule!");
       console.error("Error creating schedule:", error);
     } finally {
       setLoading(false); // Ensure loading state is turned off

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Modal, ModalContent, ModalBody, ModalHeader } from "@nextui-org/react";
-import { toast } from "react-toastify";
+import showToast from "@/utils/showToast";
 import { Appointment } from "@/components/Dashboard/types";
 import AppointmentForm from "./AppointmentForm";
 import useAppointments from "@/hooks/useAppointment";
@@ -12,7 +12,7 @@ interface EditAppointmentFormProps {
   isOpen: boolean;
   scheduleId: number | null;
   onClose: () => void;
-  editAppointment: (appointment: Appointment) => Promise<void>; // Ensure it returns a promise
+  editAppointment: (appointment: Appointment) => Promise<void>;
 }
 
 const EditAppointmentForm = ({
@@ -45,10 +45,10 @@ const EditAppointmentForm = ({
     setDeleteLoading(true);
     try {
       await removeAppointment(formData);
-      toast.success("Appointment removed successfully!");
+      showToast("success", "Appointment removed successfully!");
       onClose();
     } catch (error) {
-      toast.error("Failed to remove appointment.");
+      showToast("error", "Failed to remove appointment!");
       console.error("Error removing appointment:", error);
     } finally {
       setDeleteLoading(false);
@@ -58,11 +58,11 @@ const EditAppointmentForm = ({
   const handleSubmit = async (updatedAppointment: Appointment) => {
     setAddLoading(true);
     try {
-      await editAppointment(updatedAppointment); // Await the editAppointment function
-      toast.success("Appointment updated successfully!");
+      await editAppointment(updatedAppointment);
+      showToast("success", "Appointment updated successfully!");
       onClose();
     } catch (error) {
-      toast.error("Failed to update appointment.");
+      showToast("error", "Failed to update appointment!");
       console.error("Error updating appointment:", error);
     } finally {
       setAddLoading(false);

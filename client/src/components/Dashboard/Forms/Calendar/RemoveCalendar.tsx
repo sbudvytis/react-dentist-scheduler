@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
+import showToast from "@/utils/showToast";
 import useCalendar from "@/hooks/useCalendar";
 import { Button } from "@nextui-org/react";
 
@@ -19,12 +19,12 @@ const RemoveSchedule: React.FC<RemoveScheduleProps> = ({ onClose }) => {
       if (config) {
         await removeSchedule(config);
       } else {
-        toast.error("No schedule to remove.");
+        showToast("error", "No schedule to remove!");
       }
-      toast.success("Schedule removed successfully!");
+      showToast("success", "Schedule removed successfully!");
       onClose();
     } catch (error) {
-      toast.error("Failed to remove schedule.");
+      showToast("error", "Failed to remove schedule!");
       console.error("Error removing schedule:", error);
     } finally {
       setLoading(false);
