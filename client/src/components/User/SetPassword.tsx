@@ -18,7 +18,7 @@ const SetPassword: React.FC = () => {
   const { token } = useParams<{ token: string }>();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const email = queryParams.get("email"); // Extract email from the URL
+  const email = queryParams.get("email");
   const { userId } = useAuth();
   const { setPasswordApi, requestNewSetupLinkApi } = useUser(true, userId);
   const [errorMessage, setErrorMessage] = useState("");

@@ -1,4 +1,4 @@
-import AllUsers from "./AllUsers";
+import AllUsers from "./AllUsers/AllUsers";
 
 import { IoPeopleOutline } from "react-icons/io5";
 import useAuth from "@/hooks/useAuth";

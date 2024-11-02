@@ -29,7 +29,7 @@ const useUser = (
     data: usersData,
     refetch,
   } = useQuery(["users", filterApproved], loadUsers, {
-    enabled: !!currentUserId, // Prevents the query from running if user is not logged in
+    enabled: !!currentUserId,
   });
 
   const findUserByEmail = (email: string) => {
@@ -52,7 +52,7 @@ const useUser = (
     approveUsers.mutate(id);
   };
 
-  const removeUsers = useMutation(
+  const removeUserMutation = useMutation(
     (id: number) => trpc.user.remove.mutate({ id }),
     {
       onSuccess: () => {
@@ -64,12 +64,12 @@ const useUser = (
     }
   );
 
-  const removeUser = (id: number) => {
+  const removeUser = async (id: number) => {
     if (id === currentUserId) {
       console.warn("Cannot remove the currently logged-in user.");
       return;
     }
-    removeUsers.mutate(id);
+    removeUserMutation.mutate(id);
   };
 
   const setPasswordApi = async (token: string, password: string) => {
