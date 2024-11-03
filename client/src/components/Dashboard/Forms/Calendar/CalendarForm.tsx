@@ -6,6 +6,7 @@ import {
   Button,
   Switch,
 } from "@nextui-org/react";
+import { IoTimeOutline } from "react-icons/io5";
 import { Time } from "@internationalized/date";
 import { CalendarConfig } from "../../types";
 
@@ -52,11 +53,12 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
       userId: initialData.userId,
       view,
       weekends,
+      blockedDays: initialData.blockedDays,
       slotMinTime: `${slotMinTime.toString()}:00`,
       slotMaxTime: `${slotMaxTime.toString()}:00`,
     };
 
-    await onSubmit(newCalendarConfig); // Ensure we await the submission
+    await onSubmit(newCalendarConfig);
   };
 
   const isMobile = window.innerWidth <= 1024;
@@ -90,6 +92,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
             radius="lg"
             size="sm"
             label="Start time"
+            startContent={<IoTimeOutline />}
             value={slotMinTime}
             onChange={setSlotMinTime}
             description="Your starting hours"
@@ -100,6 +103,7 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
             radius="lg"
             size="sm"
             label="End time"
+            startContent={<IoTimeOutline />}
             value={slotMaxTime}
             onChange={setSlotMaxTime}
             description="Your end hours"

@@ -39,6 +39,9 @@ export class Schedule {
   @Column('boolean')
   weekends: boolean
 
+  @Column('text', { array: true, default: [], nullable: true })
+  blockedDays: string[] | null
+
   @Column('text', { nullable: true })
   slotMinTime: string
 
@@ -54,6 +57,7 @@ export const scheduleSchema = validates<ScheduleBare>().with({
   userId: z.number().int().positive(),
   view: z.string(),
   weekends: z.boolean(),
+  blockedDays: z.array(z.string()).nullable(),
   slotMinTime: z.string(),
   slotMaxTime: z.string(),
 })

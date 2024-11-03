@@ -73,7 +73,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
   return (
     <div className="flex flex-col min-h-[calc(100dvh-80px)]">
       <div className="flex-grow overflow-y-auto">
-        <div className="flex flex-col space-y-4 px-2 py-2 text-sm text-gray-500">
+        <div className="flex flex-col space-y-6 px-3 py-3 text-sm text-slate-500 font-medium">
           {hasSchedule && (
             <>
               <button
@@ -81,7 +81,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
                   openModal("addAppointment");
                   closeMenu();
                 }}
-                className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
+                className="flex items-center space-x-4 hover:text-slate-800 focus:outline-none"
               >
                 <IoTodayOutline className={iconClasses} />
                 <span>Create appointment</span>
@@ -93,7 +93,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
                     openModal("editSchedule");
                     closeMenu();
                   }}
-                  className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
+                  className="flex items-center space-x-4 hover:text-slate-800 focus:outline-none"
                 >
                   <IoCalendarClearOutline className={iconClasses} />
                   <span>Edit schedule</span>
@@ -108,7 +108,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
                 openModal("createSchedule");
                 closeMenu();
               }}
-              className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
+              className="flex items-center space-x-4 hover:text-slate-800 focus:outline-none"
             >
               <IoCalendarOutline className={iconClasses} />
               <span>Create schedule</span>
@@ -118,7 +118,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
       </div>
 
       {hasSchedule && isDentist && (
-        <div className="mt-auto px-2 py-20 md:py-6 lg:py-6">
+        <div className="mt-auto px-2 py-20 md:py-6 lg:py-9">
           <Button
             onClick={() => {
               openModal("removeSchedule");
@@ -128,7 +128,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
             variant="flat"
             radius="lg"
             className={cn(
-              "flex items-center space-x-2 text-sm focus:outline-none w-full"
+              "flex items-center space-x-2 text-sm focus:outline-none w-full font-medium"
             )}
           >
             <IoTrashBinOutline className={iconClasses} />

@@ -62,16 +62,16 @@ const Sidebar = ({
           isIconOnly
           color="default"
           variant="bordered"
-          radius="lg"
+          radius="sm"
           onClick={closeMenu}
-          className="absolute top-3 right-3 border-1 bg-white border-gray-200 focus:outline-none h-9"
+          className="absolute top-5 right-5 border-1 bg-white border-slate-200 focus:outline-none"
           aria-label="Close Menu"
         >
           <IoCloseOutline size={28} />
         </Button>
 
         <MobileNavItems
-          className="text-sm text-gray-600"
+          className="text-sm text-slate-600"
           closeMenu={closeMenu}
         />
 

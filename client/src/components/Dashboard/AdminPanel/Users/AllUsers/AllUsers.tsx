@@ -28,6 +28,9 @@ const AllUsers = () => {
     setDeleteError(null);
   };
 
+  const firstName = userToDelete ? userToDelete.firstName : "";
+  const lastName = userToDelete ? userToDelete.lastName : "";
+
   const confirmDelete = async () => {
     if (userToDelete) {
       try {
@@ -60,21 +63,21 @@ const AllUsers = () => {
   }
 
   return (
-    <div className="overflow-hidden text-sm rounded-2xl border border-gray-200">
-      <div className="overflow-x-auto overflow-y-auto min-h-96 max-h-96">
-        <table className="min-w-full">
+    <div className="overflow-hidden text-sm rounded-2xl bg-white">
+      <div className="overflow-x-auto overflow-y-auto min-h-96 max-h-96 bg-white p-6">
+        <table className="min-w-full ">
           <thead className="text-xs bg-white sticky top-0 z-10">
-            <tr className="border-b border-gray-200">
-              <th className="text-left py-2 px-4 font-semibold text-gray-500">
+            <tr>
+              <th className="text-left py-2 px-4 font-semibold text-slate-500">
                 Name
               </th>
-              <th className="text-left py-2 px-4 font-semibold text-gray-500">
+              <th className="text-left py-2 px-4 font-semibold text-slate-500">
                 Role
               </th>
-              <th className="text-left py-2 px-4 font-semibold text-gray-500">
+              <th className="text-left py-2 px-4 font-semibold text-slate-500">
                 Status
               </th>
-              <th className="text-left py-2 px-4 font-semibold text-gray-500">
+              <th className="text-left py-2 px-4 font-semibold text-slate-500">
                 Actions
               </th>
             </tr>
@@ -100,6 +103,8 @@ const AllUsers = () => {
         onClose={closeDeleteModal}
         onConfirm={confirmDelete}
         errorMessage={deleteError}
+        firstName={firstName}
+        lastName={lastName}
       />
     </div>
   );

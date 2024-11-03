@@ -17,6 +17,7 @@ export default {
       },
       colors: {
         "custom-pink": "#f31261",
+        "custom-white": "#ffffff",
       },
       maxWidth: {
         "8xl": "96rem",

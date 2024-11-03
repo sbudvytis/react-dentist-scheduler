@@ -10,7 +10,7 @@ const App = ({ children }: Props) => {
   const { isLoggedIn } = useAuth();
 
   return (
-    <main className="flex flex-col inset-0 w-full bg-[#fbfbfb] overflow-hidden">
+    <main className="flex flex-col inset-0 w-full bg-slate-100 overflow-hidden">
       <div className="relative flex h-[100dvh] flex-col hide-main-scrollbar">
         {!isLoggedIn && <NavigationBar />}
         <div className="flex-1">{children}</div>

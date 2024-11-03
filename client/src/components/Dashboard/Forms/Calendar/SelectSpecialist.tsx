@@ -13,7 +13,7 @@ const SelectSpecialist: React.FC<SelectSpecialistProps> = ({
   selectedScheduleId,
 }) => {
   return (
-    <div className="pb-8 w-full">
+    <div className="flex pb-6">
       <Select
         label="Select Specialist"
         placeholder="Choose a schedule"
@@ -25,7 +25,7 @@ const SelectSpecialist: React.FC<SelectSpecialistProps> = ({
             value instanceof Set ? Array.from(value)[0] : value;
           handleSelectedScheduleById(selectedValue);
         }}
-        className="w-full"
+        className="w-full max-w-8xl justify-center mx-auto items-center "
         radius="lg"
       >
         {schedules.map((schedule) => (

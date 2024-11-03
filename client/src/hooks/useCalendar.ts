@@ -27,6 +27,11 @@ const useCalendar = () => {
     );
   };
 
+  const blockedDays = (scheduleId: number | null) => {
+    const schedule = selectScheduleById(scheduleId);
+    return schedule?.blockedDays || [];
+  };
+
   const addCalendarMutation = useMutation(
     (calendarConfig: CalendarConfig) =>
       trpc.schedule.create.mutate(calendarConfig),
@@ -97,6 +102,7 @@ const useCalendar = () => {
   return {
     schedules: schedules.schedules || [],
     selectScheduleById,
+    blockedDays,
     schedulesLoading,
     schedulesError,
     addCalendar,

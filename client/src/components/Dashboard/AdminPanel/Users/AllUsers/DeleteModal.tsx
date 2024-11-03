@@ -12,6 +12,8 @@ type DeleteUserModalProps = {
   onClose: () => void;
   onConfirm: () => void;
   errorMessage: string | null;
+  firstName: string;
+  lastName: string;
 };
 
 const DeleteUserModal = ({
@@ -19,6 +21,8 @@ const DeleteUserModal = ({
   onClose,
   onConfirm,
   errorMessage,
+  firstName,
+  lastName,
 }: DeleteUserModalProps) => {
   return (
     <Modal
@@ -33,7 +37,13 @@ const DeleteUserModal = ({
           Confirmation
         </ModalHeader>
         <ModalBody>
-          Are you sure you want to remove this user?
+          <div>
+            Are you sure you want to remove{" "}
+            <span className="font-semibold">
+              {firstName} {lastName}
+            </span>{" "}
+            from the system?
+          </div>
           {errorMessage && (
             <div className="bg-[#ffe7ef] text-[#f31261] p-4 rounded-2xl text-sm text-center">
               {errorMessage}
@@ -46,7 +56,7 @@ const DeleteUserModal = ({
             variant="solid"
             radius="lg"
             onClick={onClose}
-            className="border-none shadow-gray-100 bg-black hover:bg-indigo-600 text-white h-9"
+            className="border-none bg-black hover:bg-indigo-600 text-white h-9"
           >
             Cancel
           </Button>

@@ -5,6 +5,7 @@ import useFormDataStore from "@/stores/useAppointmentFormStore";
 import AppointmentForm from "./AppointmentForm";
 import { Appointment } from "@/components/Dashboard/types";
 import { useSelectedSchedule } from "@/hooks/useSelectedSchedule";
+import useCalendar from "@/hooks/useCalendar";
 
 interface AddAppointmentFormProps {
   scheduleId: number | null;
@@ -17,14 +18,12 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
   onClose,
 }) => {
   const { selectedScheduleId } = useSelectedSchedule();
-  const {
-    addAppointment,
-    addAppointmentLoading,
-    removeAppointmentLoading,
-    appointmentsError,
-  } = useAddAppointment(selectedScheduleId);
+  const { addAppointment, addAppointmentLoading, removeAppointmentLoading } =
+    useAddAppointment(selectedScheduleId);
+  const { blockedDays: getBlockedDays } = useCalendar(); // Get the function
   const { formData, setFormData } = useFormDataStore();
   const [localFormData, setLocalFormData] = useState<Appointment>(formData);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (selectedDateRange && selectedDateRange.start !== formData.start) {
@@ -43,6 +42,36 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
 
   const handleAddAppointment = async (appointmentData: Appointment) => {
     if (selectedScheduleId !== null) {
+      const { start, end } = appointmentData;
+
+      // Check if end time is before start time
+      if (end < start) {
+        const message = "End time cannot be before start time!";
+        setErrorMessage(message);
+        showToast("error", message);
+        return;
+      }
+
+      const blockedDays = getBlockedDays(selectedScheduleId).map(
+        (date) => new Date(date)
+      );
+
+      const isDisabledDate = (date: Date) => {
+        return blockedDays.some(
+          (disabledDate: Date) =>
+            disabledDate.toDateString() === date.toDateString()
+        );
+      };
+
+      if (isDisabledDate(start) || isDisabledDate(end)) {
+        const message = "Cannot create appointment on a disabled date!";
+        setErrorMessage(message);
+        showToast("error", message);
+        return;
+      } else {
+        setErrorMessage(null);
+      }
+
       try {
         await addAppointment({
           ...appointmentData,
@@ -69,10 +98,8 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
         loading={removeAppointmentLoading}
         showAutocomplete={true}
         isEditing={false}
+        errorMessage={errorMessage}
       />
-      {appointmentsError && (
-        <p className="text-red-500 text-sm mt-2">{appointmentsError}</p>
-      )}
     </>
   );
 };

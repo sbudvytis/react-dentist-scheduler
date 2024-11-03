@@ -59,8 +59,23 @@
   border-color: #9597ff;
 }
 
+/* Styling for today */
 .fc-day-today {
   background-color: #fff !important;
+}
+
+/* Grayed out styling for disabled days */
+.fc-disabled-day.fc-day-today {
+  background-color: #f9fafb !important;
+  color: #aaa !important;
+  pointer-events: none;
+}
+
+/* General disabled day styling */
+.fc-disabled-day {
+  background-color: #f9fafb;
+  pointer-events: none;
+  color: #aaa;
 }
 
 .fc-list-day-cushion {
@@ -98,12 +113,12 @@
 }
 
 .fc-day-today .fc-daygrid-day-number {
-  background-color: #f25551;
+  background-color: #ffe7ef;
+  color: #f31261 !important;
   width: 24px;
   height: 24px;
   text-align: center;
   border-radius: 5px !important;
-  color: #fff !important;
 }
 
 .fc-day-other {
@@ -175,16 +190,10 @@ a.fc-col-header-cell-cushion {
 }
 
 .fc-day-today a.fc-col-header-cell-cushion {
-  background-color: #ffe7ef;
   border-radius: 5px !important;
+  background-color: #ffe7ef;
   color: #f31261 !important;
   margin: 5px !important;
-}
-
-.fc-disabled-day {
-  background-color: #e0e0e0;
-  pointer-events: none;
-  opacity: 0.6;
 }
 
 .tooltip-title {

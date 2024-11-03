@@ -85,16 +85,16 @@ const AddUser: React.FC<AddUserFormProps> = ({ currentClinicId }) => {
   };
 
   return (
-    <div className="overflow-hidden text-sm rounded-2xl border border-gray-200">
-      <div className="w-full bg-white rounded-2xl p-4 ">
+    <div className="overflow-hidden text-sm rounded-2xl">
+      <div className="w-full bg-white rounded-2xl p-6">
         <div className="pb-4">
-          <h1 className="text-lg text-left flex items-center gap-2 text-gray-800 font-semibold">
+          <h1 className="text-lg text-left flex items-center gap-2 text-slate-800 font-semibold">
             Add new user
           </h1>
-          <h2 className="text-sm text-gray-400">
+          <h2 className="text-sm text-slate-400">
             You can add a new user to the system here.
           </h2>
-          <h2 className="text-sm text-gray-400">
+          <h2 className="text-sm text-slate-400">
             Please fill out the form by clicking button below
           </h2>
         </div>

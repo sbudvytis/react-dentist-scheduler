@@ -31,30 +31,57 @@ const Calendar: React.FC<CalendarProps> = ({
   const lastChangeRef = useRef<string | null>(null);
   const calendarRef = useRef<FullCalendar | null>(null);
 
+  // Blocked days (fetched from the backend, here hardcoded for example)
+  const blockedDays = config.blockedDays || [];
+
+  // Convert blocked days to Date objects for comparison
+  const blockedDates = blockedDays.map((date: string) =>
+    new Date(date).toDateString()
+  );
+
+  const isDateBlocked = (date: Date) => {
+    return blockedDates.includes(date.toDateString());
+  };
+
   const toolTipHandler = (info: EventHoveringArg) => {
     createTooltip(info, activeTooltip, setActiveTooltip);
   };
 
   const handleEventChange = (changeInfo: ChangeInfo) => {
     const eventIdentifier = `${changeInfo.event.id}-${changeInfo.event.start}-${changeInfo.event.end}`;
-    if (lastChangeRef.current !== eventIdentifier) {
-      lastChangeRef.current = eventIdentifier;
 
-      const updatedAppointment: Appointment = {
-        id: Number(changeInfo.event.id),
-        scheduleId: config.scheduleId,
-        title: changeInfo.event.title,
-        start: new Date(changeInfo.event.start),
-        end: new Date(changeInfo.event.end),
-        notes: changeInfo.event.extendedProps.notes,
-        email: changeInfo.event.extendedProps.email,
-        patient: changeInfo.event.extendedProps.patient,
-        userId: config.userId,
-      };
-
-      editAppointment(updatedAppointment);
-      showToast("success", "Appointment updated successfully!");
+    // Prevent multiple executions by checking the event identifier
+    if (lastChangeRef.current === eventIdentifier) {
+      return; // Exit early if this event change has already been processed
     }
+
+    // Mark this event change as processed
+    lastChangeRef.current = eventIdentifier;
+
+    // Check if the new start or end date is blocked
+    if (
+      isDateBlocked(changeInfo.event.start) ||
+      isDateBlocked(changeInfo.event.end)
+    ) {
+      showToast("error", "You cannot move an appointment to a blocked day.");
+      changeInfo.revert(); // Revert the change if the date is blocked
+      return;
+    }
+
+    const updatedAppointment: Appointment = {
+      id: Number(changeInfo.event.id),
+      scheduleId: config.scheduleId,
+      title: changeInfo.event.title,
+      start: new Date(changeInfo.event.start),
+      end: new Date(changeInfo.event.end),
+      notes: changeInfo.event.extendedProps.notes,
+      email: changeInfo.event.extendedProps.email,
+      patient: changeInfo.event.extendedProps.patient,
+      userId: config.userId,
+    };
+
+    editAppointment(updatedAppointment);
+    showToast("success", "Appointment updated successfully!");
   };
 
   const handleEventClick = (clickInfo: EventClickArg) => {
@@ -68,6 +95,14 @@ const Calendar: React.FC<CalendarProps> = ({
   };
 
   const handleDateSelect = (selectInfo: DateSelectArg) => {
+    if (isDateBlocked(selectInfo.start) || isDateBlocked(selectInfo.end)) {
+      showToast(
+        "error",
+        "This day is blocked and appointments cannot be scheduled."
+      );
+      return;
+    }
+
     setSelectedDateRange({ start: selectInfo.start, end: selectInfo.end });
     setSelectInfo(selectInfo);
 
@@ -95,7 +130,7 @@ const Calendar: React.FC<CalendarProps> = ({
   }, [isMobile, config.view]);
 
   return (
-    <div className="justify-center items-center w-full max-w-8xl mx-auto">
+    <div className="justify-center items-center w-full max-w-8xl mx-auto ">
       <FullCalendar
         ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
@@ -151,8 +186,18 @@ const Calendar: React.FC<CalendarProps> = ({
         unselectAuto={false}
         eventMouseEnter={toolTipHandler}
         eventClick={handleEventClick}
-        selectAllow={function (selectInfo) {
-          return selectInfo.start.getTime() >= new Date().getTime() - 86400000;
+        dayCellDidMount={(info) => {
+          if (isDateBlocked(info.date)) {
+            info.el.classList.add("fc-disabled-day");
+          }
+        }}
+        selectAllow={(selectInfo) => {
+          const { start, end } = selectInfo;
+          return (
+            !isDateBlocked(start) &&
+            !isDateBlocked(end) &&
+            start.getTime() >= new Date().getTime() - 86400000
+          );
         }}
         views={{
           timeGridThreeDay: {

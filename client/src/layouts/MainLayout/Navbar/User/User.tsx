@@ -38,15 +38,15 @@ const User = () => {
   return (
     <div>
       {isLoggedIn && currentUser && (
-        <Dropdown placement="bottom-end" radius="lg" className="text-gray-600">
+        <Dropdown placement="bottom-end" radius="lg" className="text-slate-600">
           <DropdownTrigger>
             <Button
               name={`${currentUser.firstName} ${currentUser.lastName}`}
               color="default"
               variant="bordered"
-              radius="lg"
+              radius={isMobile ? "sm" : "lg"}
               isIconOnly={isMobile}
-              className="border-1 bg-white border-gray-200 font-medium h-9"
+              className="border-0 bg-white border-gray-200 font-medium"
             >
               {isMobile ? (
                 <IoSettingsOutline size={20} />

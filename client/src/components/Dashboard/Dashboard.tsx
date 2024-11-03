@@ -106,36 +106,40 @@ const Dashboard = () => {
       {hasSchedules ? (
         <>
           <div className="pb-6">
-            <h1 className="text-xl text-left flex items-center gap-2 text-gray-800 font-semibold">
+            <h1 className="text-xl text-left flex items-center gap-2 text-slate-800 font-semibold">
               Schedule
             </h1>
-            <h2 className="text-sm text-gray-400">
+            <h2 className="text-sm text-slate-500">
               View schedule and appointments
             </h2>
           </div>
-          {canViewAllSchedules && (
-            <SelectSpecialist
-              schedules={schedules}
-              handleSelectedScheduleById={handleSelectedScheduleById}
-              selectedScheduleId={selectedScheduleId}
-            />
-          )}
 
           {selectedScheduleId !== null && (
-            <Calendar
-              config={selectScheduleById(selectedScheduleId) as CalendarConfig}
-              appointments={appointments as Appointment[]}
-              editAppointment={editAppointment}
-              setSelectedAppointment={setSelectedAppointment}
-              setIsEditModalOpen={setIsEditModalOpen}
-              setSelectedDateRange={setSelectedDateRange}
-              setSelectInfo={setSelectInfo}
-              setIsAddModalOpen={setIsAddModalOpen}
-            />
+            <div className="bg-white p-6 rounded-2xl">
+              {canViewAllSchedules && (
+                <SelectSpecialist
+                  schedules={schedules}
+                  handleSelectedScheduleById={handleSelectedScheduleById}
+                  selectedScheduleId={selectedScheduleId}
+                />
+              )}
+              <Calendar
+                config={
+                  selectScheduleById(selectedScheduleId) as CalendarConfig
+                }
+                appointments={appointments as Appointment[]}
+                editAppointment={editAppointment}
+                setSelectedAppointment={setSelectedAppointment}
+                setIsEditModalOpen={setIsEditModalOpen}
+                setSelectedDateRange={setSelectedDateRange}
+                setSelectInfo={setSelectInfo}
+                setIsAddModalOpen={setIsAddModalOpen}
+              />
+            </div>
           )}
         </>
       ) : (
-        <div className="flex flex-col justify-center items-center text-center rounded-2xl p-6 border-1 border-gray-200">
+        <div className="flex flex-col justify-center items-center text-center rounded-2xl p-6 bg-white">
           <img src="/no-data.svg" alt="No data" className="size-96 mb-4" />
           <Chip
             className="text-sm text-center p-4"

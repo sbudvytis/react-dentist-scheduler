@@ -16,8 +16,8 @@ const AdminListboxItems = ({ isLoading, closeMenu }: Props) => {
   const iconClasses = "text-lg pointer-events-none flex-shrink-0";
 
   // Define active link styles
-  const linkClasses = "flex items-center space-x-4 p-2";
-  const activeLinkClasses = "bg-gray-100 text-gray-800 rounded-2xl";
+  const linkClasses = "flex items-center space-x-4 p-3";
+  const activeLinkClasses = "bg-slate-100 rounded-xl";
 
   const isUsersActive = location.pathname.startsWith("/admin-panel/users");
   const isSettingsActive = location.pathname.startsWith(
@@ -36,14 +36,14 @@ const AdminListboxItems = ({ isLoading, closeMenu }: Props) => {
   }
 
   return (
-    <div className="flex flex-col text-sm text-gray-500">
+    <div className="flex flex-col text-sm text-slate-500 font-medium">
       <Link
         to="/admin-panel/users"
         onClick={closeMenu}
         className={`${linkClasses} ${
           isUsersActive || location.pathname === "/admin-panel"
             ? activeLinkClasses
-            : "hover:text-gray-800"
+            : "hover:text-slate-800"
         }`}
       >
         <IoPeopleOutline className={iconClasses} />
@@ -53,7 +53,7 @@ const AdminListboxItems = ({ isLoading, closeMenu }: Props) => {
         to="/admin-panel/patients"
         onClick={closeMenu}
         className={`${linkClasses} ${
-          isPatientsActive ? activeLinkClasses : "hover:text-gray-800"
+          isPatientsActive ? activeLinkClasses : "hover:text-slate-800"
         }`}
       >
         <IoMedicalOutline className={iconClasses} />
@@ -63,7 +63,7 @@ const AdminListboxItems = ({ isLoading, closeMenu }: Props) => {
         to="/admin-panel/settings"
         onClick={closeMenu}
         className={`${linkClasses} ${
-          isSettingsActive ? activeLinkClasses : "hover:text-gray-800"
+          isSettingsActive ? activeLinkClasses : "hover:text-slate-800"
         }`}
       >
         <IoSettingsOutline className={iconClasses} />

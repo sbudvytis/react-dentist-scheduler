@@ -12,10 +12,10 @@ const Users = () => {
       {canApproveUsers ? (
         <>
           <div className="pb-6">
-            <h1 className="text-xl text-left flex items-center gap-2 text-gray-800 font-semibold">
+            <h1 className="text-xl text-left flex items-center gap-2 text-slate-800 font-semibold">
               Users
             </h1>
-            <h2 className="text-sm text-gray-400">
+            <h2 className="text-sm text-slate-500">
               Explore your users and their status
             </h2>
           </div>
@@ -26,7 +26,7 @@ const Users = () => {
             </div>
             {/* Users currently in the system */}
             <div className="lg:w-full lg:py-0">
-              <h1 className="pb-4 text-sm text-left flex items-center gap-2 text-gray-600 font-medium">
+              <h1 className="pb-4 text-sm text-left flex items-center gap-2 text-slate-600 font-medium">
                 <IoPeopleOutline /> Users currently in the system
               </h1>
               <AllUsers />

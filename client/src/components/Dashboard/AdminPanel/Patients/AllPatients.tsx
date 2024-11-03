@@ -62,10 +62,10 @@ const AllPatients = () => {
             <Button
               color="default"
               variant="bordered"
-              radius="lg"
+              radius="sm"
               isIconOnly
               startContent={<IoCalendarOutline />}
-              className="border-1 bg-white border-gray-200"
+              className="border-1 bg-white border-slate-200"
               onClick={() =>
                 openModal(
                   patient.appointments,
@@ -97,21 +97,21 @@ const AllPatients = () => {
     totalPatients > 0 ? Math.ceil(totalPatients / pageSize) : 1;
 
   return (
-    <div className="flex flex-col min-h-[calc(100dvh-195px)] relative">
-      <PatientSearch
-        searchTerm={searchTerm}
-        setSearchTerm={handleSearchTermChange}
-      />
-      <div className="text-sm flex-grow">
-        <div className="overflow-hidden rounded-2xl border border-gray-200 relative">
+    <div className="flex flex-col min-h-[calc(100dvh-195px)] relative ">
+      <div className="text-sm flex-grow ">
+        <div className="overflow-hidden rounded-2xl bg-white p-6 relative">
           <div className="overflow-x-auto overflow-y-auto min-h-32 max-h-full">
+            <PatientSearch
+              searchTerm={searchTerm}
+              setSearchTerm={handleSearchTermChange}
+            />
             <table className="min-w-full">
               <thead className="text-xs bg-white">
-                <tr className="border-b border-gray-200">
+                <tr>
                   {columns.map((column) => (
                     <th
                       key={column.uid}
-                      className={`text-left py-2 px-4 font-semibold text-gray-500 ${
+                      className={`text-left py-2 px-4 font-semibold text-slate-500 ${
                         column.uid === "name"
                           ? "w-[55%]"
                           : column.uid === "contactNumber"
@@ -129,7 +129,7 @@ const AllPatients = () => {
                   patients.map((patient) => (
                     <tr
                       key={patient.patientId}
-                      className="hover:bg-gray-100 even:bg-white odd:bg-gray-50"
+                      className="hover:bg-slate-100 border-b border-slate-100"
                     >
                       {columns.map((column) => (
                         <td
@@ -153,7 +153,7 @@ const AllPatients = () => {
                   <tr>
                     <td
                       colSpan={columns.length}
-                      className="text-center py-4 text-gray-500"
+                      className="text-center py-4 text-slate-500"
                     >
                       No patients found.
                     </td>
@@ -180,10 +180,10 @@ const AllPatients = () => {
           page={currentPage}
           onChange={(page) => setCurrentPage(page)}
           initialPage={1}
-          variant="bordered"
+          variant="flat"
           color="default"
-          size="lg"
-          radius="lg"
+          size="md"
+          radius="md"
           showControls
         />
       </div>

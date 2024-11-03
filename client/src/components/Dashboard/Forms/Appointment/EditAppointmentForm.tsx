@@ -5,6 +5,7 @@ import { Appointment } from "@/components/Dashboard/types";
 import AppointmentForm from "./AppointmentForm";
 import useAppointments from "@/hooks/useAppointment";
 import { useSelectedSchedule } from "@/hooks/useSelectedSchedule";
+import useCalendar from "@/hooks/useCalendar";
 
 interface EditAppointmentFormProps {
   appointment: Appointment;
@@ -32,6 +33,9 @@ const EditAppointmentForm = ({
   const { removeAppointment } = useAppointments(selectedScheduleId);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [addLoading, setAddLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const { blockedDays: getBlockedDays } = useCalendar(); // Get the function
 
   useEffect(() => {
     setFormData({
@@ -40,6 +44,12 @@ const EditAppointmentForm = ({
       end: new Date(appointment.end),
     });
   }, [appointment]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setErrorMessage(null); // Reset error message when modal opens
+    }
+  }, [isOpen]);
 
   const handleDelete = async () => {
     setDeleteLoading(true);
@@ -57,6 +67,40 @@ const EditAppointmentForm = ({
 
   const handleSubmit = async (updatedAppointment: Appointment) => {
     setAddLoading(true);
+    const { start, end } = updatedAppointment;
+
+    // Check if end time is before start time
+    if (end < start) {
+      const message = "End time cannot be before start time!";
+      setErrorMessage(message);
+      showToast("error", message);
+      setAddLoading(false);
+      return;
+    }
+
+    // Get blocked days for the selected schedule
+    const blockedDays = getBlockedDays(selectedScheduleId).map(
+      (date) => new Date(date)
+    );
+
+    // Check if the selected dates are disabled
+    const isDisabledDate = (date: Date) => {
+      return blockedDays.some(
+        (disabledDate: Date) =>
+          disabledDate.toDateString() === date.toDateString()
+      );
+    };
+
+    if (isDisabledDate(start) || isDisabledDate(end)) {
+      const message = "Cannot move appointment to a disabled date!";
+      setErrorMessage(message);
+      showToast("error", message);
+      setAddLoading(false);
+      return;
+    } else {
+      setErrorMessage(null);
+    }
+
     try {
       await editAppointment(updatedAppointment);
       showToast("success", "Appointment updated successfully!");
@@ -94,6 +138,7 @@ const EditAppointmentForm = ({
             showAutocomplete={false}
             isEditing={true}
             onDelete={handleDelete}
+            errorMessage={errorMessage}
           />
         </ModalBody>
       </ModalContent>

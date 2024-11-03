@@ -30,6 +30,7 @@ interface AppointmentFormProps {
   submitButtonText: string;
   showAutocomplete: boolean;
   isEditing: boolean;
+  errorMessage?: string | null;
 }
 
 const AppointmentForm: React.FC<AppointmentFormProps> = ({
@@ -42,6 +43,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   onDelete,
   showAutocomplete,
   isEditing,
+  errorMessage,
 }) => {
   const [formData, setFormData] = useState<Appointment>({
     ...initialData,
@@ -299,7 +301,14 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
           />
         </div>
 
-        {/* Form actions */}
+        {errorMessage && (
+          <div className="pb-6">
+            <div className="bg-[#ffe7ef] text-[#f31261] p-4 rounded-2xl text-sm text-center">
+              <p>{errorMessage}</p>
+            </div>
+          </div>
+        )}
+
         <div className="flex justify-center gap-2 lg:justify-end">
           <Button
             type="submit"
