@@ -15,6 +15,7 @@ import {
 } from "@fullcalendar/core";
 import { CalendarProps, Appointment, ChangeInfo } from "./types";
 import { createTooltip } from "./Tooltip";
+import useBlockedDays from "@/hooks/useBlockedDays"; // Import your custom hook
 
 const Calendar: React.FC<CalendarProps> = ({
   config,
@@ -31,13 +32,20 @@ const Calendar: React.FC<CalendarProps> = ({
   const lastChangeRef = useRef<string | null>(null);
   const calendarRef = useRef<FullCalendar | null>(null);
 
-  // Blocked days (fetched from the backend, here hardcoded for example)
-  const blockedDays = config.blockedDays || [];
+  // Fetch blocked days from the backend
+  const { blockedPeriods } = useBlockedDays(config.scheduleId);
 
-  // Convert blocked days to Date objects for comparison
-  const blockedDates = blockedDays.map((date: string) =>
-    new Date(date).toDateString()
-  );
+  // Convert blocked periods to Date objects for comparison
+  const blockedDates =
+    blockedPeriods?.flatMap((period) => {
+      const startDate = new Date(period.startDate);
+      const endDate = new Date(period.endDate);
+      const dates = [];
+      for (let dt = startDate; dt <= endDate; dt.setDate(dt.getDate() + 1)) {
+        dates.push(dt.toDateString());
+      }
+      return dates;
+    }) || []; // Flatten the array of blocked dates
 
   const isDateBlocked = (date: Date) => {
     return blockedDates.includes(date.toDateString());
@@ -186,10 +194,11 @@ const Calendar: React.FC<CalendarProps> = ({
         unselectAuto={false}
         eventMouseEnter={toolTipHandler}
         eventClick={handleEventClick}
-        dayCellDidMount={(info) => {
+        dayCellClassNames={(info) => {
           if (isDateBlocked(info.date)) {
-            info.el.classList.add("fc-disabled-day");
+            return "fc-disabled-day";
           }
+          return "";
         }}
         selectAllow={(selectInfo) => {
           const { start, end } = selectInfo;

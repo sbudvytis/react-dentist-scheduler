@@ -11,6 +11,7 @@ import { z } from 'zod'
 import { User } from './user'
 import { Appointment } from './appointment'
 import { Clinic } from './clinic'
+import { BlockedPeriod } from './blockedPeriod'
 
 @Entity()
 export class Schedule {
@@ -39,8 +40,11 @@ export class Schedule {
   @Column('boolean')
   weekends: boolean
 
-  @Column('text', { array: true, default: [], nullable: true })
-  blockedDays: string[] | null
+  // Relation to BlockedPeriod entity
+  @OneToMany(() => BlockedPeriod, (blockedPeriod) => blockedPeriod.schedule, {
+    cascade: ['insert', 'update', 'remove'],
+  })
+  blockedPeriods: BlockedPeriod[]
 
   @Column('text', { nullable: true })
   slotMinTime: string
@@ -49,7 +53,10 @@ export class Schedule {
   slotMaxTime: string
 }
 
-export type ScheduleBare = Omit<Schedule, 'user' | 'appointments' | 'clinic'>
+export type ScheduleBare = Omit<
+  Schedule,
+  'user' | 'appointments' | 'clinic' | 'blockedPeriods'
+>
 export type ScheduleWithUser = ScheduleBare & { user: User }
 
 export const scheduleSchema = validates<ScheduleBare>().with({
@@ -57,7 +64,6 @@ export const scheduleSchema = validates<ScheduleBare>().with({
   userId: z.number().int().positive(),
   view: z.string(),
   weekends: z.boolean(),
-  blockedDays: z.array(z.string()).nullable(),
   slotMinTime: z.string(),
   slotMaxTime: z.string(),
 })

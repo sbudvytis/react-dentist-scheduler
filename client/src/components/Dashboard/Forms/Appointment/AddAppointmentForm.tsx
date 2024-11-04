@@ -5,7 +5,7 @@ import useFormDataStore from "@/stores/useAppointmentFormStore";
 import AppointmentForm from "./AppointmentForm";
 import { Appointment } from "@/components/Dashboard/types";
 import { useSelectedSchedule } from "@/hooks/useSelectedSchedule";
-import useCalendar from "@/hooks/useCalendar";
+import useBlockedDays from "@/hooks/useBlockedDays";
 
 interface AddAppointmentFormProps {
   scheduleId: number | null;
@@ -20,7 +20,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
   const { selectedScheduleId } = useSelectedSchedule();
   const { addAppointment, addAppointmentLoading, removeAppointmentLoading } =
     useAddAppointment(selectedScheduleId);
-  const { blockedDays: getBlockedDays } = useCalendar(); // Get the function
+  const { blockedPeriods } = useBlockedDays(selectedScheduleId);
   const { formData, setFormData } = useFormDataStore();
   const [localFormData, setLocalFormData] = useState<Appointment>(formData);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -52,18 +52,29 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
         return;
       }
 
-      const blockedDays = getBlockedDays(selectedScheduleId).map(
-        (date) => new Date(date)
-      );
+      // Convert blocked periods to Date objects for comparison
+      const blockedDates =
+        blockedPeriods
+          ?.map((period) => {
+            const startDate = new Date(period.startDate);
+            const endDate = new Date(period.endDate);
+            const dates = [];
+            for (
+              let dt = startDate;
+              dt <= endDate;
+              dt.setDate(dt.getDate() + 1)
+            ) {
+              dates.push(dt.toDateString());
+            }
+            return dates;
+          })
+          .flat() || []; // Flatten the array of blocked dates
 
-      const isDisabledDate = (date: Date) => {
-        return blockedDays.some(
-          (disabledDate: Date) =>
-            disabledDate.toDateString() === date.toDateString()
-        );
+      const isDateBlocked = (date: Date) => {
+        return blockedDates.includes(date.toDateString());
       };
 
-      if (isDisabledDate(start) || isDisabledDate(end)) {
+      if (isDateBlocked(start) || isDateBlocked(end)) {
         const message = "Cannot create appointment on a disabled date!";
         setErrorMessage(message);
         showToast("error", message);

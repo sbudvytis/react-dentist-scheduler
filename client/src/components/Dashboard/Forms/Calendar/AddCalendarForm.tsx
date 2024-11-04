@@ -31,7 +31,6 @@ const AddCalendarForm: React.FC<AddCalendarFormProps> = ({ onClose }) => {
     scheduleId: 0,
     view: "timeGridWeek",
     weekends: true,
-    blockedDays: [],
     slotMinTime: "08:00:00",
     slotMaxTime: "17:00:00",
   };

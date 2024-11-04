@@ -5,7 +5,6 @@ export interface CalendarConfig {
   userId: number;
   view: string;
   weekends: boolean;
-  blockedDays: string[] | null;
   slotMinTime: string;
   slotMaxTime: string;
 }
@@ -40,6 +39,12 @@ export interface Appointment {
   patient: PatientData;
 }
 
+export interface BlockedPeriod {
+  startDate: string;
+  endDate: string;
+  reason: string;
+}
+
 export interface Patient {
   patientId: number;
   firstName: string;
@@ -68,7 +73,6 @@ export interface CalendarProps {
     userId: number;
     view: string;
     weekends: boolean;
-    blockedDays: string[] | null;
     slotMinTime: string;
     slotMaxTime: string;
   };

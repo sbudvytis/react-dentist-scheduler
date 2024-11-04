@@ -5,7 +5,7 @@ import { Appointment } from "@/components/Dashboard/types";
 import AppointmentForm from "./AppointmentForm";
 import useAppointments from "@/hooks/useAppointment";
 import { useSelectedSchedule } from "@/hooks/useSelectedSchedule";
-import useCalendar from "@/hooks/useCalendar";
+import useBlockedDays from "@/hooks/useBlockedDays";
 
 interface EditAppointmentFormProps {
   appointment: Appointment;
@@ -31,11 +31,10 @@ const EditAppointmentForm = ({
 
   const { selectedScheduleId } = useSelectedSchedule();
   const { removeAppointment } = useAppointments(selectedScheduleId);
+  const { blockedPeriods } = useBlockedDays(selectedScheduleId);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [addLoading, setAddLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const { blockedDays: getBlockedDays } = useCalendar(); // Get the function
 
   useEffect(() => {
     setFormData({
@@ -78,20 +77,29 @@ const EditAppointmentForm = ({
       return;
     }
 
-    // Get blocked days for the selected schedule
-    const blockedDays = getBlockedDays(selectedScheduleId).map(
-      (date) => new Date(date)
-    );
+    // Convert blocked periods to Date objects for comparison
+    const blockedDates =
+      blockedPeriods
+        ?.map((period) => {
+          const startDate = new Date(period.startDate);
+          const endDate = new Date(period.endDate);
+          const dates = [];
+          for (
+            let dt = startDate;
+            dt <= endDate;
+            dt.setDate(dt.getDate() + 1)
+          ) {
+            dates.push(dt.toDateString());
+          }
+          return dates;
+        })
+        .flat() || []; // Flatten the array of blocked dates
 
-    // Check if the selected dates are disabled
-    const isDisabledDate = (date: Date) => {
-      return blockedDays.some(
-        (disabledDate: Date) =>
-          disabledDate.toDateString() === date.toDateString()
-      );
+    const isDateBlocked = (date: Date) => {
+      return blockedDates.includes(date.toDateString());
     };
 
-    if (isDisabledDate(start) || isDisabledDate(end)) {
+    if (isDateBlocked(start) || isDateBlocked(end)) {
       const message = "Cannot move appointment to a disabled date!";
       setErrorMessage(message);
       showToast("error", message);

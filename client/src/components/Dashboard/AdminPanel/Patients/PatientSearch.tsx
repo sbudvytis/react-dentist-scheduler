@@ -11,7 +11,7 @@ const PatientSearch: React.FC<PatientSearchProps> = ({
   setSearchTerm,
 }) => {
   return (
-    <div className="pb-4">
+    <div className="pb-6">
       <Input
         radius="lg"
         value={searchTerm}

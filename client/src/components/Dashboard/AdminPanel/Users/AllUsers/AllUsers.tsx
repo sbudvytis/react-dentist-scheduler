@@ -64,20 +64,28 @@ const AllUsers = () => {
 
   return (
     <div className="overflow-hidden text-sm rounded-2xl bg-white">
-      <div className="overflow-x-auto overflow-y-auto min-h-96 max-h-96 bg-white p-6">
-        <table className="min-w-full ">
+      <div className="overflow-x-auto overflow-y-auto p-6">
+        <div className="pb-2">
+          <h1 className="text-lg text-left flex items-center text-slate-800 font-semibold">
+            Current Users
+          </h1>
+          <h2 className="text-sm text-slate-400">
+            Manage users and their roles
+          </h2>
+        </div>
+        <table className="min-w-full">
           <thead className="text-xs bg-white sticky top-0 z-10">
             <tr>
-              <th className="text-left py-2 px-4 font-semibold text-gray-500">
+              <th className="text-left py-2 pr-2 font-semibold text-gray-500">
                 Name
               </th>
-              <th className="text-left py-2 px-4 font-semibold text-gray-500">
+              <th className="text-left py-2 px-2 font-semibold text-gray-500">
                 Role
               </th>
-              <th className="text-left py-2 px-4 font-semibold text-gray-500">
+              <th className="text-left py-2 px-2 font-semibold text-gray-500">
                 Status
               </th>
-              <th className="text-left py-2 px-4 font-semibold text-gray-500">
+              <th className="text-left py-2 px-2 font-semibold text-gray-500">
                 Actions
               </th>
             </tr>

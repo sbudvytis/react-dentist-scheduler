@@ -53,7 +53,6 @@ const CalendarForm: React.FC<CalendarFormProps> = ({
       userId: initialData.userId,
       view,
       weekends,
-      blockedDays: initialData.blockedDays,
       slotMinTime: `${slotMinTime.toString()}:00`,
       slotMaxTime: `${slotMaxTime.toString()}:00`,
     };

@@ -13,7 +13,9 @@ import {
   IoTrashBinOutline,
   IoCalendarClearOutline,
   IoCalendarOutline,
+  IoCalendarNumberOutline,
 } from "react-icons/io5";
+import DisableDaysForm from "@/components/Dashboard/Forms/Calendar/DisableDaysForm";
 
 interface Props {
   hasSchedule: boolean;
@@ -48,6 +50,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
         selectedDateRange={{ start: new Date(), end: new Date() }}
       />
     ),
+    disableDays: <DisableDaysForm scheduleId={selectedScheduleId} />,
     createSchedule: <AddCalendarForm onClose={closeModal} />,
     editSchedule: (
       <EditCalendarForm onClose={closeModal} scheduleId={selectedScheduleId} />
@@ -57,6 +60,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
 
   const modalHeader: { [key: string]: string } = {
     addAppointment: "Create Appointment",
+    disableDays: "Disable Days",
     createSchedule: "Create Schedule",
     editSchedule: "Edit Schedule",
     removeSchedule: "Remove Schedule",
@@ -85,6 +89,17 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
               >
                 <IoTodayOutline className={iconClasses} />
                 <span>Create appointment</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  openModal("disableDays");
+                  closeMenu();
+                }}
+                className="flex items-center space-x-4 hover:text-gray-800 focus:outline-none"
+              >
+                <IoCalendarNumberOutline className={iconClasses} />
+                <span>Mark day off</span>
               </button>
 
               {isDentist && (

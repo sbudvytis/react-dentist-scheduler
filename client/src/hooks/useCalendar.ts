@@ -12,6 +12,7 @@ const useCalendar = () => {
   const { setSelectedScheduleId } = useSelectedSchedule();
   const { isLoggedIn } = useAuth();
 
+  // Fetch schedules
   const {
     data: schedules = { schedules: [] },
     isLoading: schedulesLoading,
@@ -25,11 +26,6 @@ const useCalendar = () => {
     return schedules.schedules.find(
       (schedule: CalendarConfig) => schedule.scheduleId === scheduleId
     );
-  };
-
-  const blockedDays = (scheduleId: number | null) => {
-    const schedule = selectScheduleById(scheduleId);
-    return schedule?.blockedDays || [];
   };
 
   const addCalendarMutation = useMutation(
@@ -102,7 +98,6 @@ const useCalendar = () => {
   return {
     schedules: schedules.schedules || [],
     selectScheduleById,
-    blockedDays,
     schedulesLoading,
     schedulesError,
     addCalendar,

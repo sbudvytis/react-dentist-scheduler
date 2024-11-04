@@ -15,11 +15,11 @@ type UserRowProps = {
 
 const UserRow = ({ user, userId, onOpenDeleteModal }: UserRowProps) => {
   return (
-    <tr className="hover:bg-gray-100 border-b border-gray-100">
-      <td className="py-2 px-2">
-        <div className="px-2">
+    <tr className="border-b border-gray-100">
+      <td className="py-2">
+        <div className="pr-2">
           <User
-            avatarProps={{ radius: "full", isBordered: false }}
+            avatarProps={{ radius: "lg", isBordered: false }}
             description={user.email}
             name={`${user.firstName} ${user.lastName}`}
           />
@@ -51,7 +51,7 @@ const UserRow = ({ user, userId, onOpenDeleteModal }: UserRowProps) => {
               className="bg-black"
             >
               <span
-                className="text-lg text-danger-600 cursor-pointer active:opacity-50"
+                className="text-lg text-danger-400 cursor-pointer active:opacity-50"
                 onClick={() => onOpenDeleteModal(user)}
               >
                 <IoPersonRemoveOutline />

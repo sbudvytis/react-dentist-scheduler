@@ -11,7 +11,6 @@ const mockCalendars: CalendarConfig[] = [
     weekends: true,
     slotMinTime: "08:00:00",
     slotMaxTime: "18:00:00",
-    blockedDays: ["2022-01-01", "2022-01-02"],
   },
   {
     scheduleId: 2,
@@ -20,7 +19,6 @@ const mockCalendars: CalendarConfig[] = [
     weekends: false,
     slotMinTime: "08:00:00",
     slotMaxTime: "18:00:00",
-    blockedDays: ["2022-01-01", "2022-01-02"],
   },
 ];
 
@@ -36,7 +34,6 @@ describe("CalendarForm", () => {
     weekends: true,
     slotMinTime: "08:00:00",
     slotMaxTime: "18:00:00",
-    blockedDays: [],
   };
 
   const onSubmit = vi.fn();

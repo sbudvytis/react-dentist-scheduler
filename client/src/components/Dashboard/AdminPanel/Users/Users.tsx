@@ -1,6 +1,4 @@
 import AllUsers from "./AllUsers/AllUsers";
-
-import { IoPeopleOutline } from "react-icons/io5";
 import useAuth from "@/hooks/useAuth";
 import AdminGuard from "../AdminGuard";
 import AddUser from "./AddUser";
@@ -26,9 +24,6 @@ const Users = () => {
             </div>
             {/* Users currently in the system */}
             <div className="lg:w-full lg:py-0">
-              <h1 className="pb-4 text-sm text-left flex items-center gap-2 text-gray-600 font-medium">
-                <IoPeopleOutline /> Users currently in the system
-              </h1>
               <AllUsers />
             </div>
           </div>

@@ -79,7 +79,7 @@ const AllPatients = () => {
   };
 
   const columns = [
-    { name: "Full Name", uid: "name" },
+    { name: "Name", uid: "name" },
     { name: "Number", uid: "contactNumber" },
     { name: "History", uid: "history" },
   ];
@@ -111,7 +111,7 @@ const AllPatients = () => {
                   {columns.map((column) => (
                     <th
                       key={column.uid}
-                      className={`text-left py-2 px-4 font-semibold text-gray-500 ${
+                      className={`text-left py-2 font-semibold text-gray-500 ${
                         column.uid === "name"
                           ? "w-[55%]"
                           : column.uid === "contactNumber"
@@ -129,12 +129,12 @@ const AllPatients = () => {
                   patients.map((patient) => (
                     <tr
                       key={patient.patientId}
-                      className="hover:bg-gray-100 border-b border-gray-100"
+                      className="border-b border-gray-100"
                     >
                       {columns.map((column) => (
                         <td
                           key={column.uid}
-                          className={`py-2 px-2 ${
+                          className={`py-2 ${
                             column.uid === "name"
                               ? "w-[55%]"
                               : column.uid === "contactNumber"
@@ -142,7 +142,7 @@ const AllPatients = () => {
                               : "w-[10%]"
                           }`}
                         >
-                          <div className="px-2">
+                          <div className="">
                             {renderCell(patient, column.uid)}
                           </div>
                         </td>
