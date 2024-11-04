@@ -48,6 +48,7 @@ jobs:
         run: npm run test -w=client
         env:
           VITE_API_ORIGIN: ${{ vars.API_ORIGIN }}
+          VITE_API_PATH: ${{ vars.API_PATH }}
 
   build-deploy:
     needs: test
