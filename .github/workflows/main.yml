@@ -46,6 +46,8 @@ jobs:
 
       - name: Test client (unit)
         run: npm run test -w=client
+        env:
+          VITE_API_ORIGIN: ${{ vars.API_ORIGIN }}
 
   build-deploy:
     needs: test

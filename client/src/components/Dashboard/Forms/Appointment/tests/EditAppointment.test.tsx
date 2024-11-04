@@ -19,6 +19,9 @@ const mockPatients = [
   },
 ];
 
+// Mock `window.scrollTo` for tests
+Object.defineProperty(window, "scrollTo", { value: () => {}, writable: true });
+
 vi.mock("@/hooks/usePatients", () => ({
   default: () => ({ patients: mockPatients }),
 }));
@@ -36,7 +39,7 @@ vi.mock("@/hooks/useAppointment", () => ({
 }));
 
 describe("EditAppointmentForm", () => {
-  const queryClient = new QueryClient(); // Create a QueryClient
+  const queryClient = new QueryClient();
 
   const appointment: Appointment = {
     id: 1,
