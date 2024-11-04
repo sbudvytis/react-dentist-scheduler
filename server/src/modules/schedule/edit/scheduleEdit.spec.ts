@@ -19,6 +19,7 @@ it('should edit a dentists schedule', async () => {
     slotMaxTime: '17:00:00:00',
     weekends: true,
     view: 'timeGridWeek',
+    blockedDays: [],
   })
 
   const scheduleEdited = await edit({
@@ -28,6 +29,7 @@ it('should edit a dentists schedule', async () => {
     slotMaxTime: '17:00:00:00',
     weekends: true,
     view: 'timeGridWeek',
+    blockedDays: [],
   })
 
   expect(scheduleEdited).toMatchObject({
@@ -37,6 +39,7 @@ it('should edit a dentists schedule', async () => {
     slotMaxTime: '17:00:00:00',
     weekends: true,
     view: 'timeGridWeek',
+    blockedDays: [],
   })
 })
 
@@ -58,6 +61,7 @@ it("should deny a staff member from editing a dentist's schedule", async () => {
     slotMaxTime: '17:00:00:00',
     weekends: true,
     view: 'timeGridWeek',
+    blockedDays: [],
   })
 
   const { edit: editSchedule } = scheduleRouter.createCaller(
@@ -72,6 +76,7 @@ it("should deny a staff member from editing a dentist's schedule", async () => {
       slotMaxTime: '17:00:00:00',
       weekends: true,
       view: 'timeGridWeek',
+      blockedDays: [],
     })
   } catch (error) {
     expect((error as Error).message).toEqual(

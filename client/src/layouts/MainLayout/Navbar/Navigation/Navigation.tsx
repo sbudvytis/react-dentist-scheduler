@@ -53,14 +53,14 @@ const NavigationBar = ({ className }: Props) => {
       <div className="mx-auto flex justify-between items-center h-full">
         <div
           className={`flex items-center h-full px-6 md:px-0 ${
-            isLoggedIn ? "md:bg-white bg-slate-100" : "bg-slate-100"
+            isLoggedIn ? "md:bg-white bg-gray-100" : "bg-gray-100"
           }`}
         >
           {isLoggedIn && <HamburgerMenu toggleMenu={toggleMenu} />}
           <LogoAndTitle isLoggedIn={isLoggedIn} />
         </div>
 
-        <div className="flex items-center flex-grow px-6 gap-8 h-full bg-slate-100 justify-end md:justify-between">
+        <div className="flex items-center flex-grow px-6 gap-8 h-full bg-gray-100 justify-end md:justify-between">
           <div className="hidden md:flex gap-4">
             <NavItems />
           </div>

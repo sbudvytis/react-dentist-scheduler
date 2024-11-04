@@ -67,6 +67,7 @@ export const fakeSchedule = <T extends Partial<Schedule>>(
   slotMaxTime: '17:00:00:00',
   weekends: true,
   view: 'timeGridWeek',
+  blockedDays: [],
   ...overrides,
 })
 

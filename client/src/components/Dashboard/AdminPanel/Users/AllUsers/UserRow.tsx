@@ -15,7 +15,7 @@ type UserRowProps = {
 
 const UserRow = ({ user, userId, onOpenDeleteModal }: UserRowProps) => {
   return (
-    <tr className="hover:bg-slate-100 border-b border-slate-100">
+    <tr className="hover:bg-gray-100 border-b border-gray-100">
       <td className="py-2 px-2">
         <div className="px-2">
           <User

@@ -38,7 +38,7 @@ const User = () => {
   return (
     <div>
       {isLoggedIn && currentUser && (
-        <Dropdown placement="bottom-end" radius="lg" className="text-slate-600">
+        <Dropdown placement="bottom-end" radius="lg" className="text-gray-600">
           <DropdownTrigger>
             <Button
               name={`${currentUser.firstName} ${currentUser.lastName}`}

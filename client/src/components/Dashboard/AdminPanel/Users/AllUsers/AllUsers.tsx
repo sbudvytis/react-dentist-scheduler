@@ -68,16 +68,16 @@ const AllUsers = () => {
         <table className="min-w-full ">
           <thead className="text-xs bg-white sticky top-0 z-10">
             <tr>
-              <th className="text-left py-2 px-4 font-semibold text-slate-500">
+              <th className="text-left py-2 px-4 font-semibold text-gray-500">
                 Name
               </th>
-              <th className="text-left py-2 px-4 font-semibold text-slate-500">
+              <th className="text-left py-2 px-4 font-semibold text-gray-500">
                 Role
               </th>
-              <th className="text-left py-2 px-4 font-semibold text-slate-500">
+              <th className="text-left py-2 px-4 font-semibold text-gray-500">
                 Status
               </th>
-              <th className="text-left py-2 px-4 font-semibold text-slate-500">
+              <th className="text-left py-2 px-4 font-semibold text-gray-500">
                 Actions
               </th>
             </tr>

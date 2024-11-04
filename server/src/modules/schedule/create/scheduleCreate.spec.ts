@@ -17,6 +17,7 @@ it('should create a dentists schedule', async () => {
     slotMaxTime: '17:00:00:00',
     weekends: true,
     view: 'timeGridWeek',
+    blockedDays: [],
   })
 
   expect(scheduleCreated).toMatchObject({
@@ -40,6 +41,7 @@ it('should throw an error when staff tries to create a schedule', async () => {
       slotMaxTime: '17:00:00:00',
       weekends: true,
       view: 'timeGridWeek',
+      blockedDays: [],
     })
   } catch (error) {
     expect((error as Error).message).toEqual(

@@ -13,7 +13,7 @@ const SettingsListboxItems = ({ isLoading, closeMenu }: Props) => {
 
   // Define active link styles
   const linkClasses = "flex items-center space-x-4 p-3";
-  const activeLinkClasses = "bg-slate-100 rounded-xl";
+  const activeLinkClasses = "bg-gray-100 rounded-xl";
 
   const isSettingsActive = location.pathname.startsWith(
     "/dashboard/my-settings"
@@ -28,7 +28,7 @@ const SettingsListboxItems = ({ isLoading, closeMenu }: Props) => {
   }
 
   return (
-    <div className="flex flex-col text-sm text-slate-500 font-medium">
+    <div className="flex flex-col text-sm text-gray-500 font-medium">
       <Link
         to="/dashboard/my-settings"
         onClick={closeMenu}

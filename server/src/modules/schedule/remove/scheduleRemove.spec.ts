@@ -15,6 +15,7 @@ it('should remove a dentists schedule', async () => {
     slotMaxTime: '17:00:00:00',
     weekends: true,
     view: 'timeGridWeek',
+    blockedDays: [],
   })
 
   const result = await remove({
@@ -24,6 +25,7 @@ it('should remove a dentists schedule', async () => {
     slotMaxTime: '17:00:00:00',
     weekends: true,
     view: 'timeGridWeek',
+    blockedDays: [],
   })
 
   expect(result).toEqual({
@@ -58,6 +60,7 @@ it('should throw an error when staff tries to delete a schedule', async () => {
       slotMaxTime: '17:00:00:00',
       weekends: true,
       view: 'timeGridWeek',
+      blockedDays: [],
     })
   } catch (error) {
     expect((error as Error).message).toEqual(
@@ -79,6 +82,7 @@ it('should throw an error when the schedule does not exist', async () => {
       slotMaxTime: '17:00:00:00',
       weekends: true,
       view: 'timeGridWeek',
+      blockedDays: [],
     })
   } catch (error) {
     expect((error as Error).message).toEqual('Schedule not found.')
@@ -107,6 +111,7 @@ it('should throw an error when the user does not have the right to delete the sc
       slotMaxTime: '17:00:00:00',
       weekends: true,
       view: 'timeGridWeek',
+      blockedDays: [],
     })
   } catch (error) {
     expect((error as Error).message).toEqual(

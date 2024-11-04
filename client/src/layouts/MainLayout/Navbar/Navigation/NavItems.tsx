@@ -23,7 +23,7 @@ const NavItems = ({ className }: Props) => {
               variant="solid"
               radius="lg"
               startContent={<IoAlbumsOutline />}
-              className="bg-slate-400 text-white font-medium"
+              className="bg-zinc-400 text-white font-medium"
             >
               Dashboard
             </Button>

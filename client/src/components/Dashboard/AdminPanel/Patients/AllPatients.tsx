@@ -65,7 +65,7 @@ const AllPatients = () => {
               radius="sm"
               isIconOnly
               startContent={<IoCalendarOutline />}
-              className="border-1 bg-white border-slate-200"
+              className="border-1 bg-white border-gray-200"
               onClick={() =>
                 openModal(
                   patient.appointments,
@@ -111,7 +111,7 @@ const AllPatients = () => {
                   {columns.map((column) => (
                     <th
                       key={column.uid}
-                      className={`text-left py-2 px-4 font-semibold text-slate-500 ${
+                      className={`text-left py-2 px-4 font-semibold text-gray-500 ${
                         column.uid === "name"
                           ? "w-[55%]"
                           : column.uid === "contactNumber"
@@ -129,7 +129,7 @@ const AllPatients = () => {
                   patients.map((patient) => (
                     <tr
                       key={patient.patientId}
-                      className="hover:bg-slate-100 border-b border-slate-100"
+                      className="hover:bg-gray-100 border-b border-gray-100"
                     >
                       {columns.map((column) => (
                         <td
@@ -153,7 +153,7 @@ const AllPatients = () => {
                   <tr>
                     <td
                       colSpan={columns.length}
-                      className="text-center py-4 text-slate-500"
+                      className="text-center py-4 text-gray-500"
                     >
                       No patients found.
                     </td>

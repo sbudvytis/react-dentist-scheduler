@@ -17,6 +17,7 @@ it('should get a dentists schedule by id', async () => {
     slotMaxTime: '17:00:00:00',
     weekends: true,
     view: 'timeGridWeek',
+    blockedDays: [],
   })
 
   const scheduleGot = await get(scheduleCreated.scheduleId)
@@ -28,6 +29,7 @@ it('should get a dentists schedule by id', async () => {
     slotMaxTime: '17:00:00:00',
     weekends: true,
     view: 'timeGridWeek',
+    blockedDays: [],
   })
 })
 

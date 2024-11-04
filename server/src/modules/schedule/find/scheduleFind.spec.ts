@@ -24,6 +24,7 @@ it('should return a list of schedules', async () => {
       slotMaxTime: '17:00:00:00',
       weekends: true,
       view: 'timeGridWeek',
+      blockedDays: [],
     }),
     fakeSchedule({
       scheduleId: 2,
@@ -32,6 +33,7 @@ it('should return a list of schedules', async () => {
       slotMaxTime: '17:00:00:00',
       weekends: true,
       view: 'timeGridWeek',
+      blockedDays: [],
     }),
   ])
 
@@ -45,5 +47,6 @@ it('should return a list of schedules', async () => {
     slotMaxTime: '17:00:00:00',
     weekends: true,
     view: 'timeGridWeek',
+    blockedDays: [],
   })
 })

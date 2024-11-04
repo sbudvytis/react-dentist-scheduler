@@ -65,7 +65,7 @@ export default function DashboardLayout({
           {renderSidebarItems()}
         </Sidebar>
         <main
-          className={`hide-main-scrollbar flex-1 overflow-y-auto bg-slate-100 px-6 pb-6 ${className}`}
+          className={`hide-main-scrollbar flex-1 overflow-y-auto bg-gray-100 px-6 pb-6 ${className}`}
         >
           <div className="pt-4">
             <Outlet />
