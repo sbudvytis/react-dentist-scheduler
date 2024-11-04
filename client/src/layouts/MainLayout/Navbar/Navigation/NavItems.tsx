@@ -22,8 +22,8 @@ const NavItems = ({ className }: Props) => {
               color="default"
               variant="solid"
               radius="lg"
-              startContent={<IoAlbumsOutline />}
-              className="bg-zinc-400 text-white font-medium"
+              startContent={<IoAlbumsOutline size={18} />}
+              className="bg-teal-500 text-white font-medium"
             >
               Dashboard
             </Button>
@@ -36,7 +36,7 @@ const NavItems = ({ className }: Props) => {
                 color="default"
                 variant="solid"
                 radius="lg"
-                startContent={<IoShieldCheckmarkOutline />}
+                startContent={<IoShieldCheckmarkOutline size={18} />}
                 className="bg-white font-medium"
               >
                 Admin Panel

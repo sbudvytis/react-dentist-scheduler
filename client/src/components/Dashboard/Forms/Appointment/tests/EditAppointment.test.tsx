@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import EditAppointmentForm from "@/components/Dashboard/Forms/Appointment/EditAppointmentForm";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Appointment } from "@/components/Dashboard/types";
 
 const mockPatients = [
@@ -35,6 +36,8 @@ vi.mock("@/hooks/useAppointment", () => ({
 }));
 
 describe("EditAppointmentForm", () => {
+  const queryClient = new QueryClient(); // Create a QueryClient
+
   const appointment: Appointment = {
     id: 1,
     scheduleId: 1,
@@ -59,14 +62,16 @@ describe("EditAppointmentForm", () => {
 
   it("renders form fields correctly", () => {
     render(
-      <EditAppointmentForm
-        appointment={appointment}
-        selectedDateRange={selectedDateRange}
-        isOpen={true}
-        onClose={onClose}
-        editAppointment={editAppointment}
-        scheduleId={1}
-      />
+      <QueryClientProvider client={queryClient}>
+        <EditAppointmentForm
+          appointment={appointment}
+          selectedDateRange={selectedDateRange}
+          isOpen={true}
+          onClose={onClose}
+          editAppointment={editAppointment}
+          scheduleId={1}
+        />
+      </QueryClientProvider>
     );
 
     expect(screen.getByText("Appointment title")).toBeInTheDocument();
@@ -82,14 +87,16 @@ describe("EditAppointmentForm", () => {
 
   it("submits form data correctly", async () => {
     render(
-      <EditAppointmentForm
-        appointment={appointment}
-        selectedDateRange={selectedDateRange}
-        isOpen={true}
-        onClose={onClose}
-        editAppointment={editAppointment}
-        scheduleId={1}
-      />
+      <QueryClientProvider client={queryClient}>
+        <EditAppointmentForm
+          appointment={appointment}
+          selectedDateRange={selectedDateRange}
+          isOpen={true}
+          onClose={onClose}
+          editAppointment={editAppointment}
+          scheduleId={1}
+        />
+      </QueryClientProvider>
     );
 
     fireEvent.change(screen.getByLabelText(/Appointment title/i), {
@@ -113,30 +120,28 @@ describe("EditAppointmentForm", () => {
 
   it("deletes the appointment correctly", async () => {
     render(
-      <EditAppointmentForm
-        appointment={appointment}
-        selectedDateRange={selectedDateRange}
-        isOpen={true}
-        onClose={onClose}
-        editAppointment={editAppointment}
-        scheduleId={1}
-      />
+      <QueryClientProvider client={queryClient}>
+        <EditAppointmentForm
+          appointment={appointment}
+          selectedDateRange={selectedDateRange}
+          isOpen={true}
+          onClose={onClose}
+          editAppointment={editAppointment}
+          scheduleId={1}
+        />
+      </QueryClientProvider>
     );
 
-    // Click on the "Remove Appointment" button to open the confirmation modal
     fireEvent.click(screen.getByText("Remove Appointment"));
 
-    // Wait for the confirmation modal to appear
     await waitFor(() => {
       expect(
         screen.getByText("Are you sure you want to remove this appointment?")
       ).toBeInTheDocument();
     });
 
-    // Click on the "Confirm" button inside the modal
     fireEvent.click(screen.getByText("Confirm"));
 
-    // Wait for the removeAppointmentMock to be called
     await waitFor(() => {
       expect(removeAppointmentMock).toHaveBeenCalledWith(
         expect.objectContaining({ id: 1 })

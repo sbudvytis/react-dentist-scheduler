@@ -52,7 +52,7 @@ const User = () => {
                 <IoSettingsOutline size={20} />
               ) : (
                 <>
-                  {<IoPersonOutline />} {currentUser.email}
+                  {<IoPersonOutline size={18} />} {currentUser.email}
                 </>
               )}
             </Button>
