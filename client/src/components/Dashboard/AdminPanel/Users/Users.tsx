@@ -10,7 +10,7 @@ const Users = () => {
       {canApproveUsers ? (
         <>
           <div className="pb-6">
-            <h1 className="text-xl text-left flex items-center gap-2 text-gray-800 font-semibold">
+            <h1 className="text-2xl text-left flex items-center gap-2 text-gray-800 font-semibold">
               Users
             </h1>
             <h2 className="text-sm text-gray-500">

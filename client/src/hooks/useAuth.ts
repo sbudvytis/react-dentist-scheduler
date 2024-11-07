@@ -15,7 +15,12 @@ const useAuth = () => {
     getStoredAccessToken(localStorage)
   );
   const [userId, setUserId] = useState<number | null>(null);
-  const [clinicId, setClinicId] = useState<number | null>(null); // Add clinicId state
+  const [clinicId, setClinicId] = useState<number | null>(null);
+  const [clinicInfo, setClinicInfo] = useState<{
+    name: string;
+    address: string;
+    contactNumber: string;
+  } | null>(null);
   const [usersEmail, setUsersEmail] = useState<string | null>(null);
   const { resetSelectedScheduleId } = useSelectedSchedule();
   const queryClient = useQueryClient();
@@ -28,6 +33,14 @@ const useAuth = () => {
       setUsersEmail(user.email);
     }
   }, [authToken]);
+
+  useEffect(() => {
+    if (clinicId) {
+      trpc.clinic.find.query({ clinicId }).then((clinicData) => {
+        setClinicInfo(clinicData); // Save clinic data to state
+      });
+    }
+  }, [clinicId]);
 
   const signup = trpc.user.signup.mutate;
 
@@ -93,6 +106,7 @@ const useAuth = () => {
     authToken,
     userId,
     clinicId,
+    clinicInfo,
     isLoggedIn,
     login,
     logout,

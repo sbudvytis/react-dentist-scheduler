@@ -18,7 +18,7 @@
     "@fullcalendar/interaction": "^6.1.14",
     "@fullcalendar/react": "^6.1.14",
     "@fullcalendar/timegrid": "^6.1.14",
-    "@internationalized/date": "^3.5.4",
+    "@internationalized/date": "^3.5.6",
     "@nextui-org/button": "^2.0.38",
     "@nextui-org/modal": "^2.0.41",
     "@nextui-org/navbar": "^2.0.36",

@@ -10,7 +10,7 @@ import { z } from 'zod'
 import { Schedule } from './schedule'
 
 @Entity()
-export class BlockedPeriod {
+export class DisabledPeriod {
   @PrimaryGeneratedColumn('increment')
   id: number
 
@@ -23,13 +23,13 @@ export class BlockedPeriod {
   @Column('text')
   reason: string
 
-  @ManyToOne(() => Schedule, (schedule) => schedule.blockedPeriods)
+  @ManyToOne(() => Schedule, (schedule) => schedule.disabledPeriods)
   @JoinColumn({ name: 'schedule_id' })
   schedule: Schedule
 }
-export type BlockedPeriodBare = Omit<BlockedPeriod, 'schedule'>
+export type DisabledPeriodBare = Omit<DisabledPeriod, 'schedule'>
 
-export const BlockedPeriodSchema = validates<BlockedPeriodBare>().with({
+export const BlockedPeriodSchema = validates<DisabledPeriodBare>().with({
   id: z.number(),
   startDate: z.string(),
   endDate: z.string(),

@@ -23,7 +23,7 @@ const NavItems = ({ className }: Props) => {
               variant="solid"
               radius="lg"
               startContent={<IoAlbumsOutline size={18} />}
-              className="bg-teal-500 text-white font-medium"
+              className="bg-indigo-500 text-white font-medium"
             >
               Dashboard
             </Button>
@@ -37,7 +37,7 @@ const NavItems = ({ className }: Props) => {
                 variant="solid"
                 radius="lg"
                 startContent={<IoShieldCheckmarkOutline size={18} />}
-                className="bg-white font-medium"
+                className="bg-white font-medium border-1 border-gray-200"
               >
                 Admin Panel
               </Button>

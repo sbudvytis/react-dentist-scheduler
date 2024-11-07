@@ -5,7 +5,7 @@ import { Appointment } from "@/components/Dashboard/types";
 import AppointmentForm from "./AppointmentForm";
 import useAppointments from "@/hooks/useAppointment";
 import { useSelectedSchedule } from "@/hooks/useSelectedSchedule";
-import useBlockedDays from "@/hooks/useBlockedDays";
+import useDisabledPeriod from "@/hooks/useDisabledPeriod";
 
 interface EditAppointmentFormProps {
   appointment: Appointment;
@@ -31,7 +31,7 @@ const EditAppointmentForm = ({
 
   const { selectedScheduleId } = useSelectedSchedule();
   const { removeAppointment } = useAppointments(selectedScheduleId);
-  const { blockedPeriods } = useBlockedDays(selectedScheduleId);
+  const { disabledPeriods } = useDisabledPeriod(selectedScheduleId);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [addLoading, setAddLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -79,7 +79,7 @@ const EditAppointmentForm = ({
 
     // Convert blocked periods to Date objects for comparison
     const blockedDates =
-      blockedPeriods
+      disabledPeriods
         ?.map((period) => {
           const startDate = new Date(period.startDate);
           const endDate = new Date(period.endDate);

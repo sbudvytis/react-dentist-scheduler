@@ -99,16 +99,24 @@ const AllPatients = () => {
   return (
     <div className="flex flex-col min-h-[calc(100dvh-195px)] relative ">
       <div className="text-sm flex-grow ">
-        <div className="overflow-hidden rounded-2xl bg-white p-6 relative">
+        <div className="overflow-hidden rounded-xl bg-white border-1 p-4 relative">
           <div className="overflow-x-auto overflow-y-auto min-h-32 max-h-full">
+            <div className="pb-6">
+              <h1 className="text-lg text-left flex items-center text-slate-800 font-semibold">
+                Patient list
+              </h1>
+              <h2 className="text-sm text-slate-400">
+                Find patients and their appointment history
+              </h2>
+            </div>
             <PatientSearch
               searchTerm={searchTerm}
               setSearchTerm={handleSearchTermChange}
             />
             <table className="min-w-full">
-              <thead className="text-xs bg-white">
+              <thead className="text-xs bg-gray-50 rounded-t-lg rounded-b-lg">
                 <tr>
-                  {columns.map((column) => (
+                  {columns.map((column, index) => (
                     <th
                       key={column.uid}
                       className={`text-left py-2 font-semibold text-gray-500 ${
@@ -117,6 +125,12 @@ const AllPatients = () => {
                           : column.uid === "contactNumber"
                           ? "w-[35%]"
                           : "w-[10%]"
+                      } ${
+                        index === 0
+                          ? "rounded-tl-lg rounded-bl-lg p-2"
+                          : index === columns.length - 1
+                          ? "rounded-tr-lg rounded-br-lg"
+                          : ""
                       }`}
                     >
                       {column.name}

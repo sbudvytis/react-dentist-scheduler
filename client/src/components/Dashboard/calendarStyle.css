@@ -73,12 +73,22 @@
 
 /* General disabled day styling */
 .fc-disabled-day {
-  background-color: #f9fafb;
+  background-image: linear-gradient(
+    135deg,
+    #f3f4f6 11.11%,
+    #f9fafb 11.11%,
+    #f9fafb 50%,
+    #f3f4f6 50%,
+    #f3f4f6 61.11%,
+    #f9fafb 61.11%,
+    #f9fafb 100%
+  );
+  background-size: 12.73px 12.73px;
   pointer-events: none;
-  color: #aaa;
 }
 
 .fc-list-day-cushion {
+  z-index: 1;
   font-weight: 550 !important;
   background-color: #fff !important;
   padding: 0.5rem 1rem !important;

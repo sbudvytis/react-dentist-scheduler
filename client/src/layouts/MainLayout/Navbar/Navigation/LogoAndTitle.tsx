@@ -8,14 +8,10 @@ const LogoAndTitle = ({ isLoggedIn }: Props) => {
   return (
     <>
       {/* Desktop logo */}
-      <div
-        className={`hidden md:flex items-center ${
-          isLoggedIn ? " justify-center" : "justify-start px-6"
-        } lg:min-w-80 lg:max-w-80 md:min-w-60`}
-      >
+      <div className="hidden md:flex items-center justify-start px-6 lg:min-w-72 lg:max-w-72 md:min-w-60 border-r h-full">
         <Link to="/dashboard" className="flex items-center">
           <img src="/logo1.png" alt="Logo" className="h-8" />
-          <p className="ml-2 text-xl font-semibold font-bitter text-slate-950">
+          <p className="ml-2 text-xl font-semibold font-bitter text-gray-800">
             Calendent
           </p>
         </Link>
@@ -29,7 +25,7 @@ const LogoAndTitle = ({ isLoggedIn }: Props) => {
       >
         <Link to="/dashboard" className="flex items-center">
           <img src="/logo1.png" alt="Logo" className="h-7" />
-          <p className="ml-2 text-lg font-semibold font-bitter text-slate-950">
+          <p className="ml-2 text-lg font-semibold font-bitter text-slate-800">
             Calendent
           </p>
         </Link>

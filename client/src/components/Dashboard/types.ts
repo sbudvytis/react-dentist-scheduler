@@ -39,7 +39,7 @@ export interface Appointment {
   patient: PatientData;
 }
 
-export interface BlockedPeriod {
+export interface DisabledPeriod {
   startDate: string;
   endDate: string;
   reason: string;

@@ -49,18 +49,20 @@ const NavigationBar = ({ className }: Props) => {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <nav className={`${className} bg-white relative z-20 h-20 items-center `}>
+    <nav className={`${className} bg-white relative z-20 h-16 items-center `}>
       <div className="mx-auto flex justify-between items-center h-full">
         <div
           className={`flex items-center h-full px-6 md:px-0 ${
-            isLoggedIn ? "md:bg-white bg-gray-100" : "bg-gray-100"
+            isLoggedIn
+              ? "md:bg-gray-50 bg-white md:border-none border-b"
+              : "bg-gray-50"
           }`}
         >
           {isLoggedIn && <HamburgerMenu toggleMenu={toggleMenu} />}
           <LogoAndTitle isLoggedIn={isLoggedIn} />
         </div>
 
-        <div className="flex items-center flex-grow px-6 gap-8 h-full bg-gray-100 justify-end md:justify-between">
+        <div className="flex items-center flex-grow px-6 gap-8 h-full bg-white justify-end md:justify-between border-b">
           <div className="hidden md:flex gap-4">
             <NavItems />
           </div>

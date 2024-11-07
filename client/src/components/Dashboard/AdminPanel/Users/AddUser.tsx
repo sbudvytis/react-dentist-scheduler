@@ -85,9 +85,9 @@ const AddUser: React.FC<AddUserFormProps> = ({ currentClinicId }) => {
   };
 
   return (
-    <div className="overflow-hidden text-sm rounded-2xl">
-      <div className="w-full bg-white rounded-2xl p-6">
-        <div className="pb-4">
+    <div className="overflow-hidden text-sm rounded-xl border-1">
+      <div className="w-full bg-white p-4">
+        <div className="pb-6">
           <h1 className="text-lg text-left flex items-center gap-2 text-slate-800 font-semibold">
             Add new user
           </h1>

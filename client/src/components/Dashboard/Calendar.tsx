@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import useDisabledPeriod from "@/hooks/useDisabledPeriod"; // Import your custom hook
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -15,7 +16,6 @@ import {
 } from "@fullcalendar/core";
 import { CalendarProps, Appointment, ChangeInfo } from "./types";
 import { createTooltip } from "./Tooltip";
-import useBlockedDays from "@/hooks/useBlockedDays"; // Import your custom hook
 
 const Calendar: React.FC<CalendarProps> = ({
   config,
@@ -33,11 +33,11 @@ const Calendar: React.FC<CalendarProps> = ({
   const calendarRef = useRef<FullCalendar | null>(null);
 
   // Fetch blocked days from the backend
-  const { blockedPeriods } = useBlockedDays(config.scheduleId);
+  const { disabledPeriods } = useDisabledPeriod(config.scheduleId);
 
   // Convert blocked periods to Date objects for comparison
-  const blockedDates =
-    blockedPeriods?.flatMap((period) => {
+  const disabledDates =
+    disabledPeriods?.flatMap((period) => {
       const startDate = new Date(period.startDate);
       const endDate = new Date(period.endDate);
       const dates = [];
@@ -47,8 +47,8 @@ const Calendar: React.FC<CalendarProps> = ({
       return dates;
     }) || []; // Flatten the array of blocked dates
 
-  const isDateBlocked = (date: Date) => {
-    return blockedDates.includes(date.toDateString());
+  const isDateDisabled = (date: Date) => {
+    return disabledDates.includes(date.toDateString());
   };
 
   const toolTipHandler = (info: EventHoveringArg) => {
@@ -68,10 +68,10 @@ const Calendar: React.FC<CalendarProps> = ({
 
     // Check if the new start or end date is blocked
     if (
-      isDateBlocked(changeInfo.event.start) ||
-      isDateBlocked(changeInfo.event.end)
+      isDateDisabled(changeInfo.event.start) ||
+      isDateDisabled(changeInfo.event.end)
     ) {
-      showToast("error", "You cannot move an appointment to a blocked day.");
+      showToast("error", "You cannot move an appointment to a disabled day.");
       changeInfo.revert(); // Revert the change if the date is blocked
       return;
     }
@@ -103,10 +103,10 @@ const Calendar: React.FC<CalendarProps> = ({
   };
 
   const handleDateSelect = (selectInfo: DateSelectArg) => {
-    if (isDateBlocked(selectInfo.start) || isDateBlocked(selectInfo.end)) {
+    if (isDateDisabled(selectInfo.start) || isDateDisabled(selectInfo.end)) {
       showToast(
         "error",
-        "This day is blocked and appointments cannot be scheduled."
+        "This day is disabled and appointments cannot be scheduled."
       );
       return;
     }
@@ -138,7 +138,7 @@ const Calendar: React.FC<CalendarProps> = ({
   }, [isMobile, config.view]);
 
   return (
-    <div className="justify-center items-center w-full max-w-8xl mx-auto ">
+    <div className="justify-center items-center w-full max-w-8xl mx-auto">
       <FullCalendar
         ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
@@ -195,7 +195,7 @@ const Calendar: React.FC<CalendarProps> = ({
         eventMouseEnter={toolTipHandler}
         eventClick={handleEventClick}
         dayCellClassNames={(info) => {
-          if (isDateBlocked(info.date)) {
+          if (isDateDisabled(info.date)) {
             return "fc-disabled-day";
           }
           return "";
@@ -203,8 +203,8 @@ const Calendar: React.FC<CalendarProps> = ({
         selectAllow={(selectInfo) => {
           const { start, end } = selectInfo;
           return (
-            !isDateBlocked(start) &&
-            !isDateBlocked(end) &&
+            !isDateDisabled(start) &&
+            !isDateDisabled(end) &&
             start.getTime() >= new Date().getTime() - 86400000
           );
         }}

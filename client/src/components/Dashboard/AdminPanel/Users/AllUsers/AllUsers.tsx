@@ -63,9 +63,9 @@ const AllUsers = () => {
   }
 
   return (
-    <div className="overflow-hidden text-sm rounded-2xl bg-white">
-      <div className="overflow-x-auto overflow-y-auto p-6">
-        <div className="pb-2">
+    <div className="overflow-hidden text-sm border-1 rounded-xl bg-white">
+      <div className="overflow-x-auto overflow-y-auto p-4">
+        <div className="pb-6">
           <h1 className="text-lg text-left flex items-center text-slate-800 font-semibold">
             Current Users
           </h1>
@@ -74,9 +74,9 @@ const AllUsers = () => {
           </h2>
         </div>
         <table className="min-w-full">
-          <thead className="text-xs bg-white sticky top-0 z-10">
+          <thead className="text-xs bg-gray-50">
             <tr>
-              <th className="text-left py-2 pr-2 font-semibold text-gray-500">
+              <th className="text-left py-2 pr-2 font-semibold text-gray-500 rounded-tl-lg rounded-bl-lg p-2">
                 Name
               </th>
               <th className="text-left py-2 px-2 font-semibold text-gray-500">
@@ -85,7 +85,7 @@ const AllUsers = () => {
               <th className="text-left py-2 px-2 font-semibold text-gray-500">
                 Status
               </th>
-              <th className="text-left py-2 px-2 font-semibold text-gray-500">
+              <th className="text-left py-2 px-2 font-semibold text-gray-500 rounded-tr-lg rounded-br-lg">
                 Actions
               </th>
             </tr>

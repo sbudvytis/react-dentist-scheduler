@@ -61,11 +61,11 @@ export default function DashboardLayout({
     <div className="flex flex-col h-dvh overflow-hidden">
       <NavigationBar className="flex-shrink-0" />
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar className="lg:min-w-80 lg:max-w-80 md:min-w-60 flex-shrink-0 overflow-y-auto bg-white py-1">
+        <Sidebar className="lg:min-w-72 lg:max-w-72 md:min-w-60 flex-shrink-0 overflow-y-auto bg-gray-50 border-r py-1">
           {renderSidebarItems()}
         </Sidebar>
         <main
-          className={`hide-main-scrollbar flex-1 overflow-y-auto bg-gray-100 px-6 pb-6 ${className}`}
+          className={`hide-main-scrollbar flex-1 overflow-y-auto bg-white px-6 pb-6 ${className}`}
         >
           <div className="pt-4">
             <Outlet />

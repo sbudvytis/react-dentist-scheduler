@@ -5,7 +5,7 @@ import useFormDataStore from "@/stores/useAppointmentFormStore";
 import AppointmentForm from "./AppointmentForm";
 import { Appointment } from "@/components/Dashboard/types";
 import { useSelectedSchedule } from "@/hooks/useSelectedSchedule";
-import useBlockedDays from "@/hooks/useBlockedDays";
+import useDisabledPeriod from "@/hooks/useDisabledPeriod";
 
 interface AddAppointmentFormProps {
   scheduleId: number | null;
@@ -20,7 +20,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
   const { selectedScheduleId } = useSelectedSchedule();
   const { addAppointment, addAppointmentLoading, removeAppointmentLoading } =
     useAddAppointment(selectedScheduleId);
-  const { blockedPeriods } = useBlockedDays(selectedScheduleId);
+  const { disabledPeriods } = useDisabledPeriod(selectedScheduleId);
   const { formData, setFormData } = useFormDataStore();
   const [localFormData, setLocalFormData] = useState<Appointment>(formData);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -54,7 +54,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
 
       // Convert blocked periods to Date objects for comparison
       const blockedDates =
-        blockedPeriods
+        disabledPeriods
           ?.map((period) => {
             const startDate = new Date(period.startDate);
             const endDate = new Date(period.endDate);

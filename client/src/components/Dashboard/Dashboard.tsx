@@ -106,7 +106,7 @@ const Dashboard = () => {
       {hasSchedules ? (
         <>
           <div className="pb-6">
-            <h1 className="text-xl text-left flex items-center gap-2 text-gray-800 font-semibold">
+            <h1 className="text-2xl text-left flex items-center gap-2 text-gray-800 font-semibold">
               Schedule
             </h1>
             <h2 className="text-sm text-gray-500">
@@ -115,7 +115,7 @@ const Dashboard = () => {
           </div>
 
           {selectedScheduleId !== null && (
-            <div className="bg-white p-6 rounded-2xl">
+            <>
               {canViewAllSchedules && (
                 <SelectSpecialist
                   schedules={schedules}
@@ -135,7 +135,7 @@ const Dashboard = () => {
                 setSelectInfo={setSelectInfo}
                 setIsAddModalOpen={setIsAddModalOpen}
               />
-            </div>
+            </>
           )}
         </>
       ) : (
