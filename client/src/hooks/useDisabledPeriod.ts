@@ -42,7 +42,6 @@ const useDisabledPeriod = (scheduleId: number | null) => {
     }
   );
 
-  // Add appointment with async/await
   const createDisabledPeriod = async (disabledPeriodData: DisabledPeriod) => {
     try {
       await createDisabledPeriodMutation.mutateAsync(disabledPeriodData);
@@ -51,10 +50,34 @@ const useDisabledPeriod = (scheduleId: number | null) => {
     }
   };
 
+  const removeDisabledPeriodMutation = useMutation(
+    (disabledPeriodData: DisabledPeriod) => {
+      return trpc.disabledPeriod.remove.mutate(disabledPeriodData);
+    },
+    {
+      onSuccess: () => {
+        refetch();
+        showToast("success", "Successfully removed disabled period!");
+      },
+      onError: (error: unknown) => {
+        console.error("Error removing disabled days period:", error);
+      },
+    }
+  );
+
+  const removeDisabledPeriod = async (disabledPeriodData: DisabledPeriod) => {
+    try {
+      await removeDisabledPeriodMutation.mutateAsync(disabledPeriodData);
+    } catch (error) {
+      console.error("Error removing disabled days period:", error);
+    }
+  };
+
   return {
     disabledPeriods,
     disabledPeriodLoading,
     createDisabledPeriod,
+    removeDisabledPeriod,
     createDisabledPeriodLoading: createDisabledPeriodMutation.isLoading,
     createDisabledPeriodError: createDisabledPeriodMutation.error,
   };

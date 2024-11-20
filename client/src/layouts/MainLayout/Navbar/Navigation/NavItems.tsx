@@ -34,10 +34,10 @@ const NavItems = ({ className }: Props) => {
                 as={Link}
                 to="/admin-panel"
                 color="default"
-                variant="solid"
+                variant="bordered"
                 radius="lg"
                 startContent={<IoShieldCheckmarkOutline size={18} />}
-                className="bg-white font-medium border-1 border-gray-200"
+                className="bg-white font-medium border-2 border-indigo-500 text-indigo-500"
               >
                 Admin Panel
               </Button>

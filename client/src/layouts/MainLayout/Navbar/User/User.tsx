@@ -46,7 +46,11 @@ const User = () => {
               variant="bordered"
               radius={isMobile ? "sm" : "lg"}
               isIconOnly={isMobile}
-              className="border-1 border-gray-200 bg-white font-medium"
+              className={`${
+                isMobile
+                  ? "bg-white border-none"
+                  : "border-2 border-indigo-500 text-indigo-500 font-medium"
+              }`}
             >
               {isMobile ? (
                 <IoSettingsOutline size={20} />

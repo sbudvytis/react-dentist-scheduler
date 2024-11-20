@@ -3,6 +3,8 @@ import useDisabledPeriod from "@/hooks/useDisabledPeriod";
 import { DisabledPeriod } from "@/components/Dashboard/types";
 import { Button, DatePicker, Input } from "@nextui-org/react";
 import { DateValue, today, getLocalTimeZone } from "@internationalized/date"; // Import getLocalTimeZone
+import MyDisabledPeriod from "./MyDisabledPeriod";
+import { useSelectedSchedule } from "@/hooks/useSelectedSchedule";
 
 interface CreateDisabledPeriodFormProps {
   scheduleId: number | null;
@@ -15,6 +17,7 @@ const DisablePeriodForm: React.FC<CreateDisabledPeriodFormProps> = ({
 }) => {
   const { createDisabledPeriod, createDisabledPeriodLoading } =
     useDisabledPeriod(scheduleId);
+  const { selectedScheduleId } = useSelectedSchedule();
 
   // Get the local timezone
   const timeZone = getLocalTimeZone();
@@ -33,6 +36,7 @@ const DisablePeriodForm: React.FC<CreateDisabledPeriodFormProps> = ({
 
     // Convert DateValue to ISO string for backend
     const blockedPeriodData: DisabledPeriod = {
+      id: 0,
       startDate: startDate.toString(),
       endDate: endDate.toString(),
       reason,
@@ -50,22 +54,24 @@ const DisablePeriodForm: React.FC<CreateDisabledPeriodFormProps> = ({
   return (
     <div className="py-4">
       <form onSubmit={handleSubmit} className="grid space-y-4">
-        <div>
-          <DatePicker
-            label="Select Start Date"
-            value={startDate}
-            onChange={setStartDate}
-            isRequired
-          />
-        </div>
-        <div>
-          <DatePicker
-            label="Select End Date"
-            value={endDate}
-            onChange={setEndDate}
-            color="default"
-            isRequired
-          />
+        <div className="flex gap-4">
+          <div className="w-full">
+            <DatePicker
+              label="Select Start Date"
+              value={startDate}
+              onChange={setStartDate}
+              isRequired
+            />
+          </div>
+          <div className="w-full">
+            <DatePicker
+              label="Select End Date"
+              value={endDate}
+              onChange={setEndDate}
+              color="default"
+              isRequired
+            />
+          </div>
         </div>
         <div>
           <Input
@@ -89,6 +95,9 @@ const DisablePeriodForm: React.FC<CreateDisabledPeriodFormProps> = ({
           </Button>
         </div>
       </form>
+      <div>
+        <MyDisabledPeriod scheduleId={selectedScheduleId} />
+      </div>
     </div>
   );
 };

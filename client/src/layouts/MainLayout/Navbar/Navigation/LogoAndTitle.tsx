@@ -8,7 +8,11 @@ const LogoAndTitle = ({ isLoggedIn }: Props) => {
   return (
     <>
       {/* Desktop logo */}
-      <div className="hidden md:flex items-center justify-start px-6 lg:min-w-72 lg:max-w-72 md:min-w-60 border-r h-full">
+      <div
+        className={`hidden md:flex items-center justify-start px-6 lg:min-w-72 lg:max-w-72 md:min-w-60 ${
+          isLoggedIn ? "border-r" : "border-none"
+        } h-full`}
+      >
         <Link to="/dashboard" className="flex items-center">
           <img src="/logo1.png" alt="Logo" className="h-8" />
           <p className="ml-2 text-xl font-semibold font-bitter text-gray-800">

@@ -4,26 +4,28 @@
 <img src="https://github.com/sbudvytis/react-dentist-scheduler/blob/main/client/src/assets/preview.png">
 </p>
 
-This is a scheduler application designed for dentists to manage their time, appointments and schedules. Potential users are dental clinics
-where dentists and staff members work together to manage their appointments and patient data. Users can sign up and choose a role,
-which includes different permissions. Upon signing up, the very first user with `Id 1` also gets permission to approve other users.
+This is a scheduler application designed for dentists to manage their time, appointments, and schedules. The primary users are dental clinics where dentists and staff members collaborate to manage appointments and patient data. Dental clinics can sign up and manage their clinic data, including users (dentists and receptionists), patients, schedules, appointments, and more.
+
+When a new clinic signs up, the first user in that clinic is granted super admin permissions, allowing them to add new users to their clinic.
 
 ## Features
 
-- Users can create an account and choose a role (dentist or staff).
-- Every other user apart from the very first must wait for approval, that way we prevent outside users to reach the application.
-- Each role has different permissions.
+- Dental clinics can create a new account, and their data will be kept separate from other clinics using the same dentist scheduler system.
+- The first user created upon clinic sign-up is granted permission to add users to their system. The new users receive an email with a link to create their password. Users can have two different roles: dentist and receptionist.
+- Each role has distinct permissions:
   - Dentist role can:
     - Create and manage their own schedules.
     - Create and manage their own appointments.
-  - Staff role can:
-    - Can see all the schedules created by dentists.
-    - Can select which schedule interact to.
-    - Can create and manage appointments to a specific dentist.
-  - Staff role do not have permission to:
-    - Create and manage schedules.
-- When appointment is created, users can see all of the info at glance (patient data, appointment data).
-- If appointment created successfully, patient will get an email with appointment details.
+    - Mark/unmark disabled days (e.g., holidays, sick days).
+  - Receptionist role can:
+    - View all schedules created by dentists.
+    - Select and interact with specific schedules.
+    - Create and manage appointments for specific dentists.
+    - View all patients in the system and their appointment history.
+  - Receptionist role restrictions:
+    - Cannot create or manage schedules.
+- When an appointment is created, users can view all relevant information at a glance (patient details, appointment details).
+- Upon successful appointment creation, the patient receives an email with the appointment details.
 
 ## Setup
 

@@ -40,6 +40,7 @@ export interface Appointment {
 }
 
 export interface DisabledPeriod {
+  id: number;
   startDate: string;
   endDate: string;
   reason: string;

@@ -18,7 +18,7 @@ const UserActions = ({ isLoggedIn }: Props) => {
           color="default"
           variant="bordered"
           radius="lg"
-          className="border-1 border-gray-200 bg-white font-medium"
+          className="bg-white font-medium border-2 border-indigo-500 text-indigo-500"
         >
           Sign in / Sign up
         </Button>

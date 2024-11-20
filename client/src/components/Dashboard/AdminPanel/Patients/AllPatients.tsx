@@ -119,7 +119,7 @@ const AllPatients = () => {
                   {columns.map((column, index) => (
                     <th
                       key={column.uid}
-                      className={`text-left py-2 font-semibold text-gray-500 ${
+                      className={`text-left py-2 font-semibold text-gray-500 pr-2 ${
                         column.uid === "name"
                           ? "w-[55%]"
                           : column.uid === "contactNumber"
@@ -127,7 +127,7 @@ const AllPatients = () => {
                           : "w-[10%]"
                       } ${
                         index === 0
-                          ? "rounded-tl-lg rounded-bl-lg p-2"
+                          ? "rounded-tl-lg rounded-bl-lg pl-2"
                           : index === columns.length - 1
                           ? "rounded-tr-lg rounded-br-lg"
                           : ""
@@ -194,7 +194,8 @@ const AllPatients = () => {
           page={currentPage}
           onChange={(page) => setCurrentPage(page)}
           initialPage={1}
-          variant="flat"
+          isCompact={true}
+          variant="light"
           color="default"
           size="md"
           radius="md"

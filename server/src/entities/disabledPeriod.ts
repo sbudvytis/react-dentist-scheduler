@@ -29,7 +29,7 @@ export class DisabledPeriod {
 }
 export type DisabledPeriodBare = Omit<DisabledPeriod, 'schedule'>
 
-export const BlockedPeriodSchema = validates<DisabledPeriodBare>().with({
+export const DisabledPeriodSchema = validates<DisabledPeriodBare>().with({
   id: z.number(),
   startDate: z.string(),
   endDate: z.string(),

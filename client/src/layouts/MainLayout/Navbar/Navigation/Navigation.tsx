@@ -55,7 +55,7 @@ const NavigationBar = ({ className }: Props) => {
           className={`flex items-center h-full px-6 md:px-0 ${
             isLoggedIn
               ? "md:bg-gray-50 bg-white md:border-none border-b"
-              : "bg-gray-50"
+              : "bg-white border-b"
           }`}
         >
           {isLoggedIn && <HamburgerMenu toggleMenu={toggleMenu} />}

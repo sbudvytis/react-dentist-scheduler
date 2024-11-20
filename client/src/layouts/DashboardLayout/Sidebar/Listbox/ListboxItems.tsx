@@ -80,7 +80,7 @@ const ListboxItems = ({ hasSchedule, isLoading, closeMenu }: Props) => {
     <div className="flex flex-col min-h-[calc(100dvh-80px)] font-medium">
       <div className="flex-grow overflow-y-auto">
         <div className="flex flex-col text-sm text-gray-600 space-y-1">
-          <div className="flex flex-col justify-center min-h-20 max-h-24 border-1 rounded-2xl bg-white mb-4 p-3 space-y-1">
+          <div className="flex flex-col justify-center min-h-20 max-h-24 border-1 rounded-2xl bg-white mb-4 p-3 space-y-1 font-normal">
             {clinicInfo ? (
               <div className="flex items-center space-x-2">
                 <IoMedicalOutline size={22} className="flex-shrink-0" />
